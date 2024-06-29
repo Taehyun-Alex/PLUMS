@@ -82,6 +82,7 @@
         <div class="p-6">
             <!-- Replace with actual content -->
             {{$slot}}
+        </div>
     </div>
 </div>
 
