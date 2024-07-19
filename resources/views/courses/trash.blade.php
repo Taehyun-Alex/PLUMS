@@ -25,11 +25,11 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 flex flex-col gap-2">
                             <form action="{{ route('dashboard', $course) }}">
                                 @csrf
-                                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition duration-300">Restore</button>
+                                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-1 px-3 rounded-md transition duration-300">Restore</button>
                             </form>
                             <form action="{{ route('dashboard', $course) }}">
                                 @csrf
-                                <button class="w-full bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md transition duration-300">Delete</button>
+                                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-md transition duration-300">Delete</button>
                             </form>
                         </td>
                     </tr>
