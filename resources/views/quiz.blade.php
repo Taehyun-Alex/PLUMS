@@ -78,7 +78,7 @@
 
                 <!-- Quiz List Button -->
                 <div class="p-6 text-right">
-                    <button class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Quiz List</button>
+                    <a href="{{ route('quizzeslist') }}" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Quiz List</a>
                 </div>
             </div>
         </div>

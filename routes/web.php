@@ -10,6 +10,10 @@ Route::get('/quizzes', function () {
     return view('quiz'); // Assuming 'quizzes.blade.php' is your quizzes view
 })->name('quizzes');
 
+Route::get('/quizzeslist', function () {
+    return view('quizzeslist'); // Assuming 'quizzes.blade.php' is your quizzes view
+})->name('quizzeslist');
+
 Route::get('/courses', function () {
     $courses = [
         ["id"=>1,"title"=>"Certificate III in IT (Web Development)", "description"=>"Introduction to web development with HTML, CSS, and JavaScript.", "quizzes"=>3],
