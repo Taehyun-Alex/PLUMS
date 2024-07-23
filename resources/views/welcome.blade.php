@@ -34,7 +34,7 @@
             <div class="bg-white shadow-md rounded-lg p-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-lg font-bold text-gray-800">Courses</h2>
+                        <a href="{{ route('courses') }}" class="text-lg font-bold text-gray-800">Courses</a>
                         <p class="text-gray-600">Total: 30</p>
                     </div>
                     <svg class="w-8 h-8 text-purple-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
