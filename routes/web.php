@@ -6,6 +6,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('dashboard');
 
+Route::get('/quizzes', function () {
+    return view('quiz'); // Assuming 'quizzes.blade.php' is your quizzes view
+})->name('quizzes');
+
 Route::get('/courses', function () {
     $courses = [
         ["id"=>1,"title"=>"Certificate III in IT (Web Development)", "description"=>"Introduction to web development with HTML, CSS, and JavaScript.", "quizzes"=>3],
@@ -45,3 +49,16 @@ Route::get('/courses/trash', function () {
 
     return view('courses.trash', compact(['courses']));
 });
+
+
+Route::get('/results', function () {
+    return view('results'); // Assuming 'results.blade.php' is your results view
+})->name('results');
+
+Route::get('/users', function () {
+    return view('users'); // Assuming 'users.blade.php' is your users view
+})->name('users');
+
+Route::get('/settings', function () {
+    return view('settings'); // Assuming 'settings.blade.php' is your settings view
+})->name('settings');
