@@ -15,8 +15,8 @@
         <table class="min-w-full bg-white">
             <thead>
             <tr>
-                <th class="py-2 px-4 border-b">Student Name</th>
-                <th class="py-2 px-4 border-b">Recommanded Course</th>
+                <th class="py-2 px-4 border-b">Name</th>
+                <th class="py-2 px-4 border-b">Recommended Course</th>
                 <th class="py-2 px-4 border-b">Score</th>
                 <th class="py-2 px-4 border-b">Date</th>
             </tr>
