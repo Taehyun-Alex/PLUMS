@@ -114,7 +114,9 @@
     <div class="left-panel">
         <div class="left-panel-content">
             <h1>Welcome to PLUMS</h1>
-            <p>Manage your quizzes and courses efficiently with the PLUMS admin dashboard. Please log in to continue.</p>
+            <p>Manage your quizzes and courses efficiently with the PLUMS admin dashboard. </p>
+            <p>Please log in to continue.</p>
+
         </div>
     </div>
     <div class="right-panel">
