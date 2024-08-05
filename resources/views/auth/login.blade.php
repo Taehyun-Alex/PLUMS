@@ -116,14 +116,14 @@
             <h1>Welcome to PLUMS</h1>
             <p>Manage your quizzes and courses efficiently with the PLUMS admin dashboard. </p>
             <p>Please log in to continue.</p>
-
         </div>
     </div>
     <div class="right-panel">
         <div class="login-card">
             <h2>Login</h2>
-            <form>
-                <label for="email">Email address</label>
+            <form method="POST" action="{{ route('login.submit') }}">
+                @csrf
+                <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
