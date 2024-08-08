@@ -14,15 +14,15 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['name' => 'view users']);
-        Permission::create(['name' => 'edit users']);
-        Permission::create(['name' => 'create users']);
-        Permission::create(['name' => 'delete users']);
-
-        $superAdmin = Role::create(['name' => 'super-admin']);
-        $superAdmin->givePermissionTo(['view users', 'edit users', 'create users', 'delete users']);
+        Permission::create(['name' => 'view admins']);
+        Permission::create(['name' => 'edit admins']);
+        Permission::create(['name' => 'create admins']);
+        Permission::create(['name' => 'delete admins']);
 
         $admin = Role::create(['name' => 'admin']);
-        $admin->givePermissionTo(['view users']);
+        $admin->givePermissionTo(['view admins', 'edit admins', 'create admins', 'delete admins']);
+
+        $staff = Role::create(['name' => 'staff']);
+        $staff->givePermissionTo(['view admins']);
     }
 }
