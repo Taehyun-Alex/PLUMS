@@ -60,9 +60,48 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
-    public function show(User $user): View
+    public function show($id): View
     {
+        $user = User::findOrFail($id);
         return view('users.show', compact('user'));
+    }
+    public function edit(User $user): View
+    {
+        return view('users.edit', compact('user' ));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        // Start with common validation rules
+        $rules = [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ];
+
+        // Add role validation rule if the current user is an administrator
+        if (auth()->user()->hasRole('Administrator')) {
+            $rules['role'] = 'required|string|exists:roles,name';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        // Update the user with validated data
+        $user->update($validatedData);
+
+        // Update password if provided
+        if ($request->filled('password')) {
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
+        // Sync roles only if the current user is an administrator
+        if (auth()->user()->hasRole('Administrator')) {
+            $user->syncRoles([$request->role]);
+        }
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
 
