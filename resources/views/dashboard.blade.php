@@ -7,7 +7,7 @@
             <div class="bg-white shadow-md rounded-lg p-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <a href="{{ route('users') }}" class="text-lg font-bold text-gray-800">Users</a>
+                        <a href="{{ route('users.index') }}" class="text-lg font-bold text-gray-800">Users</a>
                         <p class="text-gray-600">Total: 120</p>
                     </div>
                     <svg class="w-8 h-8 text-purple-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">

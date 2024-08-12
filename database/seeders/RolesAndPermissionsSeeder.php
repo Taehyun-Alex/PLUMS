@@ -11,32 +11,27 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run(): void
     {
         // Define permissions
-        $permissions = [
+        $allPermissions = [
             'view', 'edit', 'create', 'delete', 'browse', 'show', 'add',
             'trash-recover', 'trash-remove', 'trash-empty', 'trash-restore',
+            'view-users', 'create-user'
         ];
 
-
         // Create permissions
-        foreach ($permissions as $permission) {
+        foreach ($allPermissions as $permission) {
             Permission::create(['name' => $permission]);
         }
-
-        // Define roles and assign existing permissions
-        $adminPermissions = $permission;
 
         $staffPermissions = [
             'view'
         ];
 
-
         // Create roles and assign permissions
         $adminRole = Role::create(['name' => 'admin']);
-        $adminRole->givePermissionTo($adminPermissions);
+        $adminRole->givePermissionTo($allPermissions);
 
         $staffRole = Role::create(['name' => 'staff']);
         $staffRole->givePermissionTo($staffPermissions);
-
 
 //        Permission::create(['name' => 'view admins']);
 //        Permission::create(['name' => 'edit admins']);

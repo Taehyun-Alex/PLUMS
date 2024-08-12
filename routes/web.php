@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -17,13 +18,24 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::get('/quizzes', function () {
-        return view('quiz'); // Assuming 'quizzes.blade.php' is your quizzes view
+        return view('quiz');
     })->name('quizzes');
 
     Route::get('/quizzeslist', function () {
-        return view('quizzeslist'); // Assuming 'quizzes.blade.php' is your quizzes view
+        return view('quizzeslist');
     })->name('quizzeslist');
 
+    Route::get('/results', function () {
+        return view('results');
+    })->name('results');
+
+    Route::get('/settings', function () {
+        return view('settings');
+    })->name('settings');
+});
+
+// Courses
+Route::middleware('auth')->group(function () {
     Route::get('/courses', function () {
         $courses = [
             ["id" => 1, "title" => "Certificate III in IT (Web Development)", "description" => "Introduction to web development with HTML, CSS, and JavaScript.", "quizzes" => 3],
@@ -63,18 +75,13 @@ Route::middleware('auth')->group(function () {
 
         return view('courses.trash', compact(['courses']));
     });
+});
 
-    Route::get('/results', function () {
-        return view('results'); // Assuming 'results.blade.php' is your results view
-    })->name('results');
-
-    Route::get('/users', function () {
-        return view('users'); // Assuming 'users.blade.php' is your users view
-    })->name('users');
-
-    Route::get('/settings', function () {
-        return view('settings'); // Assuming 'settings.blade.php' is your settings view
-    })->name('settings');
+// Users
+Route::middleware('auth')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
 });
 
 require __DIR__ . '/auth.php';

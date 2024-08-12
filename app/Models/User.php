@@ -50,4 +50,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    function isAdmin(): bool
+    {
+        return $this->hasRole("admin");
+    }
+
+    function isStaff(): bool
+    {
+        return $this->hasRole("staff");
+    }
+
+    function getRole(): string
+    {
+        if ($this->isAdmin()) return "Admin";
+        if ($this->isStaff()) return "Staff";
+        return "None";
+    }
 }
