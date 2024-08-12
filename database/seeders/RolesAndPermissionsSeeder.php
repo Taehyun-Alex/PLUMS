@@ -17,9 +17,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'view-users', 'create-user'
         ];
 
-        // Create permissions
+        // Create permissions if they don't exist
         foreach ($allPermissions as $permission) {
-            Permission::create(['name' => $permission]);
+                Permission::create(['name' => $permission]);
         }
 
         $staffPermissions = [
@@ -33,16 +33,5 @@ class RolesAndPermissionsSeeder extends Seeder
         $staffRole = Role::create(['name' => 'staff']);
         $staffRole->givePermissionTo($staffPermissions);
 
-//        Permission::create(['name' => 'view admins']);
-//        Permission::create(['name' => 'edit admins']);
-//        Permission::create(['name' => 'create admins']);
-//        Permission::create(['name' => 'delete admins']);
-
-
-//        $admin = Role::create(['name' => 'admin']);
-//        $admin->givePermissionTo(['view admins', 'edit admins', 'create admins', 'delete admins']);
-//
-//        $staff = Role::create(['name' => 'staff']);
-//        $staff->givePermissionTo(['view admins']);
     }
 }

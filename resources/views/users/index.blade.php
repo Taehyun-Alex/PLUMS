@@ -44,7 +44,36 @@
                         {{ $user->getRole() }}
                     </td>
                     <td class="py-2 text-center">
+                        <div class="flex justify-center space-x-2">
+                            <a href="{{ route('users.show', $user->id) }}"
+                               class="bg-blue-600 text-white p-2 rounded">
+                                Show
+                            </a>
+                            <a href="{{ route('users.edit', $user->id) }}"
+                               class="bg-purple-600 text-white p-2 rounded">
+                                Edit
+                            </a>
+                            <form action="{{ route('users.delete', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-600 text-white p-2 rounded">
+                                    Delete
+                                </button>
+                            </form>
+                            @can('assign-roles')
+                                <!-- Assign Role Button -->
+                                <a href="{{ route('users.assign_role_form', $user->id) }}"
+                                   class="bg-green-600 text-white p-2 rounded">
+                                    Assign Role
+                                </a>
 
+                                <!-- Remove Role Button -->
+                                <a href="{{ route('users.remove_role_form', $user->id) }}"
+                                   class="bg-yellow-600 text-white p-2 rounded">
+                                    Remove Role
+                                </a>
+                            @endcan
+                        </div>
                     </td>
                 </tr>
             @endforeach

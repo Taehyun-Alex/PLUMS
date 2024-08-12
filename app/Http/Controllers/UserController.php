@@ -59,4 +59,11 @@ class UserController extends Controller
         $user->assignRole($roleToAssign);
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
+
+    public function show(User $user): View
+    {
+        return view('users.show', compact('user'));
+    }
+
+
 }
