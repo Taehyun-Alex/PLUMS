@@ -85,7 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{users}', [UserController::class, 'show'])->name('users.show'); // Show user details
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); // Edit user form
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update'); // Update user
-    Route::get('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete'); // Show delete confirmation
+    Route::delete('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete'); // Show delete confirmation
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); // Delete user
 });
 
