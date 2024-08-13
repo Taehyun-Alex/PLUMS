@@ -42,12 +42,13 @@
                         id="Role"
                         name="role"
                 >
+                    <option value="admin" selected>Admin</option>
                     <option value="staff" selected>Staff</option>
                 </select>
             </div>
             <div class="flex flex-row items-center justify-center gap-2">
                 <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Create User</button>
-                <a href="{{ route('dashboard') }}" class="block bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">Cancel</a>
+                <a href="{{ route('users.index') }}" class="block bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">Cancel</a>
             </div>
         </form>
     </div>

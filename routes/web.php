@@ -18,19 +18,19 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::get('/quizzes', function () {
-        return view('quiz');
+        return view('quizzes.quiz');
     })->name('quizzes');
 
     Route::get('/quizzeslist', function () {
-        return view('quizzeslist');
+        return view('quizzes.quizzeslist');
     })->name('quizzeslist');
 
     Route::get('/results', function () {
-        return view('results');
+        return view('results.results');
     })->name('results');
 
     Route::get('/settings', function () {
-        return view('settings');
+        return view('settings.settings');
     })->name('settings');
 });
 
@@ -79,9 +79,24 @@ Route::middleware('auth')->group(function () {
 
 // Users
 Route::middleware('auth')->group(function () {
+
+    Route::get('/users/trash', [UserController::class, 'trash'])->name('users.trash');
+    Route::post('/users/trash/restore/{user}', [UserController::class, 'restore'])->name('users.trash-restore');
+    Route::delete('/users/trash/remove/{user}', [UserController::class, 'remove'])->name('users.trash-remove');
+    Route::post('/users/trash/restoreAll', [UserController::class, 'restoreAll'])->name('users.trash-restore-all');
+    Route::delete('/users/trash/empty', [UserController::class, 'empty'])->name('users.trash-empty');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{users}', [UserController::class, 'show'])->name('users.show'); // Show user details
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); // Edit user form
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update'); // Update user
+    Route::delete('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete'); // Show delete confirmation
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); // Delete user
+
+
+
+
 });
 
 require __DIR__ . '/auth.php';
