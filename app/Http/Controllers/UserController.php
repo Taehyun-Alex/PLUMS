@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -23,7 +24,9 @@ class UserController extends Controller
         }
 
         $users = User::paginate(10);
-        return view('users.index', compact(['users']));
+
+        $trashedCount = User::onlyTrashed()->latest()->get()->count();
+        return view('users.index', compact(['users', 'trashedCount']));
     }
 
     /**
@@ -111,5 +114,44 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->route('users.index')->withSucess("Deleted {$user->name}.");
+    }
+    public function trash(): View
+    {
+        $users = User::onlyTrashed()->orderBy('deleted_at')->paginate(5);
+        return view('users.trash', compact(['users']));
+    }
+    public function restore($user): RedirectResponse
+    {
+        $user = User::onlyTrashed()->findOrFail($user);
+        $user->restore();
+        return redirect()->back()->with('success', "Restored {$user->name}.");
+    }
+    public function remove($user): RedirectResponse
+    {
+        $user = User::withTrashed()->findOrFail($user);
+        $user->forceDelete();
+        return redirect()->route('users.trash')
+            ->with('success', 'User permanently deleted.');
+    }
+    public function restoreAll(): RedirectResponse
+    {
+        $users = User::onlyTrashed()->get();
+        $trashCount = $users->count();
+
+        foreach ($users as $user) {
+            $user->restore(); // This restores the soft-deleted user
+        }
+        return redirect(route('users.trash'))
+            ->with('success', "successfully recovered {$trashCount} of user(s).");
+    }
+    public function empty(): RedirectResponse
+    {
+        $users = User::onlyTrashed()->get();
+        $trashCount = $users->count();
+        foreach ($users as $user) {
+            $user->forceDelete(); // This restores the soft-deleted user
+        }
+        return redirect(route('users.trash'))
+            ->with('success', "Successfully emptied {$trashCount} of user(s) .");
     }
 }
