@@ -70,7 +70,10 @@
                                         @foreach ($question->answers as $answer)
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $answer->answer_text }}</td>
                                         @endforeach
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $question->answers->where('is_correct', true)->first()->answer_text ?? '' }}</td>
+                                        <!-- Ensure is_correct is used as a boolean (1/0) in the database -->
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            {{ $question->answers->firstWhere('is_correct', 1)->answer_text ?? '' }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endforeach

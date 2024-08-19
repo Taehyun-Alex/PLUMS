@@ -9,7 +9,8 @@ class QuizController extends Controller
 {
     public function create()
     {
-        return view('quiz');
+        $quizzes = Quiz::with('questions.answers')->get();
+        return view('quiz', compact('quizzes'));
     }
 
     public function store(Request $request)
@@ -46,7 +47,7 @@ class QuizController extends Controller
 
     public function index()
     {
-        $quizzes = Quiz::with('questions')->get();
+        $quizzes = Quiz::with('questions.answers')->get();
         return view('quizzeslist', compact('quizzes'));
     }
 

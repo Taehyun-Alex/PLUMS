@@ -16,13 +16,18 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/quizzes', function () {
-        return view('quiz'); // Assuming 'quizzes.blade.php' is your quizzes view
-    })->name('quizzes');
+//    Route::get('/quizzes', function () {
+//        return view('quiz'); // Assuming 'quizzes.blade.php' is your quizzes view
+//    })->name('quizzes');
+//
+//    Route::get('/quizzeslist', function () {
+//        return view('quizzeslist'); // Assuming 'quizzes.blade.php' is your quizzes view
+//    })->name('quizzeslist');
 
-    Route::get('/quizzeslist', function () {
-        return view('quizzeslist'); // Assuming 'quizzes.blade.php' is your quizzes view
-    })->name('quizzeslist');
+    Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'create'])->name('quizzes');
+    Route::post('/quizzes', [\App\Http\Controllers\QuizController::class, 'store'])->name('quizzes.store');
+    Route::get('/quizzeslist', [\App\Http\Controllers\QuizController::class, 'index'])->name('quizzeslist');
+
 
     Route::get('/courses', function () {
         $courses = [
