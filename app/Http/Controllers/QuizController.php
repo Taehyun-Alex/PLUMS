@@ -32,15 +32,17 @@ class QuizController extends Controller
 
         // Create answers
         $answers = [
-            ['answer_text' => $validated['optionA'], 'is_correct' => $validated['correctAnswer'] === 'A'],
-            ['answer_text' => $validated['optionB'], 'is_correct' => $validated['correctAnswer'] === 'B'],
-            ['answer_text' => $validated['optionC'], 'is_correct' => $validated['correctAnswer'] === 'C'],
-            ['answer_text' => $validated['optionD'], 'is_correct' => $validated['correctAnswer'] === 'D'],
+            ['answer_text' => $validated['optionA'], 'is_correct' => $validated['correctAnswer'] === 'A' ? 1 : 0],
+            ['answer_text' => $validated['optionB'], 'is_correct' => $validated['correctAnswer'] === 'B' ? 1 : 0],
+            ['answer_text' => $validated['optionC'], 'is_correct' => $validated['correctAnswer'] === 'C' ? 1 : 0],
+            ['answer_text' => $validated['optionD'], 'is_correct' => $validated['correctAnswer'] === 'D' ? 1 : 0],
         ];
+
 
         foreach ($answers as $answer) {
             $question->answers()->create($answer);
         }
+
 
         return redirect()->route('quizzeslist');
     }
@@ -53,7 +55,15 @@ class QuizController extends Controller
 
     public function edit($id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+        return view('edit-quiz', compact('quiz'));
+    }
+
+    public function destroy($id)
+    {
+        $quiz = Quiz::findOrFail($id);
+        $quiz->delete();
+        return redirect()->route('quizzes.index')->with('success', 'Quiz deleted successfully.');
     }
 
     public function update(Request $request, $id)

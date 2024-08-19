@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
 //        return view('quizzeslist'); // Assuming 'quizzes.blade.php' is your quizzes view
 //    })->name('quizzeslist');
 
+    Route::resource('quizzes', QuizController::class);
     Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'create'])->name('quizzes');
     Route::post('/quizzes', [\App\Http\Controllers\QuizController::class, 'store'])->name('quizzes.store');
     Route::get('/quizzeslist', [\App\Http\Controllers\QuizController::class, 'index'])->name('quizzeslist');

@@ -72,7 +72,7 @@
                                         @endforeach
                                         <!-- Ensure is_correct is used as a boolean (1/0) in the database -->
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $question->answers->firstWhere('is_correct', 1)->answer_text ?? '' }}
+                                            {{ $question->answers->firstWhere('is_correct', true)->answer_text ?? '' }}
                                         </td>
                                     </tr>
                                 @endforeach
