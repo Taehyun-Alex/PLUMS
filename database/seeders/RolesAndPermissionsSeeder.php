@@ -13,7 +13,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Define permissions
         $allPermissions = [
             'view', 'edit', 'create', 'delete', 'browse', 'show', 'add',
-            'trash-recover', 'trash-remove', 'trash-empty', 'trash-restore',
+            'view-trash', 'trash-recover', 'trash-remove', 'trash-empty', 'trash-restore',
             'view-users', 'create-user'
         ];
 

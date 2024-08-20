@@ -16,9 +16,9 @@
                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" placeholder="Enter email address" class="mt-1 p-2 w-full border rounded" required>
             </div>
 
-            <div class="flex justify-between">
-                <a href="{{ route('users.index') }}" class="bg-gray-600 text-white p-2 rounded">Cancel</a>
-                <button type="submit" class="bg-blue-600 text-white p-2 rounded">Update User</button>
+            <div class="flex items-center justify-center gap-2">
+                <button type="submit" class="bg-purple-600 text-white p-2 rounded">Update User</button>
+                <a href="{{ route('users.index') }}" class="bg-red-600 text-white p-2 rounded">Cancel</a>
             </div>
         </form>
     </div>

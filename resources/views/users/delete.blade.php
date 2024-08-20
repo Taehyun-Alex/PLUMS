@@ -8,9 +8,9 @@
             @csrf
             @method('DELETE')
 
-            <div class="flex justify-between mt-6">
-                <a href="{{ route('users.index') }}" class="bg-gray-600 text-white p-2 rounded">Cancel</a>
-                <button type="submit" class="bg-red-600 text-white p-2 rounded">Delete</button>
+            <div class="flex items-center justify-center gap-2">
+                <button type="submit" class="bg-purple-600 text-white p-2 rounded">Delete User</button>
+                <a href="{{ route('users.index') }}" class="bg-red-600 text-white p-2 rounded">Cancel</a>
             </div>
         </form>
     </div>
