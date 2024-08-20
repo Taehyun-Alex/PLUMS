@@ -66,7 +66,7 @@
                         <div class="flex justify-center space-x-2">
                             <a href="{{ route('users.show', $user->id) }}"
                                class="bg-green-500 text-white p-2 rounded hover:bg-green-600">
-                                Show
+                                View
                             </a>
                             <a href="{{ route('users.edit', $user->id) }}"
                                class="bg-orange-500 text-white p-2 rounded hover:bg-orange-600">

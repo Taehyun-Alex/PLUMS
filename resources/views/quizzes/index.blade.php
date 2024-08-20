@@ -1,84 +1,74 @@
 <x-layout>
-    <div class="max-w-7xl w-full bg-gray-100 p-8 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Manage Quizzes</h1>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 bg-white border-b border-gray-200">
+                <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Manage Quiz</h1>
 
-        <div class="grid grid-cols-1 gap-8">
-            <!-- Add Question Form -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <form class="p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Add Question</h2>
-                    <div class="mb-4">
-                        <label for="question" class="block text-sm font-medium text-gray-700">Question:</label>
-                        <textarea id="question" name="question" rows="3" class="form-textarea mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="optionA" class="block text-sm font-medium text-gray-700">Option A:</label>
-                        <input type="text" id="optionA" name="optionA" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50">
-                    </div>
-                    <div class="mb-4">
-                        <label for="optionB" class="block text-sm font-medium text-gray-700">Option B:</label>
-                        <input type="text" id="optionB" name="optionB" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50">
-                    </div>
-                    <div class="mb-4">
-                        <label for="optionC" class="block text-sm font-medium text-gray-700">Option C:</label>
-                        <input type="text" id="optionC" name="optionC" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50">
-                    </div>
-                    <div class="mb-4">
-                        <label for="optionD" class="block text-sm font-medium text-gray-700">Option D:</label>
-                        <input type="text" id="optionD" name="optionD" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50">
-                    </div>
-                    <div class="mb-4">
-                        <label for="correctAnswer" class="block text-sm font-medium text-gray-700">Correct Answer:</label>
-                        <select id="correctAnswer" name="correctAnswer" class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                        </select>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Add Question</button>
-                    </div>
-                </form>
-            </div>
+                <div class="mb-4 flex justify-between items-center">
+                <!-- Add Quiz Button -->
 
-            <!-- Questions Table -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Questions Table</h2>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Option A</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Option B</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Option C</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Option D</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Correct</th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Sample row, replace with dynamically generated rows -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">What is the capital of France?</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Paris</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Berlin</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Madrid</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Rome</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">A</td>
-                            </tr>
-                            <!-- End of sample row -->
-                            </tbody>
-                        </table>
-                    </div>
+                    <a href="{{ route('quizzes.create') }}"
+                       class="bg-purple-500 text-white p-2 rounded hover:bg-purple-800
+                      duration-300 ease-in-out transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        {{ __('New Quiz') }}
+                    </a>
+
+                    <!-- Trash Button with Count -->
+                    <button class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 6h14M3 9v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9m-9-4V2m4 0v3m-8 0v3m4 0v3m4 0v3" />
+                        </svg>
+                        Quizzes Deleted: <span class="font-bold">0</span>
+                    </button>
                 </div>
 
-                <!-- Quiz List Button -->
-                <div class="p-6 text-right">
-                    <a href="{{ route('quizzeslist') }}" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Quiz List</a>
+                <!-- Quizzes Table -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Level</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Hard-coded data rows -->
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Quiz 1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Course A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Intermediate</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <!-- Action buttons -->
+                                <button class="bg-green-500 text-white p-2 rounded hover:bg-green-600">View</button>
+                                <button class="bg-orange-500 text-white p-2 rounded hover:bg-orange-600">Edit</button>
+                                <button class="bg-red-500 text-white p-2 rounded hover:bg-red-600">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Quiz 2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Course B</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Advanced</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <!-- Action buttons -->
+                                <button class="bg-green-500 text-white p-2 rounded hover:bg-green-600">View</button>
+                                <button class="bg-orange-500 text-white p-2 rounded hover:bg-orange-600">Edit</button>
+                                <button class="bg-red-500 text-white p-2 rounded hover:bg-red-600">Delete</button>
+
+
+
+                            </td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
