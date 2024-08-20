@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container mx-auto p-6 bg-white shadow-md rounded">
+    <div class="container mx-auto p-6 bg-white">
         <h1 class="text-2xl font-bold mb-6">Edit User</h1>
 
         <form action="{{ route('users.update', $user->id) }}" method="POST">

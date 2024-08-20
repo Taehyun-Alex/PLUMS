@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container mx-auto p-6 bg-white shadow-md rounded">
+    <div class="container mx-auto p-6 bg-white">
         <h1 class="text-2xl font-bold mb-6">Delete User</h1>
 
         <p>Are you sure you want to delete <strong>{{ $user->name }}</strong>?</p>

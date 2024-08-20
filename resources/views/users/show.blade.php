@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container mx-auto p-6 bg-white shadow-md rounded">
+    <div class="container mx-auto p-6 bg-white">
         <h1 class="text-2xl font-bold mb-6">User Details</h1>
 
         <div class="mb-4">
