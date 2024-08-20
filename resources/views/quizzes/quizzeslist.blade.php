@@ -4,8 +4,19 @@
             <div class="p-6 bg-white border-b border-gray-200">
                 <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Quizzes List</h1>
 
+
+                <!-- Back Button -->
+                <div class="mb-4 flex justify-between items-center">
+                    <a href="{{ route('quizzeslist') }}" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Quiz List</a>
+                    <button onclick="window.location.href='http://plums.test/quizzes'"
+                            class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-md transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Quizzes
+                    </button>
+
                 <!-- Trash Button with Count -->
-                <div class="mb-4 flex justify-end">
                     <button class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 6h14M3 9v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9m-9-4V2m4 0v3m-8 0v3m4 0v3m4 0v3" />

@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::get('/quizzes', function () {
-        return view('quizzes.quiz');
+        return view('quizzes.index');
     })->name('quizzes');
 
     Route::get('/quizzeslist', function () {

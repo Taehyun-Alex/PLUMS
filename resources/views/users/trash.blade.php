@@ -1,4 +1,3 @@
-@extends('layouts.app')
 <x-layout>
     <div class="container mx-auto p-6 bg-white shadow-md rounded">
         <h1 class="text-2xl font-bold mb-6">Users</h1>
