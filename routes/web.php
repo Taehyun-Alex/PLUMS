@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -17,20 +18,23 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-//    Route::get('/quizzes', function () {
-//        return view('quiz'); // Assuming 'quizzes.blade.php' is your quizzes view
-//    })->name('quizzes');
-//
-//    Route::get('/quizzeslist', function () {
-//        return view('quizzeslist'); // Assuming 'quizzes.blade.php' is your quizzes view
-//    })->name('quizzeslist');
 
     Route::resource('quizzes', QuizController::class);
     Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'create'])->name('quizzes');
     Route::post('/quizzes', [\App\Http\Controllers\QuizController::class, 'store'])->name('quizzes.store');
     Route::get('/quizzeslist', [\App\Http\Controllers\QuizController::class, 'index'])->name('quizzeslist');
 
+    Route::get('/results', function () {
+        return view('results.results');
+    })->name('results');
 
+    Route::get('/settings', function () {
+        return view('settings.settings');
+    })->name('settings');
+});
+
+// Courses
+Route::middleware('auth')->group(function () {
     Route::get('/courses', function () {
         $courses = [
             ["id" => 1, "title" => "Certificate III in IT (Web Development)", "description" => "Introduction to web development with HTML, CSS, and JavaScript.", "quizzes" => 3],
@@ -70,18 +74,23 @@ Route::middleware('auth')->group(function () {
 
         return view('courses.trash', compact(['courses']));
     });
+});
 
-    Route::get('/results', function () {
-        return view('results'); // Assuming 'results.blade.php' is your results view
-    })->name('results');
-
-    Route::get('/users', function () {
-        return view('users'); // Assuming 'users.blade.php' is your users view
-    })->name('users');
-
-    Route::get('/settings', function () {
-        return view('settings'); // Assuming 'settings.blade.php' is your settings view
-    })->name('settings');
+// Users
+Route::middleware('auth')->group(function () {
+    Route::get('/users/trash', [UserController::class, 'trash'])->name('users.trash');
+    Route::post('/users/trash/restore/{user}', [UserController::class, 'restore'])->name('users.trash-restore');
+    Route::delete('/users/trash/remove/{user}', [UserController::class, 'remove'])->name('users.trash-remove');
+    Route::post('/users/trash/restoreAll', [UserController::class, 'restoreAll'])->name('users.trash-restore-all');
+    Route::delete('/users/trash/empty', [UserController::class, 'empty'])->name('users.trash-empty');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{users}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__ . '/auth.php';

@@ -2,27 +2,36 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Permission::create(['name' => 'view users']);
-        Permission::create(['name' => 'edit users']);
-        Permission::create(['name' => 'create users']);
-        Permission::create(['name' => 'delete users']);
+        // Define permissions
+        $allPermissions = [
+            'view', 'edit', 'create', 'delete', 'browse', 'show', 'add',
+            'view-trash', 'trash-recover', 'trash-remove', 'trash-empty', 'trash-restore',
+            'view-users', 'create-user'
+        ];
 
-        $superAdmin = Role::create(['name' => 'super-admin']);
-        $superAdmin->givePermissionTo(['view users', 'edit users', 'create users', 'delete users']);
+        // Create permissions if they don't exist
+        foreach ($allPermissions as $permission) {
+                Permission::create(['name' => $permission]);
+        }
 
-        $admin = Role::create(['name' => 'admin']);
-        $admin->givePermissionTo(['view users']);
+        $staffPermissions = [
+            'view'
+        ];
+
+        // Create roles and assign permissions
+        $adminRole = Role::create(['name' => 'admin']);
+        $adminRole->givePermissionTo($allPermissions);
+
+        $staffRole = Role::create(['name' => 'staff']);
+        $staffRole->givePermissionTo($staffPermissions);
+
     }
 }
