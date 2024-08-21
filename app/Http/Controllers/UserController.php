@@ -142,7 +142,7 @@ class UserController extends Controller
             $user->restore(); // This restores the soft-deleted user
         }
         return redirect(route('users.trash'))
-            ->with('success', "successfully recovered {$trashCount} of user(s).");
+            ->with('success', "Successfully recovered {$trashCount} user(s).");
     }
     public function empty(): RedirectResponse
     {
@@ -152,6 +152,6 @@ class UserController extends Controller
             $user->forceDelete(); // This restores the soft-deleted user
         }
         return redirect(route('users.trash'))
-            ->with('success', "Successfully emptied {$trashCount} of user(s) .");
+            ->with('success', "Successfully deleted {$trashCount} user(s) .");
     }
 }

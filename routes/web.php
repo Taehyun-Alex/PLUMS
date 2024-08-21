@@ -111,7 +111,6 @@ Route::middleware('auth')->group(function () {
 // Users
 Route::middleware('auth')->group(function () {
 
-    // Trash Routes
     Route::get('/users/trash', [UserController::class, 'trash'])->name('users.trash');
     Route::post('/users/trash/restore/{user}', [UserController::class, 'restore'])->name('users.trash-restore');
     Route::delete('/users/trash/remove/{user}', [UserController::class, 'remove'])->name('users.trash-remove');
@@ -122,15 +121,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/{users}', [UserController::class, 'show'])->name('users.show'); // Show user details
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); // Edit user form
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update'); // Update user
-    Route::delete('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete'); // Show delete confirmation
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); // Delete user
-
-
-
-
+    Route::get('/users/{users}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__ . '/auth.php';
