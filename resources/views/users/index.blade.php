@@ -56,8 +56,9 @@
                     <td class="py-2 px-4 text-right flex flex-1 justify-end border-b border-gray-200">
                         <div class="flex justify-center space-x-2">
                             <a href="{{ route('users.show', $user->id) }}"
-                               class="bg-purple-400 text-white p-2 rounded hover:bg-purple-500">
-                                Show
+
+                               class="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                                View
                             </a>
                             <a href="{{ route('users.edit', $user->id) }}"
                                class="bg-purple-500 text-white p-2 rounded hover:bg-purple-600">

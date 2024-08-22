@@ -111,6 +111,9 @@ Route::middleware('auth')->group(function () {
 // Users
 Route::middleware('auth')->group(function () {
 
+
+    // Trash Routes
+
     Route::get('/users/trash', [UserController::class, 'trash'])->name('users.trash');
     Route::post('/users/trash/restore/{user}', [UserController::class, 'restore'])->name('users.trash-restore');
     Route::delete('/users/trash/remove/{user}', [UserController::class, 'remove'])->name('users.trash-remove');
