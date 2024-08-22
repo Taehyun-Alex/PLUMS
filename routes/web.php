@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    // Trash Routes
+    // Quiz Trash Routes
     Route::get('/quizzes/trash', [QuizController::class, 'trash'])->name('quizzes.trash');
     Route::post('/quizzes/trash/restore/{user}', [QuizController::class, 'restore'])->name('quizzes.trash-restore');
     Route::delete('/quizzes/trash/remove/{user}', [QuizController::class, 'remove'])->name('quizzes.trash-remove');
@@ -39,14 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/quizzes/{user}/delete', [QuizController::class, 'delete'])->name('quizzes.delete'); // Show delete confirmation
     Route::delete('/quizzes/{user}', [QuizController::class, 'destroy'])->name('quizzes.destroy'); // Delete user
 
-
-
-
 });
-
-
-
-
 
     Route::get('/quizzes', function () {
         return view('quizzes.index');

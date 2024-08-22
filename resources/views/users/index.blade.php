@@ -12,6 +12,7 @@
             </a>
         @endcan
 
+
         @can('view-trash')
             <a href="{{ route('users.trash') }}"
                class="p-2 px-4 text-center rounded-md h-10
