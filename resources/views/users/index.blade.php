@@ -5,9 +5,9 @@
         <section class="flex justify-end gap-2 mb-4">
         @can('create-user')
             <a href="{{ route('users.create') }}"
-               class="bg-purple-600 text-white p-2 px-4 rounded hover:bg-purple-700
-                      duration-200 ease-in-out transition-all">
-{{--            <i class="fa fa-user-plus font-xl"></i>--}}
+               class="bg-purple-600 text-white p-2 rounded hover:bg-purple-700
+                      duration-300 ease-in-out transition-all">
+            <i class="fa fa-user-plus font-xl"></i>
             {{ __('New User') }}
             </a>
         @endcan
@@ -20,8 +20,8 @@
                               @else
                                 text-slate-600 hover:text-slate-200 bg-slate-200 hover:bg-slate-500
                               @endif
-                              duration-200 ease-in-out transition-all space-x-2">
-{{--                <i class="fa fa-trash font-xl"></i>--}}
+                              duration-300 ease-in-out transition-all space-x-2">
+                <i class="fa fa-trash font-xl"></i>
                 {{ $trashedCount }} {{ __('Deleted') }}
             </a>
         @endcan
@@ -56,20 +56,18 @@
                     <td class="py-2 px-4 text-right flex flex-1 justify-end border-b border-gray-200">
                         <div class="flex justify-center space-x-2">
                             <a href="{{ route('users.show', $user->id) }}"
-                               class="bg-purple-400 text-white p-2 rounded hover:bg-purple-500
-                               duration-200 ease-in-out transition-all">
-                                Show
+
+                               class="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                                View
                             </a>
                             <a href="{{ route('users.edit', $user->id) }}"
-                               class="bg-purple-500 text-white p-2 rounded hover:bg-purple-600
-                               duration-200 ease-in-out transition-all">
+                               class="bg-purple-500 text-white p-2 rounded hover:bg-purple-600">
                                 Edit
                             </a>
                             <form action="{{ route('users.delete', $user->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-500 text-white p-2 rounded hover:bg-red-600
-                                duration-200 ease-in-out transition-all">
+                                <button type="submit" class="bg-red-500 text-white p-2 rounded hover:bg-red-600">
                                     Delete
                                 </button>
                             </form>

@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Quiz extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'course_id', 'level'];
 
-    public function questions()
+    public function course()
     {
-        return $this->hasMany(Question::class);
+        return $this->belongsTo(Course::class);
     }
 }

@@ -7,66 +7,72 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
-    public function create()
-    {
-        $quizzes = Quiz::with('questions.answers')->get();
-        return view('quiz', compact('quizzes'));
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'question' => 'required|string',
-            'optionA' => 'required|string',
-            'optionB' => 'required|string',
-            'optionC' => 'required|string',
-            'optionD' => 'required|string',
-            'correctAnswer' => 'required|string',
-        ]);
-
-        $quiz = Quiz::create(['title' => 'Sample Quiz']);
-
-        $question = $quiz->questions()->create([
-            'question_text' => $validated['question'],
-        ]);
-
-        // Create answers
-        $answers = [
-            ['answer_text' => $validated['optionA'], 'is_correct' => $validated['correctAnswer'] === 'A' ? 1 : 0],
-            ['answer_text' => $validated['optionB'], 'is_correct' => $validated['correctAnswer'] === 'B' ? 1 : 0],
-            ['answer_text' => $validated['optionC'], 'is_correct' => $validated['correctAnswer'] === 'C' ? 1 : 0],
-            ['answer_text' => $validated['optionD'], 'is_correct' => $validated['correctAnswer'] === 'D' ? 1 : 0],
-        ];
-
-
-        foreach ($answers as $answer) {
-            $question->answers()->create($answer);
-        }
-
-
-        return redirect()->route('quizzeslist');
-    }
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $quizzes = Quiz::with('questions.answers')->get();
-        return view('quizzeslist', compact('quizzes'));
+        //
     }
 
-    public function edit($id)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $quiz = Quiz::findOrFail($id);
-        return view('edit-quiz', compact('quiz'));
+        return view('quizzes.create');
     }
 
-    public function destroy($id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        $quiz = Quiz::findOrFail($id);
-        $quiz->delete();
-        return redirect()->route('quizzes.index')->with('success', 'Quiz deleted successfully.');
+        // Validation check
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'course_id' => 'required|integer|exist:course, id',
+            'level' => 'required|string|max:255',
+        ]);
+
+        // Quiz create & Save
+        $quiz = Quiz::create([
+            'title' => $validatedData['title'],
+            'course_id' => $validatedData['course_id'],
+            'level' => $validatedData['level'],
+        ]);
+
+        return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully');
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
         //
     }
