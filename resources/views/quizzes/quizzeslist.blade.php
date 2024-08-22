@@ -20,37 +20,32 @@
                         <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Level</th>
+{{--                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>--}}
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Questions</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        <!-- Hard-coded data rows -->
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Quiz 1</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Course A</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Intermediate</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <!-- Action buttons -->
-                                <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition duration-300">Edit</button>
-                                <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md transition duration-300">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Quiz 2</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Course B</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Advanced</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <!-- Action buttons -->
-                                <button class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition duration-300">Edit</button>
-                                <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md transition duration-300">Delete</button>
-                            </td>
-                        </tr>
-                        <!-- Add more rows as needed -->
+                        @foreach ($quizzes as $quiz)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $quiz->id }}</td>
+{{--                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $quiz->title }}</td>--}}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    @foreach ($quiz->questions as $question)
+                                        <div>{{ $question->question_text }}</div>
+                                    @endforeach
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <!-- Action buttons -->
+                                    <a href="{{ route('quizzes.edit', $quiz->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md transition duration-300">Edit</a>
+                                    <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this quiz?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md transition duration-300">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -5,7 +5,8 @@
         <div class="grid grid-cols-1 gap-8">
             <!-- Add Question Form -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <form class="p-6">
+                <form class="p-6" action="{{ route('quizzes.store') }}" method="POST">
+                    @csrf
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Add Question</h2>
                     <div class="mb-4">
                         <label for="question" class="block text-sm font-medium text-gray-700">Question:</label>
@@ -61,15 +62,21 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                             <!-- Sample row, replace with dynamically generated rows -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">What is the capital of France?</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Paris</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Berlin</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Madrid</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Rome</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">A</td>
-                            </tr>
+                            @foreach ($quizzes as $quiz)
+                                @foreach ($quiz->questions as $question)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $loop->parent->iteration }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $question->question_text }}</td>
+                                        @foreach ($question->answers as $answer)
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $answer->answer_text }}</td>
+                                        @endforeach
+                                        <!-- Ensure is_correct is used as a boolean (1/0) in the database -->
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            {{ $question->answers->firstWhere('is_correct', true)->answer_text ?? '' }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
                             <!-- End of sample row -->
                             </tbody>
                         </table>

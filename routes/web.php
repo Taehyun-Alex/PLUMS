@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -17,13 +18,11 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/quizzes', function () {
-        return view('quizzes.quiz');
-    })->name('quizzes');
 
-    Route::get('/quizzeslist', function () {
-        return view('quizzes.quizzeslist');
-    })->name('quizzeslist');
+    Route::resource('quizzes', QuizController::class);
+    Route::get('/quizzes', [\App\Http\Controllers\QuizController::class, 'create'])->name('quizzes');
+    Route::post('/quizzes', [\App\Http\Controllers\QuizController::class, 'store'])->name('quizzes.store');
+    Route::get('/quizzeslist', [\App\Http\Controllers\QuizController::class, 'index'])->name('quizzeslist');
 
     Route::get('/results', function () {
         return view('results.results');
