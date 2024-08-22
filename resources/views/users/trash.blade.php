@@ -20,7 +20,7 @@
                        class="p-2 px-4 text-center rounded-md
                               text-white hover:text-purple-200
                               bg-purple-600 hover:bg-purple-500
-                              duration-100 ease-in-out transition-all">
+                              duration-200 ease-in-out transition-all">
                         <i class="fa fa-user text-lg"></i>
                         {{ __('Back to Users') }}
                     </a>
@@ -32,7 +32,7 @@
                         <button type="submit"
                                 class="p-2 px-4 text-center rounded-md text-white
                                        bg-purple-500 hover:bg-purple-600
-                                       duration-100 ease-in-out transition-all">
+                                       duration-200 ease-in-out transition-all">
                             <i class="fa fa-trash-arrow-up text-lg"></i>
                             {{ __('Recover All') }}
                         </button>
@@ -46,7 +46,7 @@
                         <button type="submit"
                                 class="p-2 px-4 text-center rounded-md text-white
                                        bg-red-500 hover:bg-red-600
-                                       duration-100 ease-in-out transition-all">
+                                       duration-200 ease-in-out transition-all">
                             <i class="fa fa-trash text-lg"></i>
                             {{ __('Empty All') }}
                         </button>
@@ -77,7 +77,7 @@
                                     @csrf
                                     <button type="submit"
                                             class="bg-purple-500 text-white p-2 rounded hover:bg-purple-600
-                                                   duration-100 ease-in-out transition-all">
+                                                   duration-200 ease-in-out transition-all">
                                         Restore
                                         <span class="sr-only hidden">
                                             Restore user
@@ -92,7 +92,7 @@
                                     @method('delete')
                                     <button type="submit"
                                             class="bg-red-500 text-white p-2 rounded hover:bg-red-600
-                                                   duration-100 ease-in-out transition-all">
+                                                   duration-200 ease-in-out transition-all">
                                         Delete
                                         <span class="sr-only hidden">
                                             Delete user
