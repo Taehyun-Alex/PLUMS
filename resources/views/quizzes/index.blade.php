@@ -1,7 +1,6 @@
 <x-layout>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 bg-white border-b border-gray-200">
                 <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Manage Quiz</h1>
 
                 <div class="mb-4 flex justify-between items-center">
@@ -25,18 +24,33 @@
                     </button>
                 </div>
 
-                <!-- Quizzes Table -->
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Level</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                        </tr>
-                        </thead>
+{{--                @can('view-trash')--}}
+{{--                    <a href="{{ route('quizzes.trash') }}"--}}
+{{--                       class="p-2 px-4 text-center rounded-md h-10--}}
+{{--                              @if($trashedCount>0)--}}
+{{--                                text-slate-200 hover:text-slate-600 bg-slate-600 hover:bg-slate-500--}}
+{{--                              @else--}}
+{{--                                text-slate-600 hover:text-slate-200 bg-slate-200 hover:bg-slate-500--}}
+{{--                              @endif--}}
+{{--                              duration-300 ease-in-out transition-all space-x-2">--}}
+{{--                        <i class="fa fa-trash font-xl"></i>--}}
+{{--                        {{ $trashedCount }} {{ __('Deleted') }}--}}
+{{--                    </a>--}}
+{{--                @endcan--}}
+
+
+
+                <!-- Quizzes table -->
+                <table class="min-w-full bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-300">
+                    <thead class="bg-purple-500 text-white">
+                    <tr class="w-full">
+                        <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">ID</th>
+                        <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Title</th>
+                        <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Course</th>
+                        <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Level</th>
+                        <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Actions</th>
+                    </tr>
+                    </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         <!-- Hard-coded data rows -->
                         <tr>

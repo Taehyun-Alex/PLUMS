@@ -1,6 +1,7 @@
 <x-layout>
-    <div class="py-6">
-        <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Courses List</h1>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Courses List</h1>
 
         <div class="mb-4 flex justify-between items-center">
             <!-- Add course Button -->

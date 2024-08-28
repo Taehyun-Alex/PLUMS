@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container mx-auto p-6 bg-white">
-        <h1 class="text-2xl font-bold mb-6">Users</h1>
+        <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Manage Users</h1>
 
         <section class="flex justify-end gap-2 mb-4">
         @can('create-user')
@@ -42,19 +42,19 @@
         <table class="min-w-full bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-300">
             <thead class="bg-purple-500 text-white">
             <tr class="w-full">
-                <th class="py-2 px-4 text-left border-b border-gray-300 flex-1">Name</th>
-                <th class="py-2 px-4 text-left border-b border-gray-300 flex-1">Email</th>
-                <th class="py-2 px-4 text-left border-b border-gray-300 flex-1">Role</th>
-                <th class="py-2 px-4 text-right border-b border-gray-300 flex-1">Actions</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Name</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Email</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Role</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Actions</th>
             </tr>
             </thead>
             <tbody>
             @foreach($users as $user)
                 <tr class="w-full">
-                    <td class="py-2 px-4 text-left flex-1 border-b border-gray-200">{{ $user->name }}</td>
-                    <td class="py-2 px-4 text-left flex-1 border-b border-gray-200">{{ $user->email }}</td>
-                    <td class="py-2 px-4 text-left flex-1 border-b border-gray-200">{{ $user->getRole() }}</td>
-                    <td class="py-2 px-4 text-right flex flex-1 justify-end border-b border-gray-200">
+                    <td class="py-2 px-4 text-center flex-1 border-b border-gray-200">{{ $user->name }}</td>
+                    <td class="py-2 px-4 text-center flex-1 border-b border-gray-200">{{ $user->email }}</td>
+                    <td class="py-2 px-4 text-center flex-1 border-b border-gray-200">{{ $user->getRole() }}</td>
+                    <td class="py-2 px-4 text-center flex-1 justify-end border-b border-gray-200">
                         <div class="flex justify-center space-x-2">
                             <a href="{{ route('users.show', $user->id) }}"
 

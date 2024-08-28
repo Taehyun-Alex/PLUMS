@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -12,7 +13,10 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //
+        $quizzes = Quiz::paginate(10);
+
+        $trashedCount = User::onlyTrashed()->latest()->get()->count();
+        return view('quizzes.index', compact(['quizzes', 'trashedCount']));
     }
 
     /**
