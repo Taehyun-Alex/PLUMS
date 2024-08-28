@@ -26,14 +26,13 @@
         </div>
 
         <!-- Courses Table -->
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quizzes Count</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <table class="min-w-full bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-300">
+                <thead class="bg-purple-500 text-white">
+                <tr class="w-full">
+                    <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Title</th>
+                    <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Description</th>
+                    <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Quizzes Count</th>
+                    <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Actions</th>
                 </tr>
                 </thead>
 
