@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-   // Static views for quizzes, results, and settings
+    // Static views for quizzes, results, and settings
     Route::get('/quizzes', function () {
         return view('quizzes.index');
     })->name('quizzes.index');
@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', function () {
         return view('settings.settings');
     })->name('settings');
-
 
     // Quizzes routes
     Route::prefix('quizzes')->group(function () {
@@ -47,21 +46,35 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{quiz}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
 
         // Quiz trash routes
-        Route::get('/trash', [QuizController::class, 'trash'])->name('quizzes.trash');
-        Route::post('/trash/restore/{quiz}', [QuizController::class, 'restore'])->name('quizzes.trash-restore');
-        Route::delete('/trash/remove/{quiz}', [QuizController::class, 'remove'])->name('quizzes.trash-remove');
-        Route::post('/trash/restoreAll', [QuizController::class, 'restoreAll'])->name('quizzes.trash-restore-all');
-        Route::delete('/trash/empty', [QuizController::class, 'empty'])->name('quizzes.trash-empty');
+        Route::prefix('trash')->group(function () {
+            Route::get('/', [QuizController::class, 'trash'])->name('quizzes.trash');
+            Route::post('/restore/{quiz}', [QuizController::class, 'restore'])->name('quizzes.trash-restore');
+            Route::delete('/remove/{quiz}', [QuizController::class, 'remove'])->name('quizzes.trash-remove');
+            Route::post('/restoreAll', [QuizController::class, 'restoreAll'])->name('quizzes.trash-restore-all');
+            Route::delete('/empty', [QuizController::class, 'empty'])->name('quizzes.trash-empty');
+        });
     });
 
-
     // Courses routes
-    Route::resource('courses', CourseController::class);
-    Route::get('/courses/{course}/delete', [CourseController::class, 'delete'])->name('courses.delete');
-    Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
-    Route::get('/courses/trash', [CourseController::class, 'trash'])->name('courses.trash');
-    Route::patch('/courses/{course}/restore', [CourseController::class, 'restore'])->name('courses.restore');
-    Route::delete('/courses/{course}/forceDelete', [CourseController::class, 'forceDelete'])->name('courses.forceDelete');
+    Route::prefix('courses')->group(function () {
+        Route::get('/', [CourseController::class, 'index'])->name('courses.index');
+        Route::get('/create', [CourseController::class, 'create'])->name('courses.create');
+        Route::post('/create', [CourseController::class, 'store'])->name('courses.store');
+        Route::get('/{course}', [CourseController::class, 'show'])->name('courses.show');
+        Route::get('/{course}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+        Route::put('/{course}', [CourseController::class, 'update'])->name('courses.update');
+        Route::get('/{course}/delete', [CourseController::class, 'delete'])->name('courses.delete');
+        Route::delete('/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+        // Course trash routes
+        Route::prefix('trash')->group(function () {
+            Route::get('/', [CourseController::class, 'trash'])->name('courses.trash');
+            Route::patch('/{course}/restore', [CourseController::class, 'restore'])->name('courses.restore');
+            Route::delete('/{course}/forceDelete', [CourseController::class, 'forceDelete'])->name('courses.forceDelete');
+            Route::post('/restoreAll', [CourseController::class, 'restoreAll'])->name('courses.trash-restore-all');
+            Route::delete('/empty', [CourseController::class, 'empty'])->name('courses.trash-empty');
+        });
+    });
 
     // Users routes
     Route::prefix('users')->group(function () {
@@ -75,11 +88,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
         // User trash routes
-        Route::get('/trash', [UserController::class, 'trash'])->name('users.trash');
-        Route::post('/trash/restore/{user}', [UserController::class, 'restore'])->name('users.trash-restore');
-        Route::delete('/trash/remove/{user}', [UserController::class, 'remove'])->name('users.trash-remove');
-        Route::post('/trash/restoreAll', [UserController::class, 'restoreAll'])->name('users.trash-restore-all');
-        Route::delete('/trash/empty', [UserController::class, 'empty'])->name('users.trash-empty');
+        Route::prefix('trash')->group(function () {
+            Route::get('/', [UserController::class, 'trash'])->name('users.trash');
+            Route::post('/restore/{user}', [UserController::class, 'restore'])->name('users.trash-restore');
+            Route::delete('/remove/{user}', [UserController::class, 'remove'])->name('users.trash-remove');
+            Route::post('/restoreAll', [UserController::class, 'restoreAll'])->name('users.trash-restore-all');
+            Route::delete('/empty', [UserController::class, 'empty'])->name('users.trash-empty');
+        });
     });
 });
 

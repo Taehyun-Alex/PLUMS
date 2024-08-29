@@ -93,7 +93,10 @@ class QuizController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+        $quiz->delete();
+
+        return redirect()->route('quizzes.index')->with('success', 'Quiz moved to trash successfully.');
     }
     public function trash()
     {
@@ -103,14 +106,14 @@ class QuizController extends Controller
 
     public function restore($id)
     {
-        $quiz = Quiz::withTrashed()->findOrFail($id);
+        $quiz = Quiz::onlyTrashed()->findOrFail($id);
         $quiz->restore();
         return redirect()->route('quizzes.trash')->with('success', 'Quiz restored successfully.');
     }
 
     public function remove($id)
     {
-        $quiz = Quiz::withTrashed()->findOrFail($id);
+        $quiz = Quiz::onlyTrashed()->findOrFail($id);
         $quiz->forceDelete();
         return redirect()->route('quizzes.trash')->with('success', 'Quiz permanently deleted.');
     }

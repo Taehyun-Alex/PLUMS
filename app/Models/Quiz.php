@@ -12,8 +12,8 @@ class Quiz extends Model
 
     protected $fillable = ['title', 'course_id', 'level'];
 
-//    public function course()
-//    {
-//        return $this->belongsTo(Course::class);
-//    }
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
