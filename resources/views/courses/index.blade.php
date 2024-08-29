@@ -1,9 +1,8 @@
 <x-layout>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Courses List</h1>
+        <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Courses List</h1>
+            <section class="flex justify-between items-center mb-4">
 
-        <div class="mb-4 flex justify-between items-center">
             <!-- Add course Button -->
 
             <a href="{{ route('courses.create') }}"
@@ -17,13 +16,14 @@
 
 
             <!-- Trash Button with Count -->
-            <a href="{{ route('courses.trash') }}" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">
+            <a href="{{ route('courses.trash') }}"
+               class="text-slate-600 hover:text-slate-200 bg-slate-200 hover:bg-slate-500 py-2 px-4 rounded-md transition duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 6h14M3 9v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9m-9-4V2m4 0v3m-8 0v3m4 0v3m4 0v3m4 0v3" />
                 </svg>
                 Courses Deleted: <span class="font-bold">{{ $softDeletedCount }}</span>
             </a>
-        </div>
+            </section>
 
         <!-- Courses Table -->
             <table class="min-w-full bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-300">
@@ -59,6 +59,5 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
     </div>
 </x-layout>
