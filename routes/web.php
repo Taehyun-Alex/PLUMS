@@ -21,6 +21,20 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+   // Static views for quizzes, results, and settings
+    Route::get('/quizzes', function () {
+        return view('quizzes.index');
+    })->name('quizzes.index');
+
+    Route::get('/results', function () {
+        return view('results.results');
+    })->name('results');
+
+    Route::get('/settings', function () {
+        return view('settings.settings');
+    })->name('settings');
+
+
     // Quizzes routes
     Route::prefix('quizzes')->group(function () {
         Route::get('/', [QuizController::class, 'index'])->name('quizzes.index');
@@ -40,18 +54,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/trash/empty', [QuizController::class, 'empty'])->name('quizzes.trash-empty');
     });
 
-    // Static views for quizzes, results, and settings
-    Route::get('/quizzes', function () {
-        return view('quizzes.index');
-    })->name('quizzes');
-
-    Route::get('/results', function () {
-        return view('results.results');
-    })->name('results');
-
-    Route::get('/settings', function () {
-        return view('settings.settings');
-    })->name('settings');
 
     // Courses routes
     Route::resource('courses', CourseController::class);
