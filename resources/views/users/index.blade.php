@@ -1,13 +1,16 @@
 <x-layout>
     <div class="container mx-auto p-6 bg-white">
-        <h1 class="text-2xl font-bold mb-6">Users</h1>
+        <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Manage Users</h1>
+{{--            <div class="mb-4 flex justify-between items-center">--}}
 
-        <section class="flex justify-end gap-2 mb-4">
+                <section class="flex justify-between items-center mb-4">
         @can('create-user')
             <a href="{{ route('users.create') }}"
-               class="bg-purple-600 text-white p-2 rounded hover:bg-purple-700
+               class="bg-purple-500 text-white p-2 rounded hover:bg-purple-700
                       duration-300 ease-in-out transition-all">
-            <i class="fa fa-user-plus font-xl"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
             {{ __('New User') }}
             </a>
         @endcan
@@ -21,7 +24,10 @@
                                 text-slate-600 hover:text-slate-200 bg-slate-200 hover:bg-slate-500
                               @endif
                               duration-300 ease-in-out transition-all space-x-2">
-                <i class="fa fa-trash font-xl"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 6h14M3 9v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9m-9-4V2m4 0v3m-8 0v3m4 0v3m4 0v3m4 0v3" />
+                </svg>
+{{--                <i class="fa fa-trash font-xl"></i>--}}
                 {{ $trashedCount }} {{ __('Deleted') }}
             </a>
         @endcan
@@ -41,19 +47,19 @@
         <table class="min-w-full bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-300">
             <thead class="bg-purple-500 text-white">
             <tr class="w-full">
-                <th class="py-2 px-4 text-left border-b border-gray-300 flex-1">Name</th>
-                <th class="py-2 px-4 text-left border-b border-gray-300 flex-1">Email</th>
-                <th class="py-2 px-4 text-left border-b border-gray-300 flex-1">Role</th>
-                <th class="py-2 px-4 text-right border-b border-gray-300 flex-1">Actions</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Name</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Email</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Role</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Actions</th>
             </tr>
             </thead>
             <tbody>
             @foreach($users as $user)
                 <tr class="w-full">
-                    <td class="py-2 px-4 text-left flex-1 border-b border-gray-200">{{ $user->name }}</td>
-                    <td class="py-2 px-4 text-left flex-1 border-b border-gray-200">{{ $user->email }}</td>
-                    <td class="py-2 px-4 text-left flex-1 border-b border-gray-200">{{ $user->getRole() }}</td>
-                    <td class="py-2 px-4 text-right flex flex-1 justify-end border-b border-gray-200">
+                    <td class="py-2 px-4 text-center flex-1 border-b border-gray-200">{{ $user->name }}</td>
+                    <td class="py-2 px-4 text-center flex-1 border-b border-gray-200">{{ $user->email }}</td>
+                    <td class="py-2 px-4 text-center flex-1 border-b border-gray-200">{{ $user->getRole() }}</td>
+                    <td class="py-2 px-4 text-center flex-1 justify-end border-b border-gray-200">
                         <div class="flex justify-center space-x-2">
                             <a href="{{ route('users.show', $user->id) }}"
 
