@@ -60,17 +60,17 @@
                     <td class="py-2 px-4 text-center border-b border-gray-200">
                         <div class="flex justify-center space-x-2">
                             <a href="{{ route('users.show', $user->id) }}"
-                               class="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                               class="bg-purple-500 text-white py-1 px-3 rounded hover:bg-purple-600 duration-200">
                                 View
                             </a>
                             <a href="{{ route('users.edit', $user->id) }}"
-                               class="bg-purple-500 text-white p-2 rounded hover:bg-purple-600">
+                               class="bg-purple-600 text-white py-1 px-3 rounded hover:bg-purple-700 duration-200">
                                 Edit
                             </a>
                             <form action="{{ route('users.delete', $user->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-500 text-white p-2 rounded hover:bg-red-600">
+                                <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 duration-200">
                                     Delete
                                 </button>
                             </form>
