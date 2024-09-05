@@ -21,13 +21,9 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Static views for quizzes, results, and settings
-    Route::get('/quizzes', function () {
-        return view('quizzes.index');
-    })->name('quizzes.index');
-
+    // Static views for results and settings
     Route::get('/results', function () {
-        return view('results.results');
+        return view('results.index');
     })->name('results');
 
     Route::get('/settings', function () {
