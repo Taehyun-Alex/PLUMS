@@ -22,7 +22,7 @@
         </section>
 
         <!-- Quizzes table -->
-        <table class="min-w-full bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-300">
+        <table class="min-w-full bg-white overflow-hidden table-auto shadow-sm sm:rounded-lg border border-gray-300">
             <thead class="bg-purple-500 text-white">
             <tr class="w-full">
                 <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">ID</th>
@@ -32,28 +32,24 @@
                 <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Actions</th>
             </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody class="bg-white divide-y divide-gray-200 text-center">
             @foreach($quizzes as $quiz)
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $quiz->id }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $quiz->title }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $quiz->course->name ?? 'N/A' }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $quiz->level }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 flex flex-col gap-2">
-                        <form action="{{ route('quizzes.edit', $quiz->id) }}" method="GET">
-                            @csrf
-                            <button type="submit"
-                                    class="w-full bg-purple-600 hover:bg-purple-700 text-white py-1 px-3 rounded-md transition duration-300">
-                                Edit
-                            </button>
-                        </form>
-                        <form action="{{ route('quizzes.delete', $quiz->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="w-full bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-md transition duration-300">
-                                Delete
-                            </button>
-                        </form>
+                <tr class="w-full">
+                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->id }}</td>
+                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->title }}</td>
+                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->course->name ?? 'N/A' }}</td>
+                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->level }}</td>
+                    <td class="py-2 px-4 text-center border-b border-gray-200">
+                        <div class="flex justify-center space-x-2">
+                            <form action="{{ route('quizzes.edit', $quiz->id) }}" method="GET">
+                                @csrf
+                                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-1 px-3 rounded-md transition duration-200">Edit</button>
+                            </form>
+                            <form action="{{ route('quizzes.delete', $quiz->id) }}" method="GET">
+                                @csrf
+                                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-md transition duration-200">Delete</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach
