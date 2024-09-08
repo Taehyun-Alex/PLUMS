@@ -121,12 +121,33 @@
     <div class="right-panel">
         <div class="login-card">
             <h2>Login</h2>
+
+            @if(session('error'))
+                <div style="color: red; margin-bottom: 1rem;">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
+
+                @error('email')
+                <div style="color: red; margin-bottom: 1rem;">
+                    {{ $message }}
+                </div>
+                @enderror
+
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
+
+                @error('password')
+                <div style="color: red; margin-bottom: 1rem;">
+                    {{ $message }}
+                </div>
+                @enderror
+                
                 <button type="submit">Login</button>
                 <p class="forgot-password"><a href="#">Forgot password?</a></p>
             </form>
