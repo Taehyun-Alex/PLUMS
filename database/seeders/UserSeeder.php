@@ -13,32 +13,19 @@ class UserSeeder extends Seeder
     {
 
         $admin = User::factory()->create([
-            'name' => 'Admin1 User',
-            'email' => 'admin1@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-        $admin->assignRole('admin');
-
-        $admin = User::factory()->create([
-            'name' => 'Admin2 User',
-            'email' => 'admin2@example.com',
+            'first_name' => 'Admin',
+            'last_name' => 'User',
+            'email' => 'admin@example.com',
             'password' => Hash::make('password123'),
         ]);
         $admin->assignRole('admin');
 
         $staff = User::factory()->create([
-            'name' => 'Staff1 User',
-            'email' => 'staff1@example.com',
+            'first_name' => 'Staff',
+            'last_name' => 'User',
+            'email' => 'staff@example.com',
             'password' => Hash::make('password123'), // Ensure you hash the password
         ]);
         $staff->assignRole('staff');
-
-        $staff = User::factory()->create([
-            'name' => 'Staff2 User',
-            'email' => 'staff2@example.com',
-            'password' => Hash::make('password123'), // Ensure you hash the password
-        ]);
-        $staff->assignRole('staff');
-
     }
 }
