@@ -23,10 +23,14 @@ class MobileRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_name' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'phone_number' => 'nullable|string|max:20',
+            'birth_date' => 'nullable|date',
+            'gender' => 'nullable|in:male,female,undisclosed'
         ];
     }
 }
