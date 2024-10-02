@@ -52,9 +52,13 @@ class MobileApiController extends Controller
         }
 
         return ApiResponseClass::sendResponse([
-            'email' => $user->email,
+//            'user_name' => $user->user_name,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
+            'email' => $user->email,
+            'phone_number' => $user->phone_number,
+            'birth_date' => $user->birth_date,
+            'gender' => $user->gender,
             'icon' => null
         ], 'Successfully fetched account details');
     }
