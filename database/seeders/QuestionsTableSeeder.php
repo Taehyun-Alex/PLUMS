@@ -16,7 +16,7 @@ class QuestionsTableSeeder extends Seeder
         $sections = \App\Models\Section::all();
 
         foreach ($sections as $section) {
-            Question::create(['section_id' => $section->id, 'text' => 'Sample Question', 'difficulty' => 'easy']);
+            Question::create(['section_id' => $section->id, 'question_text' => 'Sample Question', 'difficulty' => 'easy']);
         }
     }
 }

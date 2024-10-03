@@ -17,8 +17,8 @@ class AnswersTableSeeder extends Seeder
         $questions = \App\Models\Question::all();
 
         foreach ($questions as $question) {
-            Answer::create(['question_id' => $question->id, 'text' => 'Sample Answer 1', 'is_correct' => true]);
-            Answer::create(['question_id' => $question->id, 'text' => 'Sample Answer 2', 'is_correct' => false]);
+            Answer::create(['question_id' => $question->id, 'answer_text' => 'Sample Answer 1', 'is_correct' => true]);
+            Answer::create(['question_id' => $question->id, 'answer_text' => 'Sample Answer 2', 'is_correct' => false]);
         }
     }
 }

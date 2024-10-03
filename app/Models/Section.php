@@ -9,7 +9,7 @@ class Section extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['certificate_id', 'quiz_id'];
+    protected $fillable = ['certificate_id', 'course_id', 'section_name'];
 
     /**
      * Get the certificate associated with the section.
