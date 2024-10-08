@@ -20,7 +20,7 @@ class SectionsTableSeeder extends Seeder
             Section::create([
                 'course_id' => $certificate->course_id,
                 'certificate_id' => $certificate->id,
-                'section_name' => "Section for {$certificate->level}"]);
+                'section_name' => "Section for {$certificate->course->name} - {$certificate->level}"]);
         }
     }
 }

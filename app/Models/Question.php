@@ -11,9 +11,9 @@ class Question extends Model
 
     protected $fillable = ['question_text'];
 
-    public function quiz()
+    public function section()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->belongsTo(Section::class);
     }
 
     public function answers()

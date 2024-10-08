@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('section_id')->constrained()->onDelete('cascade');
-            $table->enum('difficulty', ['easy', 'medium', 'hard']);
+            $table->foreignId('certificate_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->enum('difficulty', ['Easy', 'Medium', 'Hard']);
             $table->text('question_text');
             $table->timestamps();
         });

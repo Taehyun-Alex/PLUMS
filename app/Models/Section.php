@@ -12,6 +12,14 @@ class Section extends Model
     protected $fillable = ['certificate_id', 'course_id', 'section_name'];
 
     /**
+     * Get the course associated with the section.
+     */
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    /**
      * Get the certificate associated with the section.
      */
     public function certificate()
@@ -22,8 +30,8 @@ class Section extends Model
     /**
      * Get the quiz associated with the section.
      */
-    public function quiz()
+    public function questions()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->hasMany(Quiz::class);
     }
 }

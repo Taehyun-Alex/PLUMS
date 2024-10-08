@@ -7,10 +7,20 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::paginate(10);
+        $courses = Course::with('certificates')->paginate(10);
         $softDeletedCount = Course::onlyTrashed()->count();
+
+        // Check if the request is for an API
+        if ($request->wantsJson()) {
+            return response()->json([
+                'courses' => $courses,
+                'softDeletedCount' => $softDeletedCount
+            ]);
+        }
+
+        // If the request is for Web, return view
         return view('courses.index', compact('courses', 'softDeletedCount'));
     }
 
