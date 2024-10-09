@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('quiz_id');
-            $table->string('question_text');
-            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
+            $table->foreignId('section_id')->constrained()->onDelete('cascade');
+            $table->foreignId('certificate_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->enum('difficulty', ['Easy', 'Medium', 'Hard']);
+            $table->text('question_text');
             $table->timestamps();
         });
     }
