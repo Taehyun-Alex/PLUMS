@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\ApiResponseClass;
 use App\Http\Requests\MobileApiLoginRequest;
+use App\Http\Requests\MobileProfileUpdateRequest;
 use App\Http\Requests\MobileRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -52,14 +53,35 @@ class MobileApiController extends Controller
         }
 
         return ApiResponseClass::sendResponse([
-//            'user_name' => $user->user_name,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
             'email' => $user->email,
             'phone_number' => $user->phone_number,
             'birth_date' => $user->birth_date,
             'gender' => $user->gender,
-            'icon' => null
+            'photo' => $user->photo
         ], 'Successfully fetched account details');
+    }
+
+    public function updateUser(MobileProfileUpdateRequest $request) {
+        $validated = $request->validated();
+        $user = auth('sanctum')->user();
+        $user->update($validated);
+
+        return ApiResponseClass::sendResponse([], "Successfully updated user information");
+    }
+
+    public function updatePhoto(Request $request) {
+        $request->validate([
+            'photo' => 'required|image',
+        ]);
+
+        $user = auth('sanctum')->user();
+        $avatarName = time().'.'.$request->photo->getClientOriginalExtension();
+        $request->photo->move(public_path("avatars/$user->id"), $avatarName);
+        $photoUrl = "avatars/$user->id/{$avatarName}";
+        $user->update(['photo' => $photoUrl]);
+
+        return ApiResponseClass::sendResponse(['url' => $photoUrl], "Successfully uploaded profile photo");
     }
 }
