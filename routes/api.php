@@ -14,7 +14,9 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/mobile/logout', [MobileApiController::class, 'logout'])->name('mobile.logout');
-        Route::get('/mobile/me', [MobileApiController::class, 'currentUser'])->name('mobile.me');
+        Route::get('/mobile/profile', [MobileApiController::class, 'currentUser'])->name('mobile.profile');
+        Route::post('/mobile/profile', [MobileApiController::class, 'updateUser'])->name('mobile.updateUser');
+        Route::post('/mobile/profile/photo', [MobileApiController::class, 'updatePhoto'])->name('mobile.updatePhoto');
 
         // Course routes
         Route::get('mobile/courses', [CourseController::class, 'index'])->name('mobile.courses.index');
@@ -43,7 +45,5 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('mobile/questions/{question}', [QuestionController::class, 'show'])->name('mobile.questions.show');
         Route::put('mobile/questions/{question}', [QuestionController::class, 'update'])->name('mobile.questions.update');
         Route::delete('mobile/questions/{question}', [QuestionController::class, 'destroy'])->name('mobile.questions.destroy');
-
-
     });
 });

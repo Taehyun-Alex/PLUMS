@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MobileRegisterRequest extends FormRequest
+class MobileProfileUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,7 +12,7 @@ class MobileRegisterRequest extends FormRequest
     public function authorize(): bool
     {
         $user = auth('sanctum')->user();
-        return !$user;
+        return !!$user;
     }
 
     /**
@@ -25,8 +25,6 @@ class MobileRegisterRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
             'phone_number' => 'nullable|string|max:20',
             'birth_date' => 'nullable|date',
             'gender' => 'nullable|in:Male,Female,Undisclosed'
