@@ -18,7 +18,7 @@ class QuestionsTableSeeder extends Seeder
             [
                 'course_id' => 1, // Cyber Security
                 'certificate_id' => 11, // Certificate 3
-                'section_id' => 111, // Section 1
+                'section_id' => 1, // Section 1
                 'question_text' => 'What is the primary purpose of a firewall in cyber security?',
                 'difficulty' => 'easy',
             ],
