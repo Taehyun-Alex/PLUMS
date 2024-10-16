@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MobileApiController;
@@ -9,44 +11,60 @@ use App\Http\Controllers\TelemetryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'v1'], function() {
+// Grouping all API routes under the 'v1' prefix
+Route::group(['prefix' => 'v1'], function () {
+    // Mobile authentication routes
     Route::post('/mobile/login', [MobileApiController::class, 'login'])->name('mobile.login');
     Route::post('/mobile/register', [MobileApiController::class, 'register'])->name('mobile.register');
 
+    // Quiz Questions route
+    Route::get('/quiz-questions', [QuizQuestionController::class, 'index']);
+
+    // Protected routes requiring authentication
     Route::middleware('auth:sanctum')->group(function () {
+        // Telemetry route
         Route::post('/telemetry', [TelemetryController::class, 'log'])->name('telemetry');
 
+        // Mobile profile routes
         Route::post('/mobile/logout', [MobileApiController::class, 'logout'])->name('mobile.logout');
         Route::get('/mobile/profile', [MobileApiController::class, 'currentUser'])->name('mobile.profile');
         Route::post('/mobile/profile', [MobileApiController::class, 'updateUser'])->name('mobile.updateUser');
         Route::post('/mobile/profile/photo', [MobileApiController::class, 'updatePhoto'])->name('mobile.updatePhoto');
 
         // Course routes
-        Route::get('mobile/courses', [CourseController::class, 'index'])->name('mobile.courses.index');
-        Route::post('mobile/courses', [CourseController::class, 'store'])->name('mobile.courses.store');
-        Route::get('mobile/courses/{course}', [CourseController::class, 'show'])->name('mobile.courses.show');
-        Route::put('mobile/courses/{course}', [CourseController::class, 'update'])->name('mobile.courses.update');
-        Route::delete('mobile/courses/{course}', [CourseController::class, 'destroy'])->name('mobile.courses.destroy');
+        Route::prefix('mobile/courses')->name('mobile.courses.')->group(function () {
+            Route::get('/', [CourseController::class, 'index'])->name('index');
+            Route::post('/', [CourseController::class, 'store'])->name('store');
+            Route::get('{course}', [CourseController::class, 'show'])->name('show');
+            Route::put('{course}', [CourseController::class, 'update'])->name('update');
+            Route::delete('{course}', [CourseController::class, 'destroy'])->name('destroy');
+        });
 
         // Certificate routes
-        Route::get('mobile/certificates', [CertificateController::class, 'index'])->name('mobile.certificates.index');
-        Route::post('mobile/certificates', [CertificateController::class, 'store'])->name('mobile.certificates.store');
-        Route::get('mobile/certificates/{certificate}', [CertificateController::class, 'show'])->name('mobile.certificates.show');
-        Route::put('mobile/certificates/{certificate}', [CertificateController::class, 'update'])->name('mobile.certificates.update');
-        Route::delete('mobile/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('mobile.certificates.destroy');
+        Route::prefix('mobile/certificates')->name('mobile.certificates.')->group(function () {
+            Route::get('/', [CertificateController::class, 'index'])->name('index');
+            Route::post('/', [CertificateController::class, 'store'])->name('store');
+            Route::get('{certificate}', [CertificateController::class, 'show'])->name('show');
+            Route::put('{certificate}', [CertificateController::class, 'update'])->name('update');
+            Route::delete('{certificate}', [CertificateController::class, 'destroy'])->name('destroy');
+        });
 
         // Section routes
-        Route::get('mobile/sections', [SectionController::class, 'index'])->name('mobile.sections.index');
-        Route::post('mobile/sections', [SectionController::class, 'store'])->name('mobile.sections.store');
-        Route::get('mobile/sections/{section}', [SectionController::class, 'show'])->name('mobile.sections.show');
-        Route::put('mobile/sections/{section}', [SectionController::class, 'update'])->name('mobile.sections.update');
-        Route::delete('mobile/sections/{section}', [SectionController::class, 'destroy'])->name('mobile.sections.destroy');
+        Route::prefix('mobile/sections')->name('mobile.sections.')->group(function () {
+            Route::get('/', [SectionController::class, 'index'])->name('index');
+            Route::post('/', [SectionController::class, 'store'])->name('store');
+            Route::get('{section}', [SectionController::class, 'show'])->name('show');
+            Route::put('{section}', [SectionController::class, 'update'])->name('update');
+            Route::delete('{section}', [SectionController::class, 'destroy'])->name('destroy');
+        });
 
         // Question routes
-        Route::get('mobile/questions', [QuestionController::class, 'index'])->name('mobile.questions.index');
-        Route::post('mobile/questions', [QuestionController::class, 'store'])->name('mobile.questions.store');
-        Route::get('mobile/questions/{question}', [QuestionController::class, 'show'])->name('mobile.questions.show');
-        Route::put('mobile/questions/{question}', [QuestionController::class, 'update'])->name('mobile.questions.update');
-        Route::delete('mobile/questions/{question}', [QuestionController::class, 'destroy'])->name('mobile.questions.destroy');
+        Route::prefix('mobile/questions')->name('mobile.questions.')->group(function () {
+            Route::get('/', [QuestionController::class, 'index'])->name('index');
+            Route::post('/', [QuestionController::class, 'store'])->name('store');
+            Route::get('{question}', [QuestionController::class, 'show'])->name('show');
+            Route::put('{question}', [QuestionController::class, 'update'])->name('update');
+            Route::delete('{question}', [QuestionController::class, 'destroy'])->name('destroy');
+        });
     });
 });
