@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionRequest;
 use App\Models\Question;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -11,64 +12,38 @@ class QuestionController extends Controller
 {
     public function index(Request $request)
     {
-        $questions = Question::with(['section'])->paginate(10);
-
-        if ($request->wantsJson()) {
-            return response()->json($questions);
-        }
-
+        $questions = Question::with(['answers'])->paginate(10);
         return view('questions.index', compact('questions'));
+    }
+
+    public function edit(Question $question)
+    {
+        return view('questions.edit', compact('question'));
     }
 
     public function show($id)
     {
-        Log::info('Fetching questions for quiz ID: ' . $id);
         $question = Question::with('answers')->findOrFail($id);
-
-        if ($question) {
-            return response()->json($question);
-        } else {
-            return response()->json(['error' => 'Quiz not found'], 404);
-        }
+        return response()->json($question);
     }
 
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        $question = new Question();
-        $question->section_id = $request->section_id;
-        $question->question_text = $request->question_text;
-        $question->difficulty = $request->difficulty;
-        $question->save();
-
-        if ($request->wantsJson()) {
-            return response()->json($question, 201);
-        }
-
+        $validated = $request->validated();
+        Question::create($validated);
         return redirect()->route('questions.index');
     }
 
-    public function update(Request $request, Question $question)
+    public function update(StoreQuestionRequest $request, Question $question)
     {
-        $question->section_id = $request->section_id;
-        $question->question_text = $request->question_text;
-        $question->difficulty = $request->difficulty;
-        $question->save();
-
-        if ($request->wantsJson()) {
-            return response()->json($question);
-        }
-
+        $validated = $request->validated();
+        $question->update($validated);
         return redirect()->route('questions.index');
     }
 
     public function destroy(Request $request, Question $question)
     {
         $question->delete();
-
-        if ($request->wantsJson()) {
-            return response()->json(['message' => 'Question deleted successfully.']);
-        }
-
         return redirect()->route('questions.index')->with('success', 'Question deleted successfully.');
     }
 }

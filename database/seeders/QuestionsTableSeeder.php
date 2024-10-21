@@ -5,62 +5,35 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Question;
-use Illuminate\Support\Facades\DB;
 
 class QuestionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-   public function run()
+    public function run()
     {
-        DB::table('questions')->insert([
-            [
-                'course_id' => 1, // Cyber Security
-                'certificate_id' => 11, // Certificate 3
-                'section_id' => 111, // Section 1
-                'question_text' => 'What is the primary purpose of a firewall in cyber security?',
-                'difficulty' => 'easy',
-            ],
-        ]);
+        // Cyber Security Questions
+        $cyberSecurityQuestions = [
+            ['What is the primary purpose of a firewall?'],
+            ['What does the acronym VPN stand for?'],
+            ['Which of the following is a type of malware that restricts access to the computer system it infects and demands a ransom paid to the creator of the malware?'],
+            ['What is a common use for multi-factor authentication (MFA)?'],
+            ['Which security protocol is used for secure communications over the Internet?'],
+            ['What is the difference between symmetric and asymmetric encryption?'],
+            ['What type of cyber attack is characterized by overwhelming a system with a flood of Internet traffic?'],
+            ['In which of the following scenarios would a replay attack occur?'],
+            ['What is a zero-day vulnerability?'],
+            ['Which of the following tools is commonly used for penetration testing to detect vulnerabilities?'],
+        ];
 
-        DB::table('answers')->insert([
-            ['question_id' => 1, 'answer_text' => 'To filter incoming and outgoing traffic', 'is_correct' => true],
-            ['question_id' => 1, 'answer_text' => 'To encrypt all network communications', 'is_correct' => false],
-            ['question_id' => 1, 'answer_text' => 'To protect against physical theft', 'is_correct' => false],
-            ['question_id' => 1, 'answer_text' => 'To scan for viruses and malware', 'is_correct' => false],
-        ]);
+        foreach ($cyberSecurityQuestions as $question) {
+            Question::create([
+                'question' => $question[0],
+            ]);
+        }
 
-
-
-
-//        // Cyber Security Questions
-//        $cyberSecurityQuestions = [
-//            ['What is the primary purpose of a firewall?', 'Easy', 1, 1, 1],
-//            ['What does the acronym VPN stand for?', 'Easy', 1, 1, 1],
-//            ['Which of the following is a type of malware that restricts access to the computer system it infects and demands a ransom paid to the creator of the malware?', 'Medium', 1, 2, 2],
-//            ['What is a common use for multi-factor authentication (MFA)?', 'Medium', 1, 2, 2],
-//            ['Which security protocol is used for secure communications over the Internet?', 'Medium', 1, 2, 2],
-//            ['What is the difference between symmetric and asymmetric encryption?', 'Hard', 1, 3 ,3],
-//            ['What type of cyber attack is characterized by overwhelming a system with a flood of Internet traffic?', 'Hard', 1, 3, 3],
-//            ['In which of the following scenarios would a replay attack occur?', 'Hard', 1, 3, 3],
-//            ['What is a zero-day vulnerability?', 'Hard', 1, 3 ,3],
-//            ['Which of the following tools is commonly used for penetration testing to detect vulnerabilities?', 'Hard', 1, 3, 3],
-//        ];
-//
-//        foreach ($cyberSecurityQuestions as $question) {
-//            Question::create([
-//                'question_text' => $question[0],
-//                'difficulty' => $question[1],
-//                'course_id' => $question[2],
-//                'certificate_id' => $question[3],
-//                'section_id' => $question[4],
-//
-//
-//            ]);
-//        }
-//
-//        // Information Technology Questions
+        // Information Technology Questions
 //        $itQuestions = [
 //            ['What does the acronym IT stand for?', 'Easy', 2, 1, 4],
 //            ['What is the primary role of a database management system (DBMS)?', 'Easy', 2, 1, 4],
@@ -107,7 +80,7 @@ class QuestionsTableSeeder extends Seeder
 //                'section_id' => $question[4],
 //            ]);
 //        }
-
+//
 //        // Web Development Questions
 //        $webDevQuestions = [
 //            ['What does HTML stand for?', 'Easy', 4, 1, 10],
@@ -121,7 +94,7 @@ class QuestionsTableSeeder extends Seeder
 //            ['What is the main difference between HTML and XML?', 'Hard', 4, 3, 12],
 //            ['In CSS, what does the z-index property do?', 'Hard', 4, 3, 12],
 //        ];
-
+//
 //        foreach ($webDevQuestions as $question) {
 //            Question::create([
 //                'question_text' => $question[0],
