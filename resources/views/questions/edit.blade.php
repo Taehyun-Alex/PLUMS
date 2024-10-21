@@ -10,8 +10,8 @@
                 <label for="name" class="block text-sm font-medium text-gray-700">Question</label>
                 <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="question"
+                    id="question"
                     value="{{ old('name', $question->question) }}"
                     placeholder="Enter Question Text"
                     class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
@@ -26,6 +26,18 @@
                     id="tags"
                     value="{{ old('tags', $question->tags) }}"
                     placeholder="Enter Question Tags as CSV (a,b,c)"
+                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                    required>
+            </div>
+
+            <div class="mb-2">
+                <label for="name" class="block text-sm font-medium text-gray-700">Score</label>
+                <input
+                    type="text"
+                    name="score"
+                    id="score"
+                    value="{{ old('name', $question->score) }}"
+                    placeholder="Enter Question Text"
                     class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
                     required>
             </div>

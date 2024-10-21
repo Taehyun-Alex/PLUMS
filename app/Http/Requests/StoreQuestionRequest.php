@@ -22,8 +22,9 @@ class StoreQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'tags' => 'sometimes|nullable|string|max:255'
+            'question' => 'required',
+            'tags' => 'sometimes|nullable|string|max:255',
+            'score' => 'sometimes|nullable|numeric|min:0|max:10',
         ];
     }
 }
