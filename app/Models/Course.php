@@ -10,6 +10,11 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'description',
+    ];
+
     public function certificates()
     {
         return $this->hasMany(Certificate::class);

@@ -41,7 +41,7 @@
                     <tr>
                         <td class="py-2 px-4 text-center border-b border-gray-200">{{ $course['title'] }}</td>
                         <td class="py-2 px-4 text-center border-b border-gray-200">
-                            {{ $course['description'] }}
+                            {{ $course['description'] ?? "This course has no description." }}
                         </td>
                         <td class="py-2 px-4 text-center border-b border-gray-200">{{ $course['quizzes'] ?? 0 }}</td>
                         <td class="py-2 px-4 text-center border-b border-gray-200">

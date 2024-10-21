@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCourseRequest;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store;
 
 class CourseController extends Controller
 {
@@ -29,13 +31,10 @@ class CourseController extends Controller
         return view('courses.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCourseRequest $request)
     {
-        $course = new Course();
-        $course->title = $request->title;
-        $course->description = $request->description;
-        $course->save();
-
+        $validated = $request->validated();
+        Course::create($validated);
         return redirect()->route('courses.index');
     }
 
@@ -44,12 +43,10 @@ class CourseController extends Controller
         return view('courses.edit', compact('course'));
     }
 
-    public function update(Request $request, Course $course)
+    public function update(StoreCourseRequest $request, Course $course)
     {
-        $course->title = $request->title;
-        $course->description = $request->description;
-        $course->save();
-
+        $validated = $request->validated();
+        $course->update($validated);
         return redirect()->route('courses.index');
     }
 

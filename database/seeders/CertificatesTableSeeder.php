@@ -19,7 +19,6 @@ class CertificatesTableSeeder extends Seeder
             Certificate::create(['course_id' => $course->id, 'level' => 'Certificate III']);
             Certificate::create(['course_id' => $course->id, 'level' => 'Certificate IV']);
             Certificate::create(['course_id' => $course->id, 'level' => 'Diploma']);
-
         }
     }
 }
