@@ -1,5 +1,5 @@
 <x-layout>
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">Create New Course</h2>
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">Create New Course</h2>
     <form action="{{ route('courses.store') }}" method="POST">
         @csrf
 
