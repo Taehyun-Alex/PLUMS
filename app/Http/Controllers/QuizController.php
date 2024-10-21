@@ -165,7 +165,21 @@ class QuizController extends Controller
                 $score += $toScore;
                 $correct[] = $questionId;
             } else {
-                $incorrect[] = $questionId;
+                $correctAnswer = $answers->firstWhere('correct', true);
+                $incorrect[] = [
+                    'question' => [
+                        'id' => $question->id,
+                        'text' => $question->question,
+                    ],
+                    'submittedAnswer' => [
+                        'id' => $submittedAnswer->id,
+                        'text' => $submittedAnswer->answer,
+                    ],
+                    'correctAnswer' => $correctAnswer ? [
+                        'id' => $correctAnswer->id,
+                        'text' => $correctAnswer->answer,
+                    ] : null
+                ];
             }
 
             $totalScore += $toScore;
