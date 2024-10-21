@@ -25,11 +25,13 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
-    public function getTags() {
+    public function getTags()
+    {
         return explode(',', $this->tags);
     }
 
-    public function setTags($tags) {
+    public function setTags($tags)
+    {
         $toSet = is_array($tags) ? implode(',', $tags) : $tags;
         $this->attributes['tags'] = trim($toSet);
     }

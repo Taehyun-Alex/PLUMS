@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ApiResponseClass;
+use App\Http\Requests\SubmitQuizForResultsRequest;
 use App\Models\Course;
+use App\Models\Question;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 
@@ -33,6 +36,7 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
+        // ???
         // Create a new Quiz instance
         $quiz = new Quiz();
 
@@ -130,5 +134,49 @@ class QuizController extends Controller
         return redirect()->route('quizzes.trash')->with('success', 'All quizzes permanently deleted.');
     }
 
+    public function submitQuiz(SubmitQuizForResultsRequest $request)
+    {
+        $validated = $request->validated();
+        $submitted = $validated['answers'];
 
+        if (!$submitted || !is_array($submitted)) {
+            return ApiResponseClass::sendResponse([], 'Failed to grade', false, 400);
+        }
+
+        $score = 0;
+        $totalScore = 0;
+        $correct = [];
+        $incorrect = [];
+
+        foreach ($submitted as $submission) {
+            $questionId = $submission['question_id'];
+            $answerId = $submission['answer_id'];
+            $question = Question::find($questionId);
+
+            if (!$question) {
+                continue;
+            }
+
+            $answers = $question->answers;
+            $toScore = $question->score;
+            $submittedAnswer = $answers->firstWhere('id', $answerId);
+
+            if ($submittedAnswer && $submittedAnswer->correct) {
+                $score += $toScore;
+                $correct[] = $questionId;
+            } else {
+                $incorrect[] = $questionId;
+            }
+
+            $totalScore += $toScore;
+        }
+
+        return ApiResponseClass::sendResponse([
+            'score' => $score,
+            'totalScore' => $totalScore,
+            'percentage' => ($score / $totalScore) * 100,
+            'correct' => $correct,
+            'incorrect' => $incorrect,
+        ], 'Graded successfully');
+    }
 }

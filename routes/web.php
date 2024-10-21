@@ -89,8 +89,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
-
 });
 
 // Include authentication routes
