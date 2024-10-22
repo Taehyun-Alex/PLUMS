@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\ApiResponseClass;
+use App\Classes\TelemetryClass;
 use App\Http\Requests\SubmitQuizForResultsRequest;
 use App\Models\Course;
 use App\Models\Question;
@@ -136,8 +137,10 @@ class QuizController extends Controller
 
     public function submitQuiz(SubmitQuizForResultsRequest $request)
     {
+        $user = auth('sanctum')->user();
         $validated = $request->validated();
         $submitted = $validated['answers'];
+        $quizId = $validated['id'] ?? null;
 
         if (!$submitted || !is_array($submitted)) {
             return ApiResponseClass::sendResponse([], 'Failed to grade', false, 400);
@@ -149,8 +152,8 @@ class QuizController extends Controller
         $incorrect = [];
 
         foreach ($submitted as $submission) {
-            $questionId = $submission['question_id'];
-            $answerId = $submission['answer_id'];
+            $questionId = $submission['questionId'];
+            $answerId = $submission['answerId'];
             $question = Question::find($questionId);
 
             if (!$question) {
@@ -185,12 +188,18 @@ class QuizController extends Controller
             $totalScore += $toScore;
         }
 
-        return ApiResponseClass::sendResponse([
+        $results = [
+            'id' => $quizId ?? "dynamic",
             'score' => $score,
             'totalScore' => $totalScore,
             'percentage' => ($score / $totalScore) * 100,
             'correct' => $correct,
             'incorrect' => $incorrect,
-        ], 'Graded successfully');
+        ];
+
+        TelemetryClass::logTelemetry('quiz_graded', $results, 'mobile', $request->ip(), $user->id);
+        return ApiResponseClass::sendResponse($results, 'Graded successfully');
     }
+
+
 }

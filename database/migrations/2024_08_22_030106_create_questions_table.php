@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('question');
             $table->integer('score')->default(1);
             $table->text('tags')->nullable();
+            $table->foreignId('course_id')->constrained('courses');
+            $table->integer('certificate_level')->default(1);
             $table->timestamps();
         });
     }

@@ -16,4 +16,8 @@ class Quiz extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function questions() {
+        return $this->hasManyThrough(Question::class, QuizQuestion::class, 'quiz_id', 'id', 'id', 'question_id');
+    }
 }

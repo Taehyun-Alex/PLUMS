@@ -23,6 +23,7 @@ class SubmitQuizForResultsRequest extends FormRequest
     {
         return [
             'answers' => 'required|array',
+            'id' => 'sometimes|integer|exists:quizzes,id',
         ];
     }
 }
