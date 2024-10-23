@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
@@ -16,6 +18,18 @@ class QuestionController extends Controller
         }
 
         return view('questions.index', compact('questions'));
+    }
+
+    public function show($id)
+    {
+        Log::info('Fetching questions for quiz ID: ' . $id);
+        $question = Question::with('answers')->findOrFail($id);
+
+        if ($question) {
+            return response()->json($question);
+        } else {
+            return response()->json(['error' => 'Quiz not found'], 404);
+        }
     }
 
     public function store(Request $request)
