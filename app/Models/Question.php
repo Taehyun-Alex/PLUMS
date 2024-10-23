@@ -12,7 +12,9 @@ class Question extends Model
     protected $fillable = [
         'question',
         'score',
-        'tags'
+        'tags',
+        'course_id',
+        'certificate_level'
     ];
 
     public function section()

@@ -7,6 +7,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MobileApiController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TelemetryController;
 use Illuminate\Http\Request;
@@ -27,7 +28,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/mobile/profile', [MobileApiController::class, 'updateUser'])->name('mobile.updateUser');
         Route::post('/mobile/profile/photo', [MobileApiController::class, 'updatePhoto'])->name('mobile.updatePhoto');
 
-        Route::post('/mobile/quizzes/submit', [QuizController::class, 'submitQuiz'])->name('mobile.quizzesSubmit');
+        Route::prefix('/mobile/quizzes')->name('mobile.quizzes.')->group(function () {
+            Route::post('/submit', [QuizQuestionController::class, 'submitQuiz'])->name('submit');
+            Route::get('/{quiz}', [QuizQuestionController::class, 'fetchQuizInfo'])->name('quiz');
+        });
 
         Route::prefix('/mobile/courses')->name('mobile.courses.')->group(function () {
             Route::get('/', [CourseController::class, 'index'])->name('index');

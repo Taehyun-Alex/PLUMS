@@ -15,22 +15,23 @@ class QuestionsTableSeeder extends Seeder
     {
         // Cyber Security Questions
         $cyberSecurityQuestions = [
-            ['What is the primary purpose of a firewall?', 1],
-            ['What does the acronym VPN stand for?', 1],
-            ['Which of the following is a type of malware that restricts access to the computer system it infects and demands a ransom paid to the creator of the malware?', 1],
-            ['What is a common use for multi-factor authentication (MFA)?', 1],
-            ['Which security protocol is used for secure communications over the Internet?', 1],
-            ['What is the difference between symmetric and asymmetric encryption?', 1],
-            ['What type of cyber attack is characterized by overwhelming a system with a flood of Internet traffic?', 1],
-            ['In which of the following scenarios would a replay attack occur?', 1],
-            ['What is a zero-day vulnerability?', 1],
-            ['Which of the following tools is commonly used for penetration testing to detect vulnerabilities?', 1],
+            ['What is the primary purpose of a firewall?', 1, 1],
+            ['What does the acronym VPN stand for?', 1, 1],
+            ['Which of the following is a type of malware that restricts access to the computer system it infects and demands a ransom paid to the creator of the malware?', 1, 1],
+            ['What is a common use for multi-factor authentication (MFA)?', 1, 1],
+            ['Which security protocol is used for secure communications over the Internet?', 1, 2],
+            ['What is the difference between symmetric and asymmetric encryption?', 1, 2],
+            ['What type of cyber attack is characterized by overwhelming a system with a flood of Internet traffic?', 1, 2],
+            ['In which of the following scenarios would a replay attack occur?', 1, 3],
+            ['What is a zero-day vulnerability?', 1, 3],
+            ['Which of the following tools is commonly used for penetration testing to detect vulnerabilities?', 1, 3],
         ];
 
         foreach ($cyberSecurityQuestions as $question) {
             Question::create([
                 'question' => $question[0],
                 'course_id' => $question[1],
+                'certificate_level' => $question[2],
             ]);
         }
 
