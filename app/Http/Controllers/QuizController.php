@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ApiResponseClass;
+use App\Classes\TelemetryClass;
+use App\Http\Requests\SubmitQuizForResultsRequest;
 use App\Models\Course;
+use App\Models\Question;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 
@@ -33,6 +37,7 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
+        // ???
         // Create a new Quiz instance
         $quiz = new Quiz();
 
@@ -129,6 +134,4 @@ class QuizController extends Controller
         Quiz::onlyTrashed()->forceDelete();
         return redirect()->route('quizzes.trash')->with('success', 'All quizzes permanently deleted.');
     }
-
-
 }

@@ -28,7 +28,7 @@
                 <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">ID</th>
                 <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Title</th>
                 <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Course</th>
-                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Level</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Questions</th>
                 <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Actions</th>
             </tr>
             </thead>
@@ -37,8 +37,8 @@
                 <tr class="w-full">
                     <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->id }}</td>
                     <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->title }}</td>
-                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->course->name ?? 'N/A' }}</td>
-                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->level }}</td>
+                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $quiz->course->title ?? 'N/A' }}</td>
+                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ count($quiz->questions) ?? '0' }}</td>
                     <td class="py-2 px-4 text-center border-b border-gray-200">
                         <div class="flex justify-center space-x-2">
                             <form action="{{ route('quizzes.edit', $quiz->id) }}" method="GET">
