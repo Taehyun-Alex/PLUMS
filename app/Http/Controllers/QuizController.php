@@ -37,7 +37,6 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        // ???
         // Create a new Quiz instance
         $quiz = new Quiz();
 
