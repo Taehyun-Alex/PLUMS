@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             CoursesTableSeeder::class,
             CertificatesTableSeeder::class,
             SectionsTableSeeder::class,
-            QuestionsTableSeeder::class,
+//            QuestionsTableSeeder::class,
             AnswersTableSeeder::class,
             QuizQuestionSeeder::class,
         ]);
