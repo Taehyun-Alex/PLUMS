@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('course_id'); // Foreign key to courses table
-            $table->string('level');
+            $table->foreignId('course_id')->constrained('courses')->nullOnDelete();
+            $table->integer('time_limit')->default(0);
             $table->timestamps();
             $table->softDeletes();
             // Foreign key constraint
 //            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
-
-
     }
 
     /**

@@ -15,28 +15,21 @@ class QuizSeeder extends Seeder
     {
         $quizzes = [
             [
-                'title' => 'Basic PHP Quiz',
-                'course_id' => 1, // Assuming the course ID exists
-                'level' => 'Beginner',
+                'title' => 'Basic Cybersecurity Quiz',
+                'course_id' => 1,
+                'time_limit' => 60,
             ],
-            [
-                'title' => 'Advanced Laravel Quiz',
-                'course_id' => 2, // Assuming the course ID exists
-                'level' => 'Advanced',
-            ],
-            [
-                'title' => 'JavaScript Fundamentals',
-                'course_id' => 3, // Assuming the course ID exists
-                'level' => 'Intermediate',
-            ],
+//            [
+//                'title' => 'Advanced Laravel Quiz',
+//                'course_id' => 2,
+//            ],
+//            [
+//                'title' => 'JavaScript Fundamentals',
+//                'course_id' => 3,
+//            ],
         ];
-        // Sort courses by title in alphabetical order
-        usort($quizzes, function ($a, $b) {
-            return strcmp($a['title'], $b['title']);
-        });
 
-        // Insert sorted courses into the database
+
         DB::table('quizzes')->insert($quizzes);
-
     }
 }
