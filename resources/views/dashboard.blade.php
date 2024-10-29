@@ -47,7 +47,7 @@
             <div class="bg-white shadow-md rounded-lg p-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <a href="{{ route('results') }}" class="text-lg font-bold text-gray-800">Results</a>
+                        <a href="{{ route('results.index') }}" class="text-lg font-bold text-gray-800">Results</a>
                         <p class="text-gray-600">Total: 200</p>
                     </div>
                     <svg class="w-8 h-8 text-purple-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
