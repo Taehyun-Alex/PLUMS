@@ -15,4 +15,16 @@ class QuizResultAnswer extends Model
         'answer_id',
         'time_taken'
     ];
+
+    public function quizResult() {
+        return $this->belongsTo(QuizResult::class);
+    }
+
+    public function question() {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function answer() {
+        return $this->belongsTo(Answer::class);
+    }
 }

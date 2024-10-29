@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('quiz_id')->nullable()->constrained('quizzes')->onDelete('cascade');
+            $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('cascade');
+            $table->text('tags')->nullable();
             $table->integer('score');
             $table->integer('total_score');
             $table->integer('recommendation')->nullable();
