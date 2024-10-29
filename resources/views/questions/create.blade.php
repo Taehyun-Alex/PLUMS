@@ -26,7 +26,18 @@
         </div>
 
         <div class="mb-2">
-            <label for="name" class="block text-sm font-medium text-gray-700">Score</label>
+            <label for="course_id" class="block text-sm font-medium text-gray-700">Course Id</label>
+            <input
+                type="number"
+                name="course_id"
+                id="course_id"
+                placeholder="Enter Associated Course Id"
+                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+            >
+        </div>
+
+        <div class="mb-2">
+            <label for="score" class="block text-sm font-medium text-gray-700">Score</label>
             <input
                 type="number"
                 name="score"

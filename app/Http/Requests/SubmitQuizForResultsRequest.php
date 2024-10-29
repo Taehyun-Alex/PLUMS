@@ -24,6 +24,8 @@ class SubmitQuizForResultsRequest extends FormRequest
         return [
             'answers' => 'required|array',
             'id' => 'sometimes|integer|exists:quizzes,id',
+            'courseId' => 'sometimes|integer|exists:courses,id',
+            'tags' => 'sometimes|string',
         ];
     }
 }
