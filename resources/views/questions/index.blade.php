@@ -22,7 +22,7 @@
 {{--            </a>--}}
         </section>
 
-        <!-- Courses Table -->
+        <!-- Questions Table -->
         <table class="min-w-full bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-300">
             <thead class="bg-purple-500 text-white">
             <tr class="w-full">

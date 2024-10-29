@@ -16,9 +16,12 @@ use Illuminate\Http\Request;
 
 class QuizQuestionController extends Controller
 {
-    private function submitResults(User $user, int $score, int $totalScore, int $quizId, $submitted) {
+    private function submitResults(User $user, int $score, int $totalScore, int | null $quizId, int | null $courseId, string | null $tags, $submitted) {
         $quizResult = QuizResult::create([
             'user_id' => $user->id,
+            'quiz_id' => $quizId,
+            'course_id' => $courseId,
+            'tags' => $tags,
             'score' => $score,
             'total_score' => $totalScore,
             'recommendation' => null
@@ -212,7 +215,7 @@ class QuizQuestionController extends Controller
             'incorrect' => $incorrect,
         ];
 
-        $this->submitResults($user, $score, $totalScore, $quizId, $submitted);
+        $this->submitResults($user, $score, $totalScore, $quizId, null, null, $submitted);
         // TelemetryClass::logTelemetry('quiz_graded', $results, 'mobile', $request->ip(), $user->id);
         return ApiResponseClass::sendResponse($results, 'Graded successfully');
     }
@@ -222,6 +225,8 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
         $validated = $request->validated();
         $submitted = $validated['answers'];
+        $courseId = $validated['courseId'] ?? null;
+        $tags = $validated['tags'] ?? null;
 
         if (!$submitted || !is_array($submitted)) {
             return ApiResponseClass::sendResponse([], 'Failed to grade', false, 400);
@@ -293,9 +298,11 @@ class QuizQuestionController extends Controller
         $finalResults = [
             'id' => "dynamic",
             'results' => $results,
+            'score' => $score,
+            'totalScore' => $totalScore,
         ];
 
-        $this->submitResults($user, $score, $totalScore, null, $submitted);
+        $this->submitResults($user, $score, $totalScore, null, $courseId, $tags, $submitted);
         // TelemetryClass::logTelemetry('dynamic_quiz_graded', $finalResults, 'mobile', $request->ip(), $user->id);
         return ApiResponseClass::sendResponse($finalResults, 'Graded dynamic quiz successfully');
     }

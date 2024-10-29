@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizResultsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,19 +19,12 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/results', function () {
-        return view('results.index');
-    })->name('results');
-
     Route::get('/settings', function () {
         return view('settings.settings');
     })->name('settings');
 
-    Route::get('/quizzes/trash', [QuizController::class, 'trash'])->name('quizzes.trash');
-    Route::patch('/quizzes/restore/{quiz}', [QuizController::class, 'restore'])->name('quizzes.trash-restore');
-    Route::delete('/quizzes/remove/{quiz}', [QuizController::class, 'remove'])->name('quizzes.trash-remove');
-    Route::post('/quizzes/restoreAll', [QuizController::class, 'restoreAll'])->name('quizzes.trash-restore-all');
-    Route::delete('/quizzes/empty', [QuizController::class, 'empty'])->name('quizzes.trash-empty');
+    Route::get('/results', [QuizResultsController::class, 'index'])->name('results.index');
+    Route::get('/results/{result}', [QuizResultsController::class, 'show'])->name('results.show');
 
     Route::get('/quizzes/', [QuizController::class, 'index'])->name('quizzes.index');
     Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
@@ -41,11 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/quizzes/{quiz}/delete', [QuizController::class, 'delete'])->name('quizzes.delete');
     Route::delete('/quizzes/{quiz}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
 
-    Route::get('/courses/trash', [CourseController::class, 'trash'])->name('courses.trash');
-    Route::patch('/courses/{course}/restore', [CourseController::class, 'restore'])->name('courses.restore');
-    Route::delete('/courses/{course}/forceDelete', [CourseController::class, 'forceDelete'])->name('courses.forceDelete');
-    Route::post('/courses/restoreAll', [CourseController::class, 'restoreAll'])->name('courses.trash-restore-all');
-    Route::delete('/courses/empty', [CourseController::class, 'empty'])->name('courses.trash-empty');
+    Route::get('/quizzes/trash', [QuizController::class, 'trash'])->name('quizzes.trash');
+    Route::patch('/quizzes/restore/{quiz}', [QuizController::class, 'restore'])->name('quizzes.trash-restore');
+    Route::delete('/quizzes/remove/{quiz}', [QuizController::class, 'remove'])->name('quizzes.trash-remove');
+    Route::post('/quizzes/restoreAll', [QuizController::class, 'restoreAll'])->name('quizzes.trash-restore-all');
+    Route::delete('/quizzes/empty', [QuizController::class, 'empty'])->name('quizzes.trash-empty');
 
     Route::get('/courses/', [CourseController::class, 'index'])->name('courses.index');
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
@@ -55,6 +49,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
     Route::get('/courses/{course}/delete', [CourseController::class, 'delete'])->name('courses.delete');
     Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+    Route::get('/courses/trash', [CourseController::class, 'trash'])->name('courses.trash');
+    Route::patch('/courses/{course}/restore', [CourseController::class, 'restore'])->name('courses.restore');
+    Route::delete('/courses/{course}/forceDelete', [CourseController::class, 'forceDelete'])->name('courses.forceDelete');
+    Route::post('/courses/restoreAll', [CourseController::class, 'restoreAll'])->name('courses.trash-restore-all');
+    Route::delete('/courses/empty', [CourseController::class, 'empty'])->name('courses.trash-empty');
 
     Route::get('/questions/index', [QuestionController::class, 'index'])->name('questions.index');
     Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
