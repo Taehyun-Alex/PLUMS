@@ -6,6 +6,7 @@ use App\Classes\ApiResponseClass;
 use App\Classes\TelemetryClass;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubmitQuizForResultsRequest;
+use App\Models\Course;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizResult;
@@ -55,12 +56,70 @@ class QuizQuestionController extends Controller
         return ApiResponseClass::sendResponse($toReturn, "Fetched quiz information");
     }
 
+    public function fetchAllQuizzes() {
+        $quizzes = Quiz::all();
+        $courses = Course::all();
+
+        $toReturn = [
+            'static' => $quizzes->map(function ($quiz) {
+                return [
+                    'id' => $quiz->id,
+                    'title' => $quiz->title,
+                    'description' => $quiz->description,
+                ];
+            })->toArray(),
+            'dynamic' => $courses->map(function ($course) {
+                return [
+                    'id' => $course->id,
+                    'title' => $course->title,
+                ];
+            })->toArray()
+        ];
+
+        return ApiResponseClass::sendResponse($toReturn, "Fetched quizzes");
+    }
+
     public function generateQuiz(Request $request) {
+        $courseId = $request->get('courseId');
+
+        if (!$courseId) {
+            if ($request->query('tags')) {
+                return $this->generateQuizViaTags($request);
+            } else {
+                return ApiResponseClass::sendResponse([], 'You must provide a course id or valid tags', false, 400);
+            }
+        }
+
+        $questions = collect();
+        $certificateLevels = Question::where('course_id', $courseId)->distinct()->pluck('certificate_level');
+
+        foreach ($certificateLevels as $level) {
+            $questionsForLevel = Question::where('course_id', $courseId)->where('certificate_level', $level)->inRandomOrder()->limit(5) ->get();
+            $questions = $questions->merge($questionsForLevel);
+        }
+
+        $toReturn = $questions->map(function ($question) {
+            return [
+                'id' => $question->id,
+                'question' => $question->question,
+                'answers' => $question->answers->map(function ($answer) {
+                    return [
+                        'id' => $answer->id,
+                        'answer' => $answer->answer,
+                    ];
+                })->toArray()
+            ];
+        });
+
+        return ApiResponseClass::sendResponse($toReturn, "Successfully generated quiz for courseId $courseId");
+    }
+
+    public function generateQuizViaTags(Request $request) {
         $tags = $request->query('tags');
         $tagsArr = is_string($tags) ? explode(',', $tags) : null;
 
         if (!$tagsArr) {
-            return ApiResponseClass::sendResponse($tagsArr, 'You must provide valid tags', false, 400);
+            return ApiResponseClass::sendResponse([], 'You must provide valid tags', false, 400);
         }
 
         $questions = collect();
@@ -84,7 +143,7 @@ class QuizQuestionController extends Controller
             ];
         });
 
-        return ApiResponseClass::sendResponse($toReturn, "Successfully generated quiz");
+        return ApiResponseClass::sendResponse($toReturn, "Successfully generated quiz for tags \"$tags\"");
     }
 
     public function submitQuiz(SubmitQuizForResultsRequest $request)
