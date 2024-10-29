@@ -32,6 +32,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/submit', [QuizQuestionController::class, 'submitQuiz'])->name('submit');
             Route::get('/generate', [QuizQuestionController::class, 'generateQuiz'])->name('generate');
             Route::get('/quiz/{quiz}', [QuizQuestionController::class, 'fetchQuizInfo'])->name('quiz');
+            Route::get('/', [QuizQuestionController::class, 'fetchAllQuizzes'])->name('index');
         });
 
         Route::prefix('/mobile/courses')->name('mobile.courses.')->group(function () {

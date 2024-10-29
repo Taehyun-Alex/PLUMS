@@ -28,6 +28,12 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    // as of right now, we don't have multiple choice questions, so this will do
+    public function correctAnswer()
+    {
+        return $this->hasOne(Answer::class)->where('correct', true);
+    }
+
     public function getTags()
     {
         return explode(',', $this->tags);
