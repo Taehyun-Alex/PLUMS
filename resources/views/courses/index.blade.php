@@ -31,7 +31,7 @@
                 <tr class="w-full">
                     <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Title</th>
                     <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Description</th>
-                    <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Quizzes Count</th>
+                    <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Questions</th>
                     <th class="py-2 px-4 text-center border-b border-gray-300 flex-1">Actions</th>
                 </tr>
                 </thead>
@@ -43,7 +43,7 @@
                         <td class="py-2 px-4 text-center border-b border-gray-200">
                             {{ $course['description'] ?? "This course has no description." }}
                         </td>
-                        <td class="py-2 px-4 text-center border-b border-gray-200">{{ $course['quizzes'] ?? 0 }}</td>
+                        <td class="py-2 px-4 text-center border-b border-gray-200">{{ count($course->questions) ?? 0 }}</td>
                         <td class="py-2 px-4 text-center border-b border-gray-200">
                             <div class="flex justify-center space-x-2">
                                 <form action="{{ route('courses.edit', $course->id) }}" method="GET">

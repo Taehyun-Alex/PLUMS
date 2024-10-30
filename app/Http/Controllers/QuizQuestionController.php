@@ -75,6 +75,7 @@ class QuizQuestionController extends Controller
                 return [
                     'id' => $course->id,
                     'title' => $course->title,
+                    'description' => "A quiz dynamically generated for $course->title"
                 ];
             })->toArray()
         ];
