@@ -68,7 +68,7 @@ class QuizQuestionController extends Controller
                 return [
                     'id' => $quiz->id,
                     'title' => $quiz->title,
-                    'description' => $quiz->description,
+                    'description' => $quiz->description ?? "No description provided",
                 ];
             })->toArray(),
             'dynamic' => $courses->map(function ($course) {
