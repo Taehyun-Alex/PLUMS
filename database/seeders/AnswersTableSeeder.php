@@ -304,7 +304,7 @@ class AnswersTableSeeder extends Seeder
             ]
         ];
 
-        $webDevQuestions = Question::where('tag', 'webdevelopment,programming')->get();
+        $webDevQuestions = Question::where('tags', 'webdevelopment,programming')->get();
         foreach ($webDevQuestions as $index => $question) {
             foreach ($webDevAnswers[$index] as $answer) {
                 Answer::create([

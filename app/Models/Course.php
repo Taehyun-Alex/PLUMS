@@ -15,8 +15,8 @@ class Course extends Model
         'description',
     ];
 
-    public function certificates()
+    public function questions()
     {
-        return $this->hasMany(Certificate::class);
+        return $this->hasMany(Question::class);
     }
 }
