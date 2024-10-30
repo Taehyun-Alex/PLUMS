@@ -54,7 +54,7 @@
             <tbody class="bg-white divide-y divide-gray-200">
             @foreach($users as $user)
                 <tr>
-                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ $user->name }}</td>
+                    <td class="py-2 px-4 text-center border-b border-gray-200">{{ ($user->first_name ?? 'Unknown') . ' ' . ($user->last_name ?? 'Unknown') }}</td>
                     <td class="py-2 px-4 text-center border-b border-gray-200">{{ $user->email }}</td>
                     <td class="py-2 px-4 text-center border-b border-gray-200">{{ $user->getRole() }}</td>
                     <td class="py-2 px-4 text-center border-b border-gray-200">
