@@ -37,54 +37,52 @@ class QuestionsTableSeeder extends Seeder
         }
 
         // Information Technology Questions
-//        $itQuestions = [
-//            ['What does the acronym IT stand for?', 'Easy', 2, 1, 4],
-//            ['What is the primary role of a database management system (DBMS)?', 'Easy', 2, 1, 4],
-//            ['Which of the following is a non-relational database?', 'Medium', 2, 2, 5],
-//            ['What is the function of an operating system?', 'Medium', 2, 2, 5],
-//            ['Which language is commonly used for developing dynamic web pages?', 'Medium', 2, 2 ,5],
-//            ['What is the main purpose of RAID (Redundant Array of Independent Disks)?', 'Hard', 2, 3, 6],
-//            ['What is the purpose of using a proxy server?', 'Hard', 2, 3, 6],
-//            ['Which of the following best describes "virtualization" in IT?', 'Hard', 2, 3, 6],
-//            ['What does the term "scalability" refer to in IT?', 'Hard', 2, 3, 6],
-//            ['What is the primary function of an IT helpdesk?', 'Hard', 2, 3, 6],
-//        ];
-//
-//        foreach ($itQuestions as $question) {
-//            Question::create([
-//                'question_text' => $question[0],
-//                'difficulty' => $question[1],
-//                'course_id' => $question[2],
-//                'certificate_id' => $question[3],
-//                'section_id' => $question[4],
-//            ]);
-//        }
-//
-//        // Programming Questions
-//        $programmingQuestions = [
-//            ['What does the term "syntax" refer to in programming?', 'Easy', 3, 1, 7],
-//            ['What is a loop in programming?', 'Easy', 3, 1, 7],
-//            ['What is the purpose of a compiler in programming?', 'Medium', 3, 2, 8],
-//            ['What does "inheritance" mean in object-oriented programming?', 'Medium', 3, 2, 8],
-//            ['In programming, what is an "array"?', 'Medium', 3, 2, 8],
-//            ['What is the difference between "call by value" and "call by reference"?', 'Hard', 3, 3, 9],
-//            ['What does the term "recursion" mean in programming?', 'Hard', 3, 3, 9],
-//            ['Which of the following languages is primarily used for web development?', 'Hard', 3, 3, 9],
-//            ['What is a "deadlock" in concurrent programming?', 'Hard', 3, 3, 9],
-//            ['What does the "this" keyword refer to in object-oriented programming?', 'Hard', 3, 3, 9],
-//        ];
-//
-//        foreach ($programmingQuestions as $question) {
-//            Question::create([
-//                'question_text' => $question[0],
-//                'difficulty' => $question[1],
-//                'course_id' => $question[2],
-//                'certificate_id' => $question[3],
-//                'section_id' => $question[4],
-//            ]);
-//        }
-//
-//        // Web Development Questions
+        $itQuestions = [
+            ['What does the acronym IT stand for?', 2, 1, 'information technology,programming'],
+            ['What is the primary role of a database management system (DBMS)?',  2, 1, 'information technology,programming'],
+            ['Which of the following is a non-relational database?', 2, 2, 'information technology,programming'],
+            ['What is the function of an operating system?', 2, 2, 'information technology,programming'],
+            ['Which language is commonly used for developing dynamic web pages?', 2, 2 ,'information technology,programming'],
+            ['What is the main purpose of RAID (Redundant Array of Independent Disks)?', 2, 3, 'information technology,programming'],
+            ['What is the purpose of using a proxy server?', 2, 3, 'information technology,programming'],
+            ['Which of the following best describes "virtualization" in IT?', 2, 3, 'information technology,programming'],
+            ['What does the term "scalability" refer to in IT?', 2, 3, 'information technology,programming'],
+            ['What is the primary function of an IT helpdesk?', 2, 3, 'information technology,programming'],
+        ];
+
+        foreach ($itQuestions as $question) {
+            Question::create([
+                'question' => $question[0],
+                'course_id' => $question[1],
+                'certificate_level' => $question[2],
+                'tags' => $question[3],
+            ]);
+        }
+
+        // Programming Questions
+        $programmingQuestions = [
+            ['What does the term "syntax" refer to in programming?', 3, 1, 'programming'],
+            ['What is a loop in programming?', 3, 1, 'programming'],
+            ['What is the purpose of a compiler in programming?', 3, 2, 'programming'],
+            ['What does "inheritance" mean in object-oriented programming?', 3, 2, 'programming'],
+            ['In programming, what is an "array"?', 3, 2, 'programming'],
+            ['What is the difference between "call by value" and "call by reference"?', 3, 3, 'programming'],
+            ['What does the term "recursion" mean in programming?', 3, 3, 'programming'],
+            ['Which of the following languages is primarily used for web development?', 3, 3, 'programming'],
+            ['What is a "deadlock" in concurrent programming?', 3, 3, 'programming'],
+            ['What does the "this" keyword refer to in object-oriented programming?', 3, 3, 'programming'],
+        ];
+
+        foreach ($programmingQuestions as $question) {
+            Question::create([
+                'question' => $question[0],
+                'course_id' => $question[1],
+                'certificate_level' => $question[2],
+                'tags' => $question[3],
+            ]);
+        }
+
+        // Web Development Questions
 //        $webDevQuestions = [
 //            ['What does HTML stand for?', 'Easy', 4, 1, 10],
 //            ['Which CSS property is used to change the text color of an element?', 'Easy', 4, 1, 10],

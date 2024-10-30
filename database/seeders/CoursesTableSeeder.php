@@ -15,8 +15,8 @@ class CoursesTableSeeder extends Seeder
     public function run(): void
     {
         Course::create(['title' => 'Cyber Security']);
-//        Course::create(['title' => 'Information Technology (General)']);
-//        Course::create(['title' => 'Programming']);
-//        Course::create(['title' => 'Web Development']);
+        Course::create(['title' => 'Information Technology']);
+        Course::create(['title' => 'Programming']);
+        Course::create(['title' => 'Web Development']);
     }
 }
