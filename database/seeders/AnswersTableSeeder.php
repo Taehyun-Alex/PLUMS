@@ -239,80 +239,80 @@ class AnswersTableSeeder extends Seeder
                 ]);
             }
         }
-//
-//        // Web Development Answers
-//        $webDevAnswers = [
-//            [
-//                ['HyperText Markup Language', 'true'],
-//                ['HighText Markup Language', 'false'],
-//                ['HyperText Managing Language', 'false'],
-//                ['HighText Managing Language', 'false']
-//            ],
-//            [
-//                ['Font-size', 'false'],
-//                ['Text-color', 'false'],
-//                ['Color', 'true'],
-//                ['Text-style', 'false']
-//            ],
-//            [
-//                ['Creative', 'false'],
-//                ['Cascading', 'true'],
-//                ['Custom', 'false'],
-//                ['Coding', 'false']
-//            ],
-//            [
-//                ['To style web pages', 'false'],
-//                ['To structure web content', 'false'],
-//                ['To add interactivity and dynamic content to web pages', 'true'],
-//                ['To manage databases', 'false']
-//            ],
-//            [
-//                ['<img>', 'false'],
-//                ['<link>', 'false'],
-//                ['<a>', 'true'],
-//                ['<div>', 'false']
-//            ],
-//            [
-//                ['To declare the version of HTML being used', 'true'],
-//                ['To link CSS files', 'false'],
-//                ['To add JavaScript', 'false'],
-//                ['To include images', 'false']
-//            ],
-//            [
-//                ['Bootstrap', 'false'],
-//                ['React.js', 'true'],
-//                ['WordPress', 'false'],
-//                ['HTML5', 'false']
-//            ],
-//            [
-//                ['A design that looks good on all devices', 'true'],
-//                ['A design that only works on desktops', 'false'],
-//                ['A design that is only used for mobile devices', 'false'],
-//                ['A design that does not use CSS', 'false']
-//            ],
-//            [
-//                ['HTML is used for web pages; XML is used for data transport', 'true'],
-//                ['HTML is a database language; XML is not', 'false'],
-//                ['HTML is for styling; XML is for scripting', 'false'],
-//                ['There is no difference', 'false']
-//            ],
-//            [
-//                ['Sets the transparency level', 'false'],
-//                ['Sets the font size', 'false'],
-//                ['Controls the stacking order of elements', 'true'],
-//                ['Changes the text color', 'false']
-//            ]
-//        ];
-//
-//        $webDevQuestions = Question::where('course_id', 4)->get();
-//        foreach ($webDevQuestions as $index => $question) {
-//            foreach ($webDevAnswers[$index] as $answer) {
-//                Answer::create([
-//                    'question_id' => $question->id,
-//                    'answer_text' => $answer[0],
-//                    'is_correct' => $answer[1] === 'true'
-//                ]);
-//            }
-//        }
+
+        // Web Development Answers
+        $webDevAnswers = [
+            [
+                ['HyperText Markup Language', 'true'],
+                ['HighText Markup Language', 'false'],
+                ['HyperText Managing Language', 'false'],
+                ['HighText Managing Language', 'false']
+            ],
+            [
+                ['Font-size', 'false'],
+                ['Text-color', 'false'],
+                ['Color', 'true'],
+                ['Text-style', 'false']
+            ],
+            [
+                ['Creative', 'false'],
+                ['Cascading', 'true'],
+                ['Custom', 'false'],
+                ['Coding', 'false']
+            ],
+            [
+                ['To style web pages', 'false'],
+                ['To structure web content', 'false'],
+                ['To add interactivity and dynamic content to web pages', 'true'],
+                ['To manage databases', 'false']
+            ],
+            [
+                ['<img>', 'false'],
+                ['<link>', 'false'],
+                ['<a>', 'true'],
+                ['<div>', 'false']
+            ],
+            [
+                ['To declare the version of HTML being used', 'true'],
+                ['To link CSS files', 'false'],
+                ['To add JavaScript', 'false'],
+                ['To include images', 'false']
+            ],
+            [
+                ['Bootstrap', 'false'],
+                ['React.js', 'true'],
+                ['WordPress', 'false'],
+                ['HTML5', 'false']
+            ],
+            [
+                ['A design that looks good on all devices', 'true'],
+                ['A design that only works on desktops', 'false'],
+                ['A design that is only used for mobile devices', 'false'],
+                ['A design that does not use CSS', 'false']
+            ],
+            [
+                ['HTML is used for web pages; XML is used for data transport', 'true'],
+                ['HTML is a database language; XML is not', 'false'],
+                ['HTML is for styling; XML is for scripting', 'false'],
+                ['There is no difference', 'false']
+            ],
+            [
+                ['Sets the transparency level', 'false'],
+                ['Sets the font size', 'false'],
+                ['Controls the stacking order of elements', 'true'],
+                ['Changes the text color', 'false']
+            ]
+        ];
+
+        $webDevQuestions = Question::where('tag', 'webdevelopment,programming')->get();
+        foreach ($webDevQuestions as $index => $question) {
+            foreach ($webDevAnswers[$index] as $answer) {
+                Answer::create([
+                    'question_id' => $question->id,
+                    'answer' => $answer[0],
+                    'correct' => $answer[1] === 'true'
+                ]);
+            }
+        }
     }
 }
