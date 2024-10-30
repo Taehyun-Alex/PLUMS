@@ -82,28 +82,27 @@ class QuestionsTableSeeder extends Seeder
             ]);
         }
 
-        // Web Development Questions
-//        $webDevQuestions = [
-//            ['What does HTML stand for?', 'Easy', 4, 1, 10],
-//            ['Which CSS property is used to change the text color of an element?', 'Easy', 4, 1, 10],
-//            ['What does the "C" in CSS stand for?', 'Medium', 4, 2, 11],
-//            ['What is the primary function of JavaScript in web development?', 'Medium', 4, 2, 11],
-//            ['Which tag is used to create a hyperlink in HTML?', 'Medium', 4, 2, 11],
-//            ['What is the purpose of the DOCTYPE declaration in HTML?', 'Hard', 4, 3, 12],
-//            ['Which of the following is a JavaScript framework commonly used for building web applications?', 'Hard', 4, 3, 12],
-//            ['What does the term "responsive design" refer to in web development?', 'Hard', 4, 3, 12],
-//            ['What is the main difference between HTML and XML?', 'Hard', 4, 3, 12],
-//            ['In CSS, what does the z-index property do?', 'Hard', 4, 3, 12],
-//        ];
-//
-//        foreach ($webDevQuestions as $question) {
-//            Question::create([
-//                'question_text' => $question[0],
-//                'difficulty' => $question[1],
-//                'course_id' => $question[2],
-//                'certificate_id' => $question[3],
-//                'section_id' => $question[4],
-//            ]);
-//        }
+         // Web Development Questions
+        $webDevQuestions = [
+            ['What does HTML stand for?',  4, 1, 'webdevelopment,programming'],
+            ['Which CSS property is used to change the text color of an element?',  4, 1, 'webdevelopment,programming'],
+            ['What does the "C" in CSS stand for?',  4, 2, 'webdevelopment,programming'],
+            ['What is the primary function of JavaScript in web development?',  4, 2, 'webdevelopment,programming'],
+            ['Which tag is used to create a hyperlink in HTML?',  4, 2, 'webdevelopment,programming'],
+            ['What is the purpose of the DOCTYPE declaration in HTML?',  4, 3, 'webdevelopment,programming'],
+            ['Which of the following is a JavaScript framework commonly used for building web applications?',  4, 3, 'webdevelopment,programming'],
+            ['What does the term "responsive design" refer to in web development?',  4, 3, 'webdevelopment,programming'],
+            ['What is the main difference between HTML and XML?',  4, 3, 'webdevelopment,programming'],
+            ['In CSS, what does the z-index property do?',  4, 3, 'webdevelopment,programming'],
+        ];
+
+        foreach ($webDevQuestions as $question) {
+            Question::create([
+                'question' => $question[0],
+                'course_id' => $question[1],
+                'certificate_level' => $question[2],
+                'tags' => $question[3],
+            ]);
+        }
     }
 }
