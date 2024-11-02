@@ -14,7 +14,7 @@
                 required>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-2">
             <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
             <input
                 type="text"
@@ -34,6 +34,21 @@
                 placeholder="Enter Associated Course Id"
                 class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
             >
+        </div>
+
+        <div class="mb-2">
+            <label for="certificate_level" class="block text-sm font-medium text-gray-700">Certificate Level</label>
+            <select
+                name="certificate_level"
+                id="certificate_level"
+                class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+            >
+                <option value="1">Certificate I</option>
+                <option value="2">Certificate II</option>
+                <option value="3">Certificate III</option>
+                <option value="4">Certificate IV</option>
+                <option value="5">Diploma</option>
+            </select>
         </div>
 
         <div class="mb-2">

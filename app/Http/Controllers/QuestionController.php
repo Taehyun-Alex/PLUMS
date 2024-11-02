@@ -35,6 +35,11 @@ class QuestionController extends Controller
     public function store(StoreQuestionRequest $request)
     {
         $validated = $request->validated();
+
+        if ($validated['score'] < $validated['certificate_level']) {
+            $validated['score'] = $validated['certificate_level'];
+        }
+
         Question::create($validated);
         return redirect()->route('questions.index');
     }
