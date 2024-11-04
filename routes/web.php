@@ -7,6 +7,12 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizResultsController;
 use App\Http\Controllers\UserController;
+use App\Models\Answer;
+use App\Models\Course;
+use App\Models\Question;
+use App\Models\Quiz;
+use App\Models\QuizResult;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web']], function () {
@@ -16,7 +22,14 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $userCount = User::count();
+        $quizCount = Quiz::count();
+        $courseCount = Course::count();
+        $questionCount = Question::count();
+        $answerCount = Answer::count();
+        $resultCount = QuizResult::count();
+        $recentResults = QuizResult::latest()->take(5)->get();
+        return view('dashboard', compact('userCount', 'quizCount', 'questionCount', 'answerCount', 'courseCount', 'resultCount', 'recentResults'));
     })->name('dashboard');
 
     Route::get('/settings', function () {
