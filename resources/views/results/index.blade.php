@@ -16,6 +16,7 @@
                 <th class="py-2 px-4 text-center border-b border-gray-300">Quiz</th>
                 <th class="py-2 px-4 text-center border-b border-gray-300">Course</th>
                 <th class="py-2 px-4 text-center border-b border-gray-300">Score</th>
+                <th class="py-2 px-4 text-center border-b border-gray-300">Recommendation</th>
                 <th class="py-2 px-4 text-center border-b border-gray-300">Actions</th>
             </tr>
             </thead>
@@ -27,6 +28,7 @@
                     <td class="py-2 px-4 border-b border-gray-200">{{ $quizResult->quiz->title ?? 'Dynamic' }}</td>
                     <td class="py-2 px-4 border-b border-gray-200">{{ $quizResult->quiz ? $quizResult->quiz->course->title: $quizResult->course->title ?? 'Static' }}</td>
                     <td class="py-2 px-4 border-b border-gray-200">{{ round(($quizResult->score / $quizResult->total_score) * 100, 2) }}%</td>
+                    <td class="py-2 px-4 border-b border-gray-200">{{ $quizResult->recommended_cert->cert_name ?? "None" }}</td>
                     <td class="py-2 px-4 border-b border-gray-200">
                         <form action="{{ route('results.show', $quizResult->id) }}" method="GET">
                             @csrf
@@ -39,7 +41,7 @@
 
             <tfoot>
             <tr>
-                <td colspan="5" class="py-2 px-4 bg-gray-100 border-t border-gray-300 text-center">
+                <td colspan="6" class="py-2 px-4 bg-gray-100 border-t border-gray-300 text-center">
                     @if($results->hasPages())
                         {{ $results->links() }}
                     @else

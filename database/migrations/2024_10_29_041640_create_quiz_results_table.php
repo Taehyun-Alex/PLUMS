@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('tags')->nullable();
             $table->integer('score');
             $table->integer('total_score');
-            $table->integer('recommendation')->nullable();
+            $table->foreignId('recommendation_id')->nullable()->constrained('certificates')->onDelete('cascade');
             $table->timestamps();
         });
     }

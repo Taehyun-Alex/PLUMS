@@ -27,7 +27,7 @@ class QuizResultsController extends Controller
     }
 
     public function show($id) {
-        $results = QuizResult::with(['user', 'quiz', 'course', 'answers'])->findOrFail($id);
-        return view('results.show', compact('results'));
+        $result = QuizResult::with(['user', 'quiz', 'course', 'answers'])->findOrFail($id);
+        return view('results.show', compact('result'));
     }
 }

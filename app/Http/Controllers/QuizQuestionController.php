@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 class QuizQuestionController extends Controller
 {
-    private function submitResults(User $user, int $score, int $totalScore, int | null $quizId, int | null $courseId, string | null $tags, $submitted) {
+    private function submitResults(User $user, int $score, int $totalScore, int | null $quizId, int | null $courseId, string | null $tags, $submitted, int | null $recommendation) {
         $quizResult = QuizResult::create([
             'user_id' => $user->id,
             'quiz_id' => $quizId,
@@ -24,7 +24,7 @@ class QuizQuestionController extends Controller
             'tags' => $tags,
             'score' => $score,
             'total_score' => $totalScore,
-            'recommendation' => null
+            'recommendation_id' => $recommendation
         ]);
 
         foreach ($submitted as $submission) {
@@ -216,7 +216,7 @@ class QuizQuestionController extends Controller
             'incorrect' => $incorrect,
         ];
 
-        $this->submitResults($user, $score, $totalScore, $quizId, null, null, $submitted);
+        $this->submitResults($user, $score, $totalScore, $quizId, null, null, $submitted, null);
         // TelemetryClass::logTelemetry('quiz_graded', $results, 'mobile', $request->ip(), $user->id);
         return ApiResponseClass::sendResponse($results, 'Graded successfully');
     }
@@ -240,17 +240,21 @@ class QuizQuestionController extends Controller
             $answerId = $submission['answerId'];
             $question = Question::find($questionId);
 
+
             if (!$question) {
                 continue;
             }
 
-            $certificateLevel = $question->certificate_level;
+            $certificate = $question->certificate;
+            $certificateId = $certificate->id;
             $toScore = $question->score;
             $answers = $question->answers;
             $submittedAnswer = $answers->firstWhere('id', $answerId);
 
-            if (!isset($results[$certificateLevel])) {
-                $results[$certificateLevel] = [
+            if (!isset($results[$certificateId])) {
+                $results[$certificateId] = [
+                    'certName' => $certificate->cert_name,
+                    'threshold' => $certificate->threshold,
                     'score' => 0,
                     'totalScore' => 0,
                     'correct' => [],
@@ -262,10 +266,10 @@ class QuizQuestionController extends Controller
             $isCorrect = $submittedAnswer && $submittedAnswer->correct;
 
             if ($isCorrect) {
-                $results[$certificateLevel]['score'] += $toScore;
-                $results[$certificateLevel]['correct'][] = $questionId;
+                $results[$certificateId]['score'] += $toScore;
+                $results[$certificateId]['correct'][] = $questionId;
             } else {
-                $results[$certificateLevel]['incorrect'][] = [
+                $results[$certificateId]['incorrect'][] = [
                     'question' => [
                         'id' => $question->id,
                         'text' => $question->question,
@@ -281,11 +285,13 @@ class QuizQuestionController extends Controller
                 ];
             }
 
-            $results[$certificateLevel]['totalScore'] += $toScore;
+            $results[$certificateId]['totalScore'] += $toScore;
         }
 
         $score = 0;
         $totalScore = 0;
+        $highestCertName = "None";
+        $highestCertLevel = 0;
 
         foreach ($results as $level => $data) {
             $score += $data['score'];
@@ -294,6 +300,13 @@ class QuizQuestionController extends Controller
             $results[$level]['percentage'] = ($data['totalScore'] > 0)
                 ? ($data['score'] / $data['totalScore']) * 100
                 : 0;
+
+            if ($results[$level]['percentage'] >= $results[$level]['threshold']) {
+                if ($highestCertLevel < $level) {
+                    $highestCertName = $results[$level]['certName'];
+                    $highestCertLevel = $level;
+                }
+            }
         }
 
         $finalResults = [
@@ -302,9 +315,13 @@ class QuizQuestionController extends Controller
             'score' => $score,
             'totalScore' => $totalScore,
             'percentage' => $score / $totalScore * 100,
+            'recommendation' => [
+                'id' => $highestCertLevel,
+                'certName' => $highestCertName,
+            ]
         ];
 
-        $this->submitResults($user, $score, $totalScore, null, $courseId, $tags, $submitted);
+        $this->submitResults($user, $score, $totalScore, null, $courseId, $tags, $submitted, $highestCertLevel == 0 ? null : $highestCertLevel);
         // TelemetryClass::logTelemetry('dynamic_quiz_graded', $finalResults, 'mobile', $request->ip(), $user->id);
         return ApiResponseClass::sendResponse($finalResults, 'Graded dynamic quiz successfully');
     }
