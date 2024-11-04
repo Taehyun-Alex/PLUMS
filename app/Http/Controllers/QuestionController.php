@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
+use App\Models\Certificate;
+use App\Models\Course;
 use App\Models\Question;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -18,12 +20,16 @@ class QuestionController extends Controller
 
     public function create()
     {
-        return view('questions.create');
+        $courses = Course::all();
+        $certificates = Certificate::all();
+        return view('questions.create', compact('courses', 'certificates'));
     }
 
     public function edit(Question $question)
     {
-        return view('questions.edit', compact('question'));
+        $courses = Course::all();
+        $certificates = Certificate::all();
+        return view('questions.edit', compact('question', 'courses', 'certificates'));
     }
 
     public function show($id)
@@ -35,11 +41,6 @@ class QuestionController extends Controller
     public function store(StoreQuestionRequest $request)
     {
         $validated = $request->validated();
-
-        if ($validated['score'] < $validated['certificate_level']) {
-            $validated['score'] = $validated['certificate_level'];
-        }
-
         Question::create($validated);
         return redirect()->route('questions.index');
     }

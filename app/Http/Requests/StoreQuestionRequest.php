@@ -26,7 +26,7 @@ class StoreQuestionRequest extends FormRequest
             'tags' => 'sometimes|nullable|string|max:255',
             'score' => 'required|numeric|min:0|max:10',
             'course_id' => 'sometimes|nullable|integer|exists:courses,id',
-            'certificate_level' => 'required|integer|between:1,5',
+            'certificate_id' => 'required|integer|exists:certificates,id',
         ];
     }
 }

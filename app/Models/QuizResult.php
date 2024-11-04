@@ -16,7 +16,7 @@ class QuizResult extends Model
         'tags',
         'score',
         'total_score',
-        'recommendation'
+        'recommendation_id'
     ];
 
     public function user() {
@@ -31,7 +31,11 @@ class QuizResult extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function answers(){
+    public function answers() {
         return $this->hasMany(QuizResultAnswer::class);
+    }
+
+    public function recommended_cert() {
+        return $this->belongsTo(Certificate::class, 'recommendation_id');
     }
 }

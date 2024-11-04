@@ -26,28 +26,29 @@
         </div>
 
         <div class="mb-2">
-            <label for="course_id" class="block text-sm font-medium text-gray-700">Course Id</label>
-            <input
-                type="number"
+            <label for="course_id" class="block text-sm font-medium text-gray-700">Course</label>
+            <select
                 name="course_id"
                 id="course_id"
-                placeholder="Enter Associated Course Id"
-                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
             >
+                <option value="">None</option>
+                @foreach($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->title }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="mb-2">
-            <label for="certificate_level" class="block text-sm font-medium text-gray-700">Certificate Level</label>
+            <label for="certificate_id" class="block text-sm font-medium text-gray-700">Certificate Level</label>
             <select
-                name="certificate_level"
-                id="certificate_level"
+                name="certificate_id"
+                id="certificate_id"
                 class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
             >
-                <option value="1">Certificate I</option>
-                <option value="2">Certificate II</option>
-                <option value="3">Certificate III</option>
-                <option value="4">Certificate IV</option>
-                <option value="5">Diploma</option>
+                @foreach($certificates as $certificate)
+                    <option value="{{ $certificate->id }}">{{ $certificate->cert_name }}</option>
+                @endforeach
             </select>
         </div>
 

@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             CoursesTableSeeder::class,
             QuizSeeder::class,
             CertificatesTableSeeder::class,
-            SectionsTableSeeder::class,
             QuestionsTableSeeder::class,
             QuizQuestionSeeder::class,
             AnswersTableSeeder::class,

@@ -15,17 +15,17 @@ class Question extends Model
         'score',
         'tags',
         'course_id',
-        'certificate_level'
+        'certificate_id'
     ];
-
-    public function section()
-    {
-        return $this->belongsTo(Section::class);
-    }
 
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function certificate()
+    {
+        return $this->belongsTo(Certificate::class);
     }
 
     // as of right now, we don't have multiple choice questions, so this will do
