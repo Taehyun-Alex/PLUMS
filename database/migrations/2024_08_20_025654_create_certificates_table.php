@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->string('level');
+            $table->string('cert_name');
+            $table->integer('threshold')->default(0);
             $table->timestamps();
         });
     }

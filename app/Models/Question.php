@@ -15,7 +15,7 @@ class Question extends Model
         'score',
         'tags',
         'course_id',
-        'certificate_level'
+        'certificate_id'
     ];
 
     public function section()

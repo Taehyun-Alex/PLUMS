@@ -13,12 +13,8 @@ class CertificatesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $courses = \App\Models\Course::all();
-
-        foreach ($courses as $course) {
-            Certificate::create(['course_id' => $course->id, 'level' => 'Certificate III']);
-            Certificate::create(['course_id' => $course->id, 'level' => 'Certificate IV']);
-            Certificate::create(['course_id' => $course->id, 'level' => 'Diploma']);
-        }
+        Certificate::create(['cert_name' => 'Certificate III', 'threshold' => 50]);
+        Certificate::create(['cert_name' => 'Certificate IV', 'threshold' => 60]);
+        Certificate::create(['cert_name' => 'Diploma', 'threshold' => 70]);
     }
 }

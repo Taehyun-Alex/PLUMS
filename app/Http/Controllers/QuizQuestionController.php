@@ -301,6 +301,7 @@ class QuizQuestionController extends Controller
             'results' => $results,
             'score' => $score,
             'totalScore' => $totalScore,
+            'percentage' => $score / $totalScore * 100,
         ];
 
         $this->submitResults($user, $score, $totalScore, null, $courseId, $tags, $submitted);

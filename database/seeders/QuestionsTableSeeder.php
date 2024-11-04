@@ -31,7 +31,8 @@ class QuestionsTableSeeder extends Seeder
             Question::create([
                 'question' => $question[0],
                 'course_id' => $question[1],
-                'certificate_level' => $question[2],
+                'certificate_id' => $question[2],
+                'score' => $question[2],
                 'tags' => $question[3],
             ]);
         }
@@ -54,7 +55,8 @@ class QuestionsTableSeeder extends Seeder
             Question::create([
                 'question' => $question[0],
                 'course_id' => $question[1],
-                'certificate_level' => $question[2],
+                'certificate_id' => $question[2],
+                'score' => $question[2],
                 'tags' => $question[3],
             ]);
         }
@@ -77,7 +79,8 @@ class QuestionsTableSeeder extends Seeder
             Question::create([
                 'question' => $question[0],
                 'course_id' => $question[1],
-                'certificate_level' => $question[2],
+                'certificate_id' => $question[2],
+                'score' => $question[2],
                 'tags' => $question[3],
             ]);
         }
@@ -100,7 +103,8 @@ class QuestionsTableSeeder extends Seeder
             Question::create([
                 'question' => $question[0],
                 'course_id' => $question[1],
-                'certificate_level' => $question[2],
+                'certificate_id' => $question[2],
+                'score' => $question[2],
                 'tags' => $question[3],
             ]);
         }

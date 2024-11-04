@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('score')->default(1);
             $table->text('tags')->nullable();
             $table->foreignId('course_id')->nullable()->constrained('courses');
-            $table->integer('certificate_level')->default(1);
+            $table->foreignId('certificate_id')->default(1)->constrained('certificates');
             $table->timestamps();
         });
     }

@@ -31,29 +31,28 @@
             </div>
 
             <div class="mb-2">
-                <label for="course_id" class="block text-sm font-medium text-gray-700">Course Id</label>
-                <input
-                    type="number"
+                <label for="course_id" class="block text-sm font-medium text-gray-700">Course</label>
+                <select
                     name="course_id"
                     id="course_id"
-                    value="{{ old('tags', $question->course_id) }}"
-                    placeholder="Enter Associated Course Id"
-                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
-                >
-            </div>
-
-            <div class="mb-2">
-                <label for="certificate_level" class="block text-sm font-medium text-gray-700">Certificate Level</label>
-                <select
-                    name="certificate_level"
-                    id="certificate_level"
                     class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
                 >
-                    <option value="1" {{ $question->certificate_level == 1 ? 'selected' : '' }}>Certificate I</option>
-                    <option value="2" {{ $question->certificate_level == 2 ? 'selected' : '' }}>Certificate II</option>
-                    <option value="3" {{ $question->certificate_level == 3 ? 'selected' : '' }}>Certificate III</option>
-                    <option value="4" {{ $question->certificate_level == 4 ? 'selected' : '' }}>Certificate IV</option>
-                    <option value="5" {{ $question->certificate_level == 5 ? 'selected' : '' }}>Diploma</option>
+                    <option value="">None</option>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->id }}" {{ $question->course_id == $course->id? 'selected' : '' }}>{{ $course->title }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-2">
+                <label for="certificate_id" class="block text-sm font-medium text-gray-700">Certificate Level</label>
+                <select
+                    name="certificate_id"
+                    id="certificate_id"
+                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                >
+                    @foreach($certificates as $certificate)
+                        <option value="{{ $certificate->id }}" {{ $question->certificate_id == $certificate->id? 'selected' : '' }}>{{ $certificate->cert_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
