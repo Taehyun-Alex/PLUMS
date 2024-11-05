@@ -95,10 +95,10 @@ class QuizQuestionController extends Controller
         }
 
         $questions = collect();
-        $certificateLevels = Question::where('course_id', $courseId)->distinct()->pluck('certificate_level');
+        $certificateLevels = Question::where('course_id', $courseId)->distinct()->pluck('certificate_id');
 
         foreach ($certificateLevels as $level) {
-            $questionsForLevel = Question::where('course_id', $courseId)->where('certificate_level', $level)->inRandomOrder()->limit(5) ->get();
+            $questionsForLevel = Question::where('course_id', $courseId)->where('certificate_id', $level)->inRandomOrder()->limit(5) ->get();
             $questions = $questions->merge($questionsForLevel);
         }
 
@@ -127,10 +127,10 @@ class QuizQuestionController extends Controller
         }
 
         $questions = collect();
-        $certificateLevels = Question::whereHasTag($tagsArr)->distinct()->pluck('certificate_level');
+        $certificateLevels = Question::whereHasTag($tagsArr)->distinct()->pluck('certificate_id');
 
         foreach ($certificateLevels as $level) {
-            $questionsForLevel = Question::whereHasTag($tagsArr)->where('certificate_level', $level)->inRandomOrder()->limit(5)->get();
+            $questionsForLevel = Question::whereHasTag($tagsArr)->where('certificate_id', $level)->inRandomOrder()->limit(5)->get();
             $questions = $questions->merge($questionsForLevel);
         }
 
