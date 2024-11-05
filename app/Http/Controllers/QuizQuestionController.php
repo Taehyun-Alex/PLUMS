@@ -155,7 +155,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
         $validated = $request->validated();
         $submitted = $validated['answers'];
-        $quizId = $validated['id'] ?? null;
+        $quizId = $validated['quizId'] ?? null;
 
         if (!$quizId) {
             return $this->submitDynamicQuiz($request);
@@ -234,12 +234,13 @@ class QuizQuestionController extends Controller
         }
 
         $results = [];
+        $lowestCertId = 100;
+        $lowestCert = null;
 
         foreach ($submitted as $submission) {
             $questionId = $submission['questionId'];
             $answerId = $submission['answerId'];
             $question = Question::find($questionId);
-
 
             if (!$question) {
                 continue;
@@ -247,6 +248,12 @@ class QuizQuestionController extends Controller
 
             $certificate = $question->certificate;
             $certificateId = $certificate->id;
+
+            if ($lowestCertId > $certificateId) {
+                $lowestCertId = $certificateId;
+                $lowestCert = $certificate;
+            }
+
             $toScore = $question->score;
             $answers = $question->answers;
             $submittedAnswer = $answers->firstWhere('id', $answerId);
@@ -290,8 +297,8 @@ class QuizQuestionController extends Controller
 
         $score = 0;
         $totalScore = 0;
-        $highestCertName = "None";
-        $highestCertLevel = 0;
+        $highestCertName = $lowestCert->cert_name;
+        $highestCertLevel = $lowestCert->id;
 
         foreach ($results as $level => $data) {
             $score += $data['score'];
@@ -321,7 +328,7 @@ class QuizQuestionController extends Controller
             ]
         ];
 
-        $this->submitResults($user, $score, $totalScore, null, $courseId, $tags, $submitted, $highestCertLevel == 0 ? null : $highestCertLevel);
+        $this->submitResults($user, $score, $totalScore, null, $courseId, $tags, $submitted, $highestCertLevel);
         // TelemetryClass::logTelemetry('dynamic_quiz_graded', $finalResults, 'mobile', $request->ip(), $user->id);
         return ApiResponseClass::sendResponse($finalResults, 'Graded dynamic quiz successfully');
     }
