@@ -42,19 +42,19 @@ class QuestionController extends Controller
     {
         $validated = $request->validated();
         Question::create($validated);
-        return view('questions.index');
+        return redirect(route('questions.index'));
     }
 
     public function update(StoreQuestionRequest $request, Question $question)
     {
         $validated = $request->validated();
         $question->update($validated);
-        return view('questions.index');
+        return redirect(route('questions.index'));
     }
 
     public function destroy(Request $request, Question $question)
     {
         $question->delete();
-        return view('questions.index')->with('success', 'Question deleted successfully.');
+        return redirect(route('questions.index'))->with('success', 'Question deleted successfully.');
     }
 }

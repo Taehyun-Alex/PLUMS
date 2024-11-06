@@ -54,7 +54,6 @@ class CourseController extends Controller
     public function trash()
     {
         $trashedCourses = Course::onlyTrashed()->get();
-
         return view('courses.trash', compact('trashedCourses'));
     }
 
@@ -62,14 +61,14 @@ class CourseController extends Controller
     {
         $course = Course::onlyTrashed()->findOrFail($id);
         $course->restore();
-        return view('courses.trash')->with('success', 'Course restored successfully.');
+        return redirect(route('courses.trash'))->with('success', 'Course restored successfully.');
     }
 
     public function forceDelete($id)
     {
         $course = Course::onlyTrashed()->findOrFail($id);
         $course->forceDelete();
-        return view('courses.trash')->with('success', 'Course deleted permanently.');
+        return redirect(route('courses.trash'))->with('success', 'Course deleted permanently.');
     }
 
 }

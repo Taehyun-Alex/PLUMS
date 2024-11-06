@@ -18,19 +18,19 @@ class CertificateController extends Controller
     {
         $validated = $request->validated();
         Certificate::create($validated);
-        return view('certificates.index');
+        return redirect(route('certificates.index'));
     }
 
     public function update(Request $request, Certificate $certificate)
     {
         $validated = $request->validated();
         $certificate->update($validated);
-        return view('certificates.index');
+        return redirect(route('certificates.index'));
     }
 
     public function destroy(Request $request, Certificate $certificate)
     {
         $certificate->delete();
-        return view('certificates.index')->with('success', 'Certificate deleted successfully.');
+        return redirect(route('certificates.index'))->with('success', 'Certificate deleted successfully.');
     }
 }
