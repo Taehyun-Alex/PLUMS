@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\ApiResponseClass;
 use App\Classes\TelemetryClass;
+use App\Http\Requests\StoreQuizRequest;
 use App\Http\Requests\SubmitQuizForResultsRequest;
 use App\Models\Course;
 use App\Models\Question;
@@ -18,9 +19,7 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::all();
-
         $trashedCount = Quiz::onlyTrashed()->count();
-
         return view('quizzes.index', compact('quizzes', 'trashedCount'));
     }
 
@@ -29,27 +28,18 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return view('quizzes.create');
+        $courses = Course::all();
+        return view('quizzes.create', compact('courses'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreQuizRequest $request)
     {
-        // Create a new Quiz instance
-        $quiz = new Quiz();
-
-        // Assign values from the request to the quiz object
-        $quiz->title = $request->title;
-        $quiz->course_id = $request->course_id;
-        $quiz->level = $request->level;
-
-        // Save the quiz to the database
-        $quiz->save();
-
-        // Redirect to the quizzes index page with a success message
-        return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully');
+        $validated = $request->validated();
+        Quiz::create($validated);
+        return redirect(route('quizzes.index'))->with('success', 'Quiz created successfully');
     }
 
     /**
@@ -67,31 +57,25 @@ class QuizController extends Controller
     {
         $quiz = Quiz::findOrFail($id);
         $courses = Course::all();
-        return view('quizzes.edit', [
-            'quiz' => $quiz, 'courses' => $courses,
-            ]);
+        $questions = Question::all();
+        return view('quizzes.edit', compact('quiz', 'courses', 'questions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Quiz $quiz)
+    public function update(StoreQuizRequest $request, Quiz $quiz)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'course_id' => 'required|exists:courses,id',
-            'level' => 'required|string|max:255',
-        ]);
-
-        $quiz->update($validatedData);
-
-        return redirect()->route('quizzes.index')->with('success', 'Quiz updated successfully.');
+        $validated = $request->validated();
+        $quiz->update($validated);
+        return redirect(route('quizzes.index'))->with('success', 'Quiz updated successfully.');
     }
     public function delete($id)
     {
         $quiz = Quiz::findOrFail($id);
         return view('quizzes.delete', compact('quiz'));
     }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -99,8 +83,7 @@ class QuizController extends Controller
     {
         $quiz = Quiz::findOrFail($id);
         $quiz->delete();
-
-        return redirect()->route('quizzes.index')->with('success', 'Quiz moved to trash successfully.');
+        return redirect(route('quizzes.index'))->with('success', 'Quiz moved to trash successfully.');
     }
     public function trash()
     {
@@ -112,25 +95,25 @@ class QuizController extends Controller
     {
         $quiz = Quiz::onlyTrashed()->findOrFail($id);
         $quiz->restore();
-        return redirect()->route('quizzes.trash')->with('success', 'Quiz restored successfully.');
+        return redirect(route('quizzes.index'))->with('success', 'Quiz restored successfully.');
     }
 
     public function remove($id)
     {
         $quiz = Quiz::onlyTrashed()->findOrFail($id);
         $quiz->forceDelete();
-        return redirect()->route('quizzes.trash')->with('success', 'Quiz permanently deleted.');
+        return redirect(route('quizzes.index'))->with('success', 'Quiz permanently deleted.');
     }
 
     public function restoreAll()
     {
         Quiz::onlyTrashed()->restore();
-        return redirect()->route('quizzes.trash')->with('success', 'All quizzes restored successfully.');
+        return redirect(route('quizzes.index'))->with('success', 'All quizzes restored successfully.');
     }
 
     public function empty()
     {
         Quiz::onlyTrashed()->forceDelete();
-        return redirect()->route('quizzes.trash')->with('success', 'All quizzes permanently deleted.');
+        return redirect(route('quizzes.index'))->with('success', 'All quizzes permanently deleted.');
     }
 }

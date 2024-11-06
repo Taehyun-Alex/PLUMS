@@ -10,11 +10,20 @@ class Quiz extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title', 'course_id', 'level'];
+    protected $fillable = [
+        'title',
+        'description',
+        'course_id',
+        'time_limit'
+    ];
 
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function quizQuestions() {
+        return $this->hasMany(QuizQuestion::class);
     }
 
     public function questions() {

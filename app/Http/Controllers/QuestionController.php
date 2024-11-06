@@ -35,26 +35,26 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = Question::with('answers')->findOrFail($id);
-        return response()->json($question);
+        return view($question);
     }
 
     public function store(StoreQuestionRequest $request)
     {
         $validated = $request->validated();
         Question::create($validated);
-        return redirect()->route('questions.index');
+        return view('questions.index');
     }
 
     public function update(StoreQuestionRequest $request, Question $question)
     {
         $validated = $request->validated();
         $question->update($validated);
-        return redirect()->route('questions.index');
+        return view('questions.index');
     }
 
     public function destroy(Request $request, Question $question)
     {
         $question->delete();
-        return redirect()->route('questions.index')->with('success', 'Question deleted successfully.');
+        return view('questions.index')->with('success', 'Question deleted successfully.');
     }
 }

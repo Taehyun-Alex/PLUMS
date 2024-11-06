@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('description')->nullable();
             $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('set null');
-            $table->integer('time_limit')->default(0);
+            $table->integer('time_limit')->default(30);
             $table->timestamps();
             $table->softDeletes();
             // Foreign key constraint

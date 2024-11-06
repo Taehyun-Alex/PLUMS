@@ -9,15 +9,8 @@ class Certificate extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['level', 'course_id'];
-
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
-
-    public function sections()
-    {
-        return $this->hasMany(Section::class);
-    }
+    protected $fillable = [
+        'cert_name',
+        'threshold'
+    ];
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\QuizResultsController;
 use App\Http\Controllers\UserController;
 use App\Models\Answer;
@@ -53,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/quizzes/remove/{quiz}', [QuizController::class, 'remove'])->name('quizzes.trash-remove');
     Route::post('/quizzes/restoreAll', [QuizController::class, 'restoreAll'])->name('quizzes.trash-restore-all');
     Route::delete('/quizzes/empty', [QuizController::class, 'empty'])->name('quizzes.trash-empty');
+
+    Route::post('/quiz-questions', [QuizQuestionController::class, 'store'])->name('quiz-questions.store');
+    Route::delete('/quiz-questions/{id}', [QuizQuestionController::class, 'destroy'])->name('quiz-questions.delete');
 
     Route::get('/courses/', [CourseController::class, 'index'])->name('courses.index');
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');

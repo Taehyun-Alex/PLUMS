@@ -25,7 +25,7 @@ class CourseController extends Controller
     {
         $validated = $request->validated();
         Course::create($validated);
-        return redirect()->route('courses.index');
+        return view('courses.index');
     }
 
     public function edit(Course $course)
@@ -48,8 +48,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
-
-        return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
+        return view('courses.index')->with('success', 'Course deleted successfully.');
     }
 
     public function trash()
@@ -63,16 +62,14 @@ class CourseController extends Controller
     {
         $course = Course::onlyTrashed()->findOrFail($id);
         $course->restore();
-
-        return redirect()->route('courses.trash')->with('success', 'Course restored successfully.');
+        return view('courses.trash')->with('success', 'Course restored successfully.');
     }
 
     public function forceDelete($id)
     {
         $course = Course::onlyTrashed()->findOrFail($id);
         $course->forceDelete();
-
-        return redirect()->route('courses.trash')->with('success', 'Course deleted permanently.');
+        return view('courses.trash')->with('success', 'Course deleted permanently.');
     }
 
 }

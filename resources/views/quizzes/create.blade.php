@@ -1,55 +1,47 @@
 <x-layout>
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 bg-white border-b border-gray-200">
-                <h1 class="text-3xl font-bold text-center text-purple-800 mb-6">Create New Quiz</h1>
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">Create New Quiz</h2>
+    <form action="{{ route('quizzes.store') }}" method="POST">
+        @csrf
 
-                <!-- Quiz Creation Form -->
-                <form action="{{ route('quizzes.store') }}" method="POST">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="title" class="block text-sm font-medium text-gray-700">Quiz Title</label>
-                        <input type="text" name="title" id="title" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="course_id" class="block text-sm font-medium text-gray-700">Course</label>
-                        <select name="course_id" id="course_id" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" required>
-                            <!-- Options -->
-                            <option value="1">Front-End-Development</option>
-                            <option value="2">Back-End-Development</option>
-                            <option value="3">Web Development</option>
-                            <option value="4">Cyber Security</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="level" class="block text-sm font-medium text-gray-700">Level</label>
-                        <select name="level" id="level" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" required>
-                            <!-- Options -->
-                            <option value="Beginner">Certificate III</option>
-                            <option value="Intermediate">Certificate IV</option>
-                            <option value="Advanced">Diploma</option>
-                        </select>
-                    </div>
-
-                    <div class="flex justify-end space-x-4">
-
-                        <!-- Create Quiz Button -->
-                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">
-                            Create Quiz
-                        </button>
-
-
-                        <!-- Cancel Button -->
-                        <a href="{{ route('quizzes.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-md transition duration-300">
-                            Cancel
-                        </a>
-
-
-                    </div>
-                </form>
-            </div>
+        <div class="mb-2">
+            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+            <input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Enter Title Text"
+                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                required>
         </div>
-    </div>
+
+        <div class="mb-2">
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <input
+                type="text"
+                name="description"
+                id="description"
+                placeholder="Enter Description Text"
+                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                required>
+        </div>
+
+        <div class="mb-2">
+            <label for="course_id" class="block text-sm font-medium text-gray-700">Course</label>
+            <select
+                name="course_id"
+                id="course_id"
+                class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+            >
+                <option value="">None</option>
+                @foreach($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->title }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="flex flex-row items-center justify-center gap-2">
+            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Create Quiz</button>
+            <a href="{{ route('quizzes.index') }}" class="block bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">Cancel</a>
+        </div>
+    </form>
 </x-layout>
