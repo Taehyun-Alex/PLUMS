@@ -314,5 +314,81 @@ class AnswersTableSeeder extends Seeder
                 ]);
             }
         }
+
+        // Networking Answers
+        $networkingAnswers = [
+            [
+                ['To identify devices on a network and facilitate communication', 'true'],
+                ['To secure network devices from threats', 'false'],
+                ['To allocate storage space in the network', 'false'],
+                ['To increase network speed', 'false']
+            ],
+            [
+                ['Domain Name System, translates domain names to IP addresses', 'true'],
+                ['Data Network Service, provides data encryption', 'false'],
+                ['Digital Name System, manages usernames', 'false'],
+                ['Dynamic Network Setup, assigns network protocols', 'false']
+            ],
+            [
+                ['Switch', 'false'],
+                ['Router', 'true'],
+                ['Firewall', 'false'],
+                ['Hub', 'false']
+            ],
+            [
+                ['To define physical network connections', 'false'],
+                ['To provide a framework for understanding network protocols and interactions', 'true'],
+                ['To encrypt data', 'false'],
+                ['To configure network devices', 'false']
+            ],
+            [
+                ['Application Layer', 'false'],
+                ['Transport Layer', 'false'],
+                ['Network Layer', 'true'],
+                ['Data Link Layer', 'false']
+            ],
+            [
+                ['TCP is connectionless, UDP is connection-oriented', 'false'],
+                ['TCP provides reliable data transfer, UDP does not', 'true'],
+                ['TCP operates only in the LAN, UDP only in the WAN', 'false'],
+                ['TCP is faster than UDP', 'false']
+            ],
+            [
+                ['DNS', 'false'],
+                ['DHCP', 'true'],
+                ['FTP', 'false'],
+                ['SMTP', 'false']
+            ],
+            [
+                ['To reduce data packet sizes for faster transmission', 'false'],
+                ['To divide a large network into smaller, manageable segments', 'true'],
+                ['To compress network traffic', 'false'],
+                ['To create secure connections across networks', 'false']
+            ],
+            [
+                ['A temporary IP address', 'false'],
+                ['A unique hardware address for each network interface', 'true'],
+                ['A virtual private network address', 'false'],
+                ['A username for network login', 'false']
+            ],
+            [
+                ['ping', 'true'],
+                ['tracert', 'false'],
+                ['netstat', 'false'],
+                ['ipconfig', 'false']
+            ]
+        ];
+
+        $networkingQuestions = Question::where('tags', 'networking,programming')->get();
+        foreach ($networkingQuestions as $index => $question) {
+            foreach ($networkingAnswers[$index] as $answer) {
+                Answer::create([
+                    'question_id' => $question->id,
+                    'answer' => $answer[0],
+                    'correct' => $answer[1] === 'true'
+                ]);
+            }
+        }
+
     }
 }
