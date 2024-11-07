@@ -54,6 +54,17 @@
                 </tr>
             @endforeach
             </tbody>
+            <tfoot>
+            <tr class="w-full">
+                <td colspan="5" class="py-2 px-4 bg-gray-100 border-t border-gray-300 text-center">
+                    @if($quizzes->hasPages())
+                        {{ $quizzes->links() }}
+                    @else
+                        <small>No pages.</small>
+                    @endif
+                </td>
+            </tr>
+            </tfoot>
         </table>
     </div>
 </x-layout>
