@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Classes\ApiResponseClass;
 use App\Classes\TelemetryClass;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuizQuestionRequest;
 use App\Http\Requests\SubmitQuizForResultsRequest;
 use App\Models\Course;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\QuizQuestion;
 use App\Models\QuizResult;
 use App\Models\QuizResultAnswer;
 use App\Models\User;
@@ -16,6 +18,22 @@ use Illuminate\Http\Request;
 
 class QuizQuestionController extends Controller
 {
+    public function store(StoreQuizQuestionRequest $request) {
+        $validated = $request->validated();
+        QuizQuestion::create($validated);
+        $quiz = Quiz::find($validated['quiz_id']);
+        return redirect()->route('quizzes.edit', $quiz);
+    }
+
+    public function destroy(int $quizQuestionId) {
+        // Laravel was being weird and wouldn't do this normally - not sure why, but this workaround works
+        $quizQuestion = QuizQuestion::find($quizQuestionId);
+        $quizId = $quizQuestion->quiz_id;
+        $quizQuestion->delete();
+        $quiz = Quiz::find($quizId);
+        return redirect()->route('quizzes.edit', $quiz);
+    }
+
     private function submitResults(User $user, int $score, int $totalScore, int | null $quizId, int | null $courseId, string | null $tags, $submitted, int | null $recommendation) {
         $quizResult = QuizResult::create([
             'user_id' => $user->id,

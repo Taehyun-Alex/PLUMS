@@ -13,8 +13,8 @@ class CertificatesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Certificate::create(['cert_name' => 'Certificate III', 'threshold' => 50]);
-        Certificate::create(['cert_name' => 'Certificate IV', 'threshold' => 60]);
-        Certificate::create(['cert_name' => 'Diploma', 'threshold' => 70]);
+        Certificate::create(['cert_name' => 'Certificate III', 'threshold' => 50, 'level' => 3]);
+        Certificate::create(['cert_name' => 'Certificate IV', 'threshold' => 60, 'level' => 4]);
+        Certificate::create(['cert_name' => 'Diploma', 'threshold' => 70, 'level' => 5]);
     }
 }

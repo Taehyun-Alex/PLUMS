@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\QuizResultsController;
 use App\Http\Controllers\UserController;
 use App\Models\Answer;
@@ -39,6 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/results', [QuizResultsController::class, 'index'])->name('results.index');
     Route::get('/results/{result}', [QuizResultsController::class, 'show'])->name('results.show');
 
+    Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
+    Route::post('/certificates', [CertificateController::class, 'store'])->name('certificates.store');
+    Route::get('/certificates/create', [CertificateController::class, 'create'])->name('certificates.create');
+    Route::get('/certificates/{certificate}/edit', [CertificateController::class, 'edit'])->name('certificates.edit');
+    Route::get('/certificates/{certificate}/delete', [CertificateController::class, 'delete'])->name('certificates.delete');
+    Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
+
     Route::get('/quizzes/', [QuizController::class, 'index'])->name('quizzes.index');
     Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
     Route::post('/quizzes/create', [QuizController::class, 'store'])->name('quizzes.store');
@@ -53,6 +62,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/quizzes/remove/{quiz}', [QuizController::class, 'remove'])->name('quizzes.trash-remove');
     Route::post('/quizzes/restoreAll', [QuizController::class, 'restoreAll'])->name('quizzes.trash-restore-all');
     Route::delete('/quizzes/empty', [QuizController::class, 'empty'])->name('quizzes.trash-empty');
+
+    Route::post('/quiz-questions', [QuizQuestionController::class, 'store'])->name('quiz-questions.store');
+    Route::delete('/quiz-questions/{id}', [QuizQuestionController::class, 'destroy'])->name('quiz-questions.delete');
 
     Route::get('/courses/', [CourseController::class, 'index'])->name('courses.index');
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
