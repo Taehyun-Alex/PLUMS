@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
@@ -39,6 +40,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/results', [QuizResultsController::class, 'index'])->name('results.index');
     Route::get('/results/{result}', [QuizResultsController::class, 'show'])->name('results.show');
+
+    Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
+    Route::post('/certificates', [CertificateController::class, 'store'])->name('certificates.store');
+    Route::get('/certificates/create', [CertificateController::class, 'create'])->name('certificates.create');
+    Route::get('/certificates/{certificate}/edit', [CertificateController::class, 'edit'])->name('certificates.edit');
+    Route::get('/certificates/{certificate}/delete', [CertificateController::class, 'delete'])->name('certificates.delete');
+    Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
 
     Route::get('/quizzes/', [QuizController::class, 'index'])->name('quizzes.index');
     Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');

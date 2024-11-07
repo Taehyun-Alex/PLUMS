@@ -10,8 +10,12 @@ class CertificateController extends Controller
 {
     public function index(Request $request)
     {
-        $certificates = Certificate::all()->paginate(10);
+        $certificates = Certificate::query()->paginate(10);
         return view('certificates.index', compact('certificates'));
+    }
+
+    public function create() {
+        return view('certificates.create');
     }
 
     public function store(StoreCertificateRequest $request)
@@ -21,11 +25,18 @@ class CertificateController extends Controller
         return redirect(route('certificates.index'));
     }
 
+    public function edit(Certificate $certificate) {
+        return view('certificates.edit', compact('certificate'));
+    }
     public function update(Request $request, Certificate $certificate)
     {
         $validated = $request->validated();
         $certificate->update($validated);
         return redirect(route('certificates.index'));
+    }
+
+    public function delete(Certificate $certificate) {
+        return view('certificates.delete', compact('certificate'));
     }
 
     public function destroy(Request $request, Certificate $certificate)

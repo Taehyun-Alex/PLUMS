@@ -11,6 +11,7 @@ class Certificate extends Model
 
     protected $fillable = [
         'cert_name',
-        'threshold'
+        'threshold',
+        'level'
     ];
 }

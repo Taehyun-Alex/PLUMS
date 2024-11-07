@@ -24,6 +24,7 @@ class StoreCertificateRequest extends FormRequest
         return [
             'cert_name' => 'required|string|max:255',
             'threshold' => 'required|integer|min:0|max:100',
+            'level' => 'required|integer|unique:certificates,level'
         ];
     }
 }

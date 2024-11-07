@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('cert_name');
             $table->integer('threshold')->default(0);
+            $table->integer('level')->unique();
             $table->timestamps();
         });
     }
