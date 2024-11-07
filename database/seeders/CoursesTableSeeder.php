@@ -18,5 +18,6 @@ class CoursesTableSeeder extends Seeder
         Course::create(['title' => 'Information Technology']);
         Course::create(['title' => 'Programming']);
         Course::create(['title' => 'Web Development']);
+        Course::create(['title' => 'Networking']);
     }
 }

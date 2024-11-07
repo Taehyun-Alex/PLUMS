@@ -108,5 +108,29 @@ class QuestionsTableSeeder extends Seeder
                 'tags' => $question[3],
             ]);
         }
+
+        // Networking Questions
+        $networkingQuestions = [
+            ['What is the primary purpose of an IP address?', 5, 1, 'networking,programming'],
+            ['What does the acronym DNS stand for, and what is its function?', 5, 1, 'networking,programming'],
+            ['Which device is commonly used to connect different networks and route data between them?', 5, 1, 'networking,programming'],
+            ['What is the role of the OSI model in networking?', 5, 1, 'networking,programming'],
+            ['In which OSI layer does the IP protocol operate?', 5, 2, 'networking,programming'],
+            ['What is the primary difference between TCP and UDP?', 5, 2, 'networking,programming'],
+            ['Which network protocol is used to automatically assign IP addresses to devices on a network?', 5, 2, 'networking,programming'],
+            ['What is a subnet, and why is subnetting used in networking?', 5, 3, 'networking,programming'],
+            ['What is a MAC address, and how does it differ from an IP address?', 5, 3, 'networking,programming'],
+            ['Which command is used to test the connectivity between two network devices?', 5, 3, 'networking,programming'],
+        ];
+
+        foreach ( $networkingQuestions as $question) {
+            Question::create([
+                'question' => $question[0],
+                'course_id' => $question[1],
+                'certificate_id' => $question[2],
+                'score' => $question[2],
+                'tags' => $question[3],
+            ]);
+        }
     }
 }
