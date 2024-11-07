@@ -18,7 +18,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::all();
+        $quizzes = Quiz::query()->paginate(10);
         $trashedCount = Quiz::onlyTrashed()->count();
         return view('quizzes.index', compact('quizzes', 'trashedCount'));
     }
