@@ -46,15 +46,17 @@
             </div>
 
             <div class="mb-2">
-                <label for="name" class="block text-sm font-medium text-gray-700">Score</label>
-                <input
-                    type="text"
+                <label for="score" class="block text-sm font-medium text-gray-700">Score</label>
+                <select
                     name="score"
                     id="score"
-                    value="{{ old('name', $question->score) }}"
-                    placeholder="Enter Question Text"
-                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
-                    required>
+                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                    required
+                >
+                    @for ($i = $question->certificate->level; $i <= $question->certificate->level + 4; $i++)
+                        <option value="{{ $i }}" {{ $i == $question->score ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
 
             <div class="flex items-center justify-center gap-2">
