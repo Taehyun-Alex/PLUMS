@@ -18,15 +18,7 @@ class QuizSeeder extends Seeder
                 'title' => 'Basic Cybersecurity Quiz',
                 'course_id' => 1,
                 'time_limit' => 60,
-            ],
-//            [
-//                'title' => 'Advanced Laravel Quiz',
-//                'course_id' => 2,
-//            ],
-//            [
-//                'title' => 'JavaScript Fundamentals',
-//                'course_id' => 3,
-//            ],
+            ]
         ];
 
 

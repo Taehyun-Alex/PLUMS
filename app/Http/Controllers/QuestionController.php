@@ -6,6 +6,7 @@ use App\Http\Requests\StoreQuestionRequest;
 use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\Question;
+use App\Models\Tag;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,16 +21,19 @@ class QuestionController extends Controller
 
     public function create()
     {
+        $allTags = Tag::all();
         $courses = Course::all();
         $certificates = Certificate::all();
-        return view('questions.create', compact('courses', 'certificates'));
+        return view('questions.create', compact('allTags', 'courses', 'certificates'));
     }
 
     public function edit(Question $question)
     {
+        $allTags = Tag::all();
+        $questionTags = $question->tags()->get();
         $courses = Course::all();
         $certificates = Certificate::all();
-        return view('questions.edit', compact('question', 'courses', 'certificates'));
+        return view('questions.edit', compact('question', 'allTags', 'questionTags', 'courses', 'certificates'));
     }
 
     public function show($id)

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->string('gender')->default('Undisclosed');
             $table->string('photo')->nullable();
+            $table->string('student_id')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
