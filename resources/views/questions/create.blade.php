@@ -15,17 +15,6 @@
         </div>
 
         <div class="mb-2">
-            <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-            <input
-                type="text"
-                name="tags"
-                id="tags"
-                placeholder="Enter Question Tags as CSV (a,b,c)"
-                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
-                required>
-        </div>
-
-        <div class="mb-2">
             <label for="course_id" class="block text-sm font-medium text-gray-700">Course</label>
             <select
                 name="course_id"

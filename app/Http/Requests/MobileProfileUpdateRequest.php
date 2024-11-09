@@ -27,7 +27,8 @@ class MobileProfileUpdateRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'phone_number' => 'nullable|string|max:20',
             'birth_date' => 'nullable|date',
-            'gender' => 'nullable|in:Male,Female,Undisclosed'
+            'gender' => 'nullable|in:Male,Female,Undisclosed',
+            'student_id' => 'sometimes|nullable|string|max:255|unique:users,student_id'
         ];
     }
 }

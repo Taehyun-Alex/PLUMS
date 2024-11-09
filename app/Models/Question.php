@@ -13,7 +13,6 @@ class Question extends Model
     protected $fillable = [
         'question',
         'score',
-        'tags',
         'course_id',
         'certificate_id'
     ];
@@ -21,6 +20,11 @@ class Question extends Model
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'question_tags');
     }
 
     public function certificate()
@@ -32,30 +36,5 @@ class Question extends Model
     public function correctAnswer()
     {
         return $this->hasOne(Answer::class)->where('correct', true);
-    }
-
-    public function getTags()
-    {
-        return explode(',', $this->tags);
-    }
-
-    public function setTags($tags)
-    {
-        $toSet = is_array($tags) ? implode(',', $tags) : $tags;
-        $this->attributes['tags'] = trim($toSet);
-    }
-
-    public function scopeWhereHasTag(Builder $query, $tagsArr) {
-        $connection = config('database.default');
-
-        if ($connection === 'mysql') {
-            foreach ($tagsArr as $tag) {
-                $query->orWhereRaw('FIND_IN_SET(?, tags)', [$tag]);
-            }
-        } else {
-            foreach ($tagsArr as $tag) {
-                $query->orWhere('tags', 'LIKE', "%{$tag}%");
-            }
-        }
     }
 }

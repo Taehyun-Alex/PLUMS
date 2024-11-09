@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Question;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Question;
 use App\Models\Answer;
-
+use App\Models\Tag;
+use App\Models\QuestionTag;
 
 class AnswersTableSeeder extends Seeder
 {
@@ -75,18 +75,23 @@ class AnswersTableSeeder extends Seeder
                 ['Wireshark', 'false'],
                 ['Nmap', 'true'],
                 ['Photoshop', 'false'],
-                ['MySQL', 'false']
+                ['MySQL', 'false']          
             ]
         ];
 
-        $cyberQuestions = Question::where('tags', 'cybersecurity,programming')->get();
-        foreach ($cyberQuestions as $index => $question) {
-            foreach ($cyberSecurityAnswers[$index] as $answer) {
-                Answer::create([
-                    'question_id' => $question->id,
-                    'answer' => $answer[0],
-                    'correct' => $answer[1] === 'true'
-                ]);
+        $cyberSecurityTag = Tag::where('name', 'Cyber Security')->first();
+        if ($cyberSecurityTag) {
+            $cyberQuestions = $cyberSecurityTag->questions()->orderBy('id')->get();
+            foreach ($cyberQuestions as $index => $question) {
+                if (isset($cyberSecurityAnswers[$index])) {
+                    foreach ($cyberSecurityAnswers[$index] as $answer) {
+                        Answer::create([
+                            'question_id' => $question->id,
+                            'answer' => $answer[0],
+                            'correct' => $answer[1] === 'true'
+                        ]);
+                    }
+                }
             }
         }
 
@@ -154,17 +159,21 @@ class AnswersTableSeeder extends Seeder
             ]
         ];
 
-        $itQuestions = Question::where('tags', 'information technology,programming')->get();
-        foreach ($itQuestions as $index => $question) {
-            foreach ($itAnswers[$index] as $answer) {
-                Answer::create([
-                    'question_id' => $question->id,
-                    'answer' => $answer[0],
-                    'correct' => $answer[1] === 'true'
-                ]);
+        $itTag = Tag::where('name', 'Information Technology')->first();
+        if ($itTag) {
+            $itQuestions = $itTag->questions()->orderBy('id')->get();
+            foreach ($itQuestions as $index => $question) {
+                if (isset($itAnswers[$index])) {
+                    foreach ($itAnswers[$index] as $answer) {
+                        Answer::create([
+                            'question_id' => $question->id,
+                            'answer' => $answer[0],
+                            'correct' => $answer[1] === 'true'
+                        ]);
+                    }
+                }
             }
         }
-
         // Programming Answers
         $programmingAnswers = [
             [
@@ -229,14 +238,19 @@ class AnswersTableSeeder extends Seeder
             ]
         ];
 
-        $programmingQuestions = Question::where('tags', 'programming')->get();
-        foreach ($programmingQuestions as $index => $question) {
-            foreach ($programmingAnswers[$index] as $answer) {
-                Answer::create([
-                    'question_id' => $question->id,
-                    'answer' => $answer[0],
-                    'correct' => $answer[1] === 'true'
-                ]);
+        $programmingTag = Tag::where('name', 'Programming')->first();
+        if ($programmingTag) {
+            $programmingQuestions = $programmingTag->questions()->orderBy('id')->get();
+            foreach ($programmingQuestions as $index => $question) {
+                if (isset($programmingAnswers[$index])) {
+                    foreach ($programmingAnswers[$index] as $answer) {
+                        Answer::create([
+                            'question_id' => $question->id,
+                            'answer' => $answer[0],
+                            'correct' => $answer[1] === 'true'
+                        ]);
+                    }
+                }
             }
         }
 
@@ -304,14 +318,19 @@ class AnswersTableSeeder extends Seeder
             ]
         ];
 
-        $webDevQuestions = Question::where('tags', 'webdevelopment,programming')->get();
-        foreach ($webDevQuestions as $index => $question) {
-            foreach ($webDevAnswers[$index] as $answer) {
-                Answer::create([
-                    'question_id' => $question->id,
-                    'answer' => $answer[0],
-                    'correct' => $answer[1] === 'true'
-                ]);
+        $webDevTag = Tag::where('name', 'Web Development')->first();
+        if ($webDevTag) {
+            $webDevQuestions = $webDevTag->questions()->orderBy('id')->get();
+            foreach ($webDevQuestions as $index => $question) {
+                if (isset($webDevAnswers[$index])) {
+                    foreach ($webDevAnswers[$index] as $answer) {
+                        Answer::create([
+                            'question_id' => $question->id,
+                            'answer' => $answer[0],
+                            'correct' => $answer[1] === 'true'
+                        ]);
+                    }
+                }
             }
         }
 
@@ -379,16 +398,20 @@ class AnswersTableSeeder extends Seeder
             ]
         ];
 
-        $networkingQuestions = Question::where('tags', 'networking,programming')->get();
-        foreach ($networkingQuestions as $index => $question) {
-            foreach ($networkingAnswers[$index] as $answer) {
-                Answer::create([
-                    'question_id' => $question->id,
-                    'answer' => $answer[0],
-                    'correct' => $answer[1] === 'true'
-                ]);
+        $networkingTag = Tag::where('name', 'Networking')->first();
+        if ($networkingTag) {
+            $networkingQuestions = $networkingTag->questions()->orderBy('id')->get();
+            foreach ($networkingQuestions as $index => $question) {
+                if (isset($networkingAnswers[$index])) {
+                    foreach ($networkingAnswers[$index] as $answer) {
+                        Answer::create([
+                            'question_id' => $question->id,
+                            'answer' => $answer[0],
+                            'correct' => $answer[1] === 'true'
+                        ]);
+                    }
+                }
             }
         }
-
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\QuizResultsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TagsController;
 use App\Models\Answer;
 use App\Models\Course;
 use App\Models\Question;
@@ -81,12 +82,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses/restoreAll', [CourseController::class, 'restoreAll'])->name('courses.trash-restore-all');
     Route::delete('/courses/empty', [CourseController::class, 'empty'])->name('courses.trash-empty');
 
+    Route::get('/tags', [TagsController::class, 'index'])->name('tags.index');
+
     Route::get('/questions/index', [QuestionController::class, 'index'])->name('questions.index');
     Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create');
     Route::post('/questions/create', [QuestionController::class, 'store'])->name('questions.store');
     Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
     Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
     Route::put('/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
+    Route::put('/questions/{question}/tags', [TagsController::class, 'applyTags'])->name('questions.updateTags');
     Route::delete('/questions/{question}/delete', [QuestionController::class, 'delete'])->name('questions.delete');
     Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
 

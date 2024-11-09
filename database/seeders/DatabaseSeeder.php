@@ -19,10 +19,9 @@ class DatabaseSeeder extends Seeder
             CoursesTableSeeder::class,
             QuizSeeder::class,
             CertificatesTableSeeder::class,
-            QuestionsTableSeeder::class,
+            QuestionsTableAndTagsSeeder::class,
             QuizQuestionSeeder::class,
             AnswersTableSeeder::class,
-//            QuizQuestionSeeder::class,
         ]);
     }
 }

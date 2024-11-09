@@ -33,7 +33,8 @@ class User extends Authenticatable
         'birth_date',
         'gender',
         'password',
-        'photo'
+        'photo',
+        'student_id'
     ];
 
     /**

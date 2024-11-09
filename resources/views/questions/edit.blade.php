@@ -14,19 +14,7 @@
                     id="question"
                     value="{{ old('name', $question->question) }}"
                     placeholder="Enter Question Text"
-                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
-                    required>
-            </div>
-
-            <div class="mb-2">
-                <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-                <input
-                    type="text"
-                    name="tags"
-                    id="tags"
-                    value="{{ old('tags', $question->tags) }}"
-                    placeholder="Enter Question Tags as CSV (a,b,c)"
-                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
                     required>
             </div>
 
@@ -35,7 +23,7 @@
                 <select
                     name="course_id"
                     id="course_id"
-                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
                 >
                     <option value="">None</option>
                     @foreach($courses as $course)
@@ -43,12 +31,13 @@
                     @endforeach
                 </select>
             </div>
+            
             <div class="mb-2">
                 <label for="certificate_id" class="block text-sm font-medium text-gray-700">Certificate Level</label>
                 <select
                     name="certificate_id"
                     id="certificate_id"
-                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
                 >
                     @foreach($certificates as $certificate)
                         <option value="{{ $certificate->id }}" {{ $question->certificate_id == $certificate->id? 'selected' : '' }}>{{ $certificate->cert_name }}</option>
@@ -64,13 +53,40 @@
                     id="score"
                     value="{{ old('name', $question->score) }}"
                     placeholder="Enter Question Text"
-                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
                     required>
             </div>
 
             <div class="flex items-center justify-center gap-2">
                 <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Update Question</button>
                 <a href="{{ route('questions.index') }}" class="block bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">Cancel</a>
+            </div>
+        </form>
+
+        <h1 class="text-xl font-semibold mb-2">Question Tags</h1>
+
+        <form action="{{ route('questions.updateTags', $question->id) }}" method="POST" class="mb-4">
+            @csrf
+            @method('PUT')
+
+            <div id="tags" class="p-3 border border-gray-300 rounded-md shadow-sm bg-gray-100 max-h-40 overflow-y-auto">
+                @foreach($allTags as $tag)
+                    <div class="flex items-center mb-2">
+                        <input
+                            type="checkbox"
+                            name="tags[]"
+                            id="tag-{{ $tag->id }}"
+                            value="{{ $tag->id }}"
+                            class="form-checkbox h-5 w-5 text-purple-600 focus:ring focus:ring-purple-500 focus:ring-opacity-50 checked:bg-purple-500 checked:border-transparent"
+                            {{ in_array($tag->id, $questionTags->pluck('id')->toArray()) ? 'checked' : '' }}
+                        >
+                        <label for="tag-{{ $tag->id }}" class="ml-2 text-sm text-gray-700">{{ $tag->name }}</label>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="flex items-center justify-center gap-2 mt-2">
+                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Update Tags</button>
             </div>
         </form>
 
@@ -89,7 +105,7 @@
                     name="answer"
                     id="answer"
                     placeholder="Enter Answer Text"
-                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+                    class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
                     required>
             </div>
 
@@ -98,7 +114,7 @@
                 <select
                     id="correct"
                     name="correct"
-                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50">
+                    class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50">
                     <option value="1">Yes</option>
                     <option value="0" selected>No</option>
                 </select>
