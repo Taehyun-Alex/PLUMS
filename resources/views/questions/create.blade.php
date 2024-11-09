@@ -41,18 +41,6 @@
             </select>
         </div>
 
-        <div class="mb-2">
-            <label for="score" class="block text-sm font-medium text-gray-700">Score</label>
-            <input
-                type="number"
-                name="score"
-                id="score"
-                value="1"
-                placeholder="Enter Question Score"
-                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-3 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
-                required>
-        </div>
-
         <div class="flex flex-row items-center justify-center gap-2">
             <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition duration-300">Create Question</button>
             <a href="{{ route('questions.index') }}" class="block bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300">Cancel</a>
