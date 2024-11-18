@@ -13,7 +13,7 @@ class CertificateController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view certificates')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view certificates.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view certificates.');
         }
 
         $certificates = Certificate::query()->paginate(10);

@@ -22,7 +22,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('create quizzes')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to create quizzes.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to create quizzes.');
         }
 
         $validated = $request->validated();
@@ -35,7 +35,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('delete quizzes')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to delete quizzes.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to delete quizzes.');
         }
 
         // Laravel was being weird and wouldn't do this normally - not sure why, but this workaround works
@@ -74,7 +74,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view quizzes')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view quizzes.');
         }
 
         $questions = $quiz->questions;
@@ -99,7 +99,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view quizzes')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view quizzes.');
         }
 
         $quizzes = Quiz::all();
@@ -129,7 +129,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view quizzes')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view quizzes.');
         }
 
         $courseId = $request->get('courseId');
@@ -170,7 +170,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view quizzes')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view quizzes.');
         }
 
         $courseId = $request->get('courseId');
@@ -210,7 +210,7 @@ class QuizQuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('submit quizzes')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to submit quizzes.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to submit quizzes.');
         }
 
         $validated = $request->validated();
