@@ -18,6 +18,12 @@ class QuizController extends Controller
      */
     public function index()
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+        }
+
         $quizzes = Quiz::query()->paginate(10);
         $trashedCount = Quiz::onlyTrashed()->count();
         return view('quizzes.index', compact('quizzes', 'trashedCount'));
@@ -28,6 +34,12 @@ class QuizController extends Controller
      */
     public function create()
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('create quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to create quizzes.');
+        }
+
         $courses = Course::all();
         return view('quizzes.create', compact('courses'));
     }
@@ -37,6 +49,12 @@ class QuizController extends Controller
      */
     public function store(StoreQuizRequest $request)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('create quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to create quizzes.');
+        }
+
         $validated = $request->validated();
         Quiz::create($validated);
         return redirect(route('quizzes.index'))->with('success', 'Quiz created successfully');
@@ -47,7 +65,11 @@ class QuizController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+        }
     }
 
     /**
@@ -55,6 +77,12 @@ class QuizController extends Controller
      */
     public function edit(string $id)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('edit quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to edit quizzes.');
+        }
+
         $quiz = Quiz::findOrFail($id);
         $courses = Course::all();
         $questions = Question::all();
@@ -66,12 +94,25 @@ class QuizController extends Controller
      */
     public function update(StoreQuizRequest $request, Quiz $quiz)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('edit quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to edit quizzes.');
+        }
+
         $validated = $request->validated();
         $quiz->update($validated);
         return redirect(route('quizzes.index'))->with('success', 'Quiz updated successfully.');
     }
+    
     public function delete($id)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('delete quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to delete quizzes.');
+        }
+
         $quiz = Quiz::findOrFail($id);
         return view('quizzes.delete', compact('quiz'));
     }

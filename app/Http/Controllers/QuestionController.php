@@ -15,12 +15,24 @@ class QuestionController extends Controller
 {
     public function index(Request $request)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view questions')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view questions.');
+        }
+
         $questions = Question::with(['answers'])->paginate(10);
         return view('questions.index', compact('questions'));
     }
 
     public function create()
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('create questions')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to create questions.');
+        }
+
         $allTags = Tag::all();
         $courses = Course::all();
         $certificates = Certificate::all();
@@ -29,6 +41,12 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('edit questions')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to edit questions.');
+        }
+
         $allTags = Tag::all();
         $questionTags = $question->tags()->get();
         $courses = Course::all();
@@ -38,12 +56,24 @@ class QuestionController extends Controller
 
     public function show($id)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view questions')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view questions.');
+        }
+
         $question = Question::with('answers')->findOrFail($id);
         return view($question);
     }
 
     public function store(StoreQuestionRequest $request)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('create questions')) {
+            return redirect()->route('questions.index')->with('error', 'You do not have permission to create questions.');
+        }
+
         $validated = $request->validated();
         Question::create($validated);
         return redirect(route('questions.index'));
@@ -51,6 +81,12 @@ class QuestionController extends Controller
 
     public function update(StoreQuestionRequest $request, Question $question)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('edit questions')) {
+            return redirect()->route('questions.index')->with('error', 'You do not have permission to edit questions.');
+        }
+
         $validated = $request->validated();
         $question->update($validated);
         return redirect(route('questions.index'));
@@ -58,6 +94,12 @@ class QuestionController extends Controller
 
     public function destroy(Request $request, Question $question)
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('delete questions')) {
+            return redirect()->route('questions.index')->with('error', 'You do not have permission to delete questions.');
+        }
+
         $question->delete();
         return redirect(route('questions.index'))->with('success', 'Question deleted successfully.');
     }

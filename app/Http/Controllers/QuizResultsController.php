@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 class QuizResultsController extends Controller
 {
     public function index(Request $request) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view all quiz results')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quiz results.');
+        }
+
         $query = $request->input('query');
 
         // chatgpt query... change if needed
@@ -27,6 +33,12 @@ class QuizResultsController extends Controller
     }
 
     public function show($id) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view all quiz results')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quiz results.');
+        }
+
         $result = QuizResult::with(['user', 'quiz', 'course', 'answers'])->findOrFail($id);
         return view('results.show', compact('result'));
     }
