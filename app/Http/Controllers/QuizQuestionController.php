@@ -19,6 +19,12 @@ use Illuminate\Http\Request;
 class QuizQuestionController extends Controller
 {
     public function store(StoreQuizQuestionRequest $request) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('create quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to create quizzes.');
+        }
+
         $validated = $request->validated();
         QuizQuestion::create($validated);
         $quiz = Quiz::find($validated['quiz_id']);
@@ -26,6 +32,12 @@ class QuizQuestionController extends Controller
     }
 
     public function destroy(int $quizQuestionId) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('delete quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to delete quizzes.');
+        }
+
         // Laravel was being weird and wouldn't do this normally - not sure why, but this workaround works
         $quizQuestion = QuizQuestion::find($quizQuestionId);
         $quizId = $quizQuestion->quiz_id;
@@ -59,6 +71,12 @@ class QuizQuestionController extends Controller
     }
 
     public function fetchQuizInfo(Quiz $quiz) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+        }
+
         $questions = $quiz->questions;
 
         $toReturn = $questions->map(function ($question) {
@@ -78,6 +96,12 @@ class QuizQuestionController extends Controller
     }
 
     public function fetchAllQuizzes() {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+        }
+
         $quizzes = Quiz::all();
         $courses = Course::all();
 
@@ -102,6 +126,12 @@ class QuizQuestionController extends Controller
     }
 
     public function generateQuiz(Request $request) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+        }
+
         $courseId = $request->get('courseId');
 
         if (!$courseId) {
@@ -137,6 +167,13 @@ class QuizQuestionController extends Controller
     }
 
     public function generateQuizViaTags(Request $request) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to view quizzes.');
+        }
+
+        $courseId = $request->get('courseId');
         $tags = $request->query('tags');
         $tagsArr = is_string($tags) ? explode(',', $tags) : null;
 
@@ -171,6 +208,11 @@ class QuizQuestionController extends Controller
     public function submitQuiz(SubmitQuizForResultsRequest $request)
     {
         $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('submit quizzes')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to submit quizzes.');
+        }
+
         $validated = $request->validated();
         $submitted = $validated['answers'];
         $quizId = $validated['quizId'] ?? null;

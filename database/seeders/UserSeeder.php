@@ -11,6 +11,14 @@ class UserSeeder extends Seeder
 {
     public function run() : void
     {
+        $superUser = User::factory()->create([
+            'first_name' => 'Super',
+            'last_name' => 'User',
+            'email' => 'super@example.com',
+            'password' => Hash::make('password123'),
+        ]);
+
+        $superUser->assignRole('super user');
 
         $admin = User::factory()->create([
             'first_name' => 'Admin',
@@ -18,14 +26,16 @@ class UserSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('password123'),
         ]);
-        $admin->assignRole('admin');
 
-        $staff = User::factory()->create([
-            'first_name' => 'Staff',
+        $admin->assignRole('staff');
+
+        $student = User::factory()->create([
+            'first_name' => 'Student',
             'last_name' => 'User',
-            'email' => 'staff@example.com',
-            'password' => Hash::make('password123'), // Ensure you hash the password
+            'email' => 'student@example.com',
+            'password' => Hash::make('password123'),
         ]);
-        $staff->assignRole('staff');
+
+        $student->assignRole('student');
     }
 }

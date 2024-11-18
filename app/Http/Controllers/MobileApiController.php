@@ -16,7 +16,7 @@ class MobileApiController extends Controller
         $validated = $request->validated();
 
         if (Auth::attempt($validated)) {
-            $user = Auth::user();
+            $user = auth('sanctum')->user();
             $token = $user->createToken('API Token')->plainTextToken;
 
             return ApiResponseClass::sendResponse([
@@ -38,6 +38,7 @@ class MobileApiController extends Controller
         $validated = $request->validated();
         $user = User::create($validated);
         $token = $user->createToken('API Token')->plainTextToken;
+        $user->assignRole('student');
 
         return ApiResponseClass::sendResponse([
             'accessToken' => $token,
@@ -52,6 +53,11 @@ class MobileApiController extends Controller
             return ApiResponseClass::sendResponse([], 'You are not logged in', false, 401);
         }
 
+        
+        if (!$user->hasPermissionTo('mobile api current user')) {
+            return ApiResponseClass::sendResponse([], 'You do not have permission to view current user', false, 403);
+        }
+
         return ApiResponseClass::sendResponse([
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
@@ -64,6 +70,12 @@ class MobileApiController extends Controller
     }
 
     public function updateUser(MobileProfileUpdateRequest $request) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('mobile api update user')) {
+            return ApiResponseClass::sendResponse([], 'You do not have permission to update user information', false, 403);
+        }
+
         $validated = $request->validated();
         $user = auth('sanctum')->user();
         $user->update($validated);
@@ -72,6 +84,12 @@ class MobileApiController extends Controller
     }
 
     public function updatePhoto(Request $request) {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('mobile api update photo')) {
+            return ApiResponseClass::sendResponse([], 'You do not have permission to update user photo', false, 403);
+        }
+
         $request->validate([
             'photo' => 'required|image',
         ]);

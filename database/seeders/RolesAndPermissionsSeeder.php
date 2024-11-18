@@ -10,28 +10,113 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run(): void
     {
-        // Define permissions
         $allPermissions = [
-            'view', 'edit', 'create', 'delete', 'browse', 'show', 'add',
-            'view-trash', 'trash-recover', 'trash-remove', 'trash-empty', 'trash-restore',
-            'view-users', 'create-user'
+            // Quiz permissions
+            'view quizzes',
+            'create quizzes',
+            'edit quizzes',
+            'delete quizzes',
+            'submit quizzes',
+            
+            // Course permissions
+            'view courses',
+            'create courses',
+            'edit courses',
+            'delete courses',
+            
+            // Question permissions
+            'view questions',
+            'create questions',
+            'edit questions',
+            'delete questions',
+            
+            // Answer permissions
+            'view answers',
+            'create answers',
+            'edit answers',
+            'delete answers',
+            
+            // Tag permissions
+            'view tags',
+            'create tags',
+            'edit tags',
+            'delete tags',
+            
+            // Certificate permissions
+            'view certificates',
+            'create certificates',
+            'edit certificates',
+            'delete certificates',
+            
+            // Quiz Results permissions
+            'view quiz results',
+            'view all quiz results',
+            
+            // User permissions
+            'view users',
+            'create users',
+            'edit users',
+            'delete users',
+
+            // Mobile API permissions
+            'mobile api current user',
+            'mobile api update user',
+            'mobile api update photo',
+            
+            // Telemetry permissions
+            'view telemetry',
+            
+            // Additional specific permissions
+            'manage quiz questions',
+            'manage question tags',
+            'view analytics',
+            'export data'
         ];
 
-        // Create permissions if they don't exist
         foreach ($allPermissions as $permission) {
                 Permission::create(['name' => $permission]);
         }
 
-        $staffPermissions = [
-            'view'
+        $studentPermissions = [
+            'view quizzes',
+            'view courses',
+            'submit quizzes'
         ];
 
-        // Create roles and assign permissions
-        $adminRole = Role::create(['name' => 'admin']);
-        $adminRole->givePermissionTo($allPermissions);
+        $staffPermissions = [
+            'view quizzes',
+            'create quizzes',
+            'edit quizzes',
+            'delete quizzes',
+            
+            'view courses',
+            'create courses',
+            'edit courses',
+            
+            'view questions',
+            'create questions',
+            'edit questions',
+            'delete questions',
+            
+            'view all quiz results',
+            'manage quiz questions',
+            'manage question tags',
+            'view analytics',
+            'view telemetry',
+            'export data',
+            
+            'view certificates',
+            'create certificates',
+            'edit certificates'
+        ];
+
+        $studentRole = Role::create(['name' => 'student']);
+        $studentRole->givePermissionTo($studentPermissions);
 
         $staffRole = Role::create(['name' => 'staff']);
         $staffRole->givePermissionTo($staffPermissions);
 
+        $superUserRole = Role::create(['name' => 'super user']);
+        $superUserRole->givePermissionTo($allPermissions);
     }
 }

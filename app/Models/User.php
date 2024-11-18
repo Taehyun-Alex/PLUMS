@@ -60,20 +60,11 @@ class User extends Authenticatable
         ];
     }
 
-    function isAdmin(): bool
-    {
-        return $this->hasRole("admin");
-    }
-
-    function isStaff(): bool
-    {
-        return $this->hasRole("staff");
-    }
-
     function getRole(): string
     {
-        if ($this->isAdmin()) return "Admin";
-        if ($this->isStaff()) return "Staff";
+        if ($this->hasRole("super user")) return "Super User";
+        if ($this->hasRole("staff")) return "Staff";
+        if ($this->hasRole("student")) return "Student";
         return "None";
     }
 }

@@ -17,14 +17,13 @@ class UserController extends Controller
      * @return View | RedirectResponse
      */
     public function index(): View | RedirectResponse {
-        $user = auth()->user();
+        $user = auth('sanctum')->user();
 
-        if (!$user->hasPermissionTo('view-users')) {
-            return redirect()->route('dashboard');
+        if (!$user->hasPermissionTo('view users')) {
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view users.');
         }
 
         $users = User::paginate(10);
-
         $trashedCount = User::onlyTrashed()->latest()->get()->count();
         return view('users.index', compact(['users', 'trashedCount']));
     }
@@ -34,10 +33,10 @@ class UserController extends Controller
      * @return View
      */
     public function create(): View {
-        $user = auth()->user();
+        $user = auth('sanctum')->user();
 
-        if (!$user->hasPermissionTo('create-user')) {
-            return redirect()->route('dashboard');
+        if (!$user->hasPermissionTo('create users')) {
+            return redirect()->route('users.index')->with('error', 'You do not have permission to create users.');
         }
 
         return view('users.create');
@@ -47,16 +46,18 @@ class UserController extends Controller
      * Stores newly created user in database
      */
     public function store(StoreUserRequest $request) {
+        $validated = $request->validated();
         $roleToAssign = $request->input('role');
+        $user = auth('sanctum')->user();
 
-        if (!auth()->user()->hasPermissionTo('create-user')) {
-            return abort(403, 'You do not have permission to create users.');
+        if (!$user->hasPermissionTo('create users')) {
+            return redirect()->route('users.index')->with('error', 'You do not have permission to create users.');
         }
 
         $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'name' => $validated->input('name'),
+            'email' => $validated->input('email'),
+            'password' => bcrypt($validated->input('password')),
         ]);
 
         $user->assignRole($roleToAssign);
@@ -65,53 +66,67 @@ class UserController extends Controller
 
     public function show($id): View
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('view users')) {
+            return redirect()->route('users.index')->with('error', 'You do not have permission to view users.');
+        }
+
         $user = User::findOrFail($id);
         return view('users.show', compact('user'));
     }
     public function edit(User $user): View
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('edit users')) {
+            return redirect()->route('users.index')->with('error', 'You do not have permission to edit users.');
+        }
+
         return view('users.edit', compact('user' ));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        // Start with common validation rules
-        $rules = [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
-        ];
+        $validated = $request->validated();
+        $user = auth('sanctum')->user();
 
-        // Add role validation rule if the current user is an administrator
-        if (auth()->user()->hasRole('Administrator')) {
-            $rules['role'] = 'required|string|exists:roles,name';
+        if (!$user->hasPermissionTo('edit users')) {
+            return redirect()->route('users.index')->with('error', 'You do not have permission to edit users.');
         }
 
-        $validatedData = $request->validate($rules);
+        $user->update($validated);
 
-        // Update the user with validated data
-        $user->update($validatedData);
-
-        // Update password if provided
-        if ($request->filled('password')) {
+        if ($validated->filled('password')) {
             $user->update([
-                'password' => Hash::make($request->password),
+                'password' => bcrypt($validated->password),
             ]);
         }
 
-        // Sync roles only if the current user is an administrator
-        if (auth()->user()->hasRole('Administrator')) {
-            $user->syncRoles([$request->role]);
+        if ($validated['role'] && $user->hasRole('Administrator')) {
+            $user->syncRoles([$validated->role]);
         }
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
     public function delete(User $user): View
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('delete users')) {
+            return redirect()->route('users.index')->with('error', 'You do not have permission to delete users.');
+        }
+
         return view('users.delete', compact('user'));
     }
     public function destroy(User $user): RedirectResponse
     {
+        $user = auth('sanctum')->user();
+
+        if (!$user->hasPermissionTo('delete users')) {
+            return redirect()->route('users.index')->with('error', 'You do not have permission to delete users.');
+        }
+
         $user->delete();
         return redirect()->route('users.index')->withSucess("Deleted {$user->name}.");
     }
