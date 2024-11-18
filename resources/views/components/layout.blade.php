@@ -72,7 +72,7 @@
             </a>
             @endcan
 
-            @can('view results')
+            @can('view all quiz results')
             <a href="{{ route('results.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6  mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M11 9a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"/>
