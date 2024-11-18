@@ -68,7 +68,6 @@ class RolesAndPermissionsSeeder extends Seeder
             
             // Additional specific permissions
             'manage quiz questions',
-            'manage question tags',
             'view analytics',
             'export data'
         ];
@@ -88,26 +87,41 @@ class RolesAndPermissionsSeeder extends Seeder
             'create quizzes',
             'edit quizzes',
             'delete quizzes',
+            'submit quizzes',
             
             'view courses',
             'create courses',
             'edit courses',
+            'delete courses',
             
             'view questions',
             'create questions',
             'edit questions',
             'delete questions',
+
+            'view answers',
+            'create answers',
+            'edit answers',
+            'delete answers',
             
-            'view all quiz results',
-            'manage quiz questions',
-            'manage question tags',
-            'view analytics',
-            'view telemetry',
-            'export data',
+            'view tags',
+            'create tags',
+            'edit tags',
+            'delete tags',
             
             'view certificates',
             'create certificates',
-            'edit certificates'
+            'edit certificates',
+            'delete certificates',
+            
+            'view quiz results',
+            'view all quiz results',
+
+            'view telemetry',
+            
+            'manage quiz questions',
+            'view analytics',
+            'export data'
         ];
 
         $studentRole = Role::create(['name' => 'student']);

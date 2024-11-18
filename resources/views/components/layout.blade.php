@@ -11,9 +11,12 @@
 <div class="h-screen flex overflow-hidden bg-purple-700">
     <!-- Sidebar -->
     <div class="bg-purple-800 w-64 flex flex-col">
-        <div class="h-16 flex items-center justify-center text-white text-2xl font-bold">
+        <div class="h-16 flex flex-col items-center justify-center text-white text-2xl font-bold">
             <!-- Logo or app name -->
             <span>PLUMS Admin</span>
+            <span class="text-sm">
+                {{ auth('sanctum')->user()->first_name ?? "Unknown" }} {{ auth('sanctum')->user()->last_name ?? "Unknown" }}
+            </span>
         </div>
         <!-- Navigation links with icons -->
         <nav class="flex-1 mt-4">
@@ -24,41 +27,52 @@
                 <span class="font-bold">Home</span>
             </a>
 
+            @can('view quizzes')
             <a href="{{ route('quizzes.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6 mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293A1 1 0 0 1 19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"/>
                 </svg>
                 <span class="font-bold">Quizzes</span>
             </a>
+            @endcan
 
+            @can('view certificates')
             <a href="{{ route('certificates.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6 mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293A1 1 0 0 1 19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"/>
                 </svg>
                 <span class="font-bold">Certificates</span>
             </a>
+            @endcan
 
+            @can('view courses')
             <a href="{{ route('courses.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6 mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z" clip-rule="evenodd"/>
                 </svg>
                 <span class="font-bold">Courses</span>
             </a>
+            @endcan
 
+            @can('view tags')
             <a href="{{ route('tags.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6 mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z" clip-rule="evenodd"/>
                 </svg>
                 <span class="font-bold">Tags</span>
             </a>
+            @endcan
 
+            @can('view questions')
             <a href="{{ route('questions.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6 mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z" clip-rule="evenodd"/>
                 </svg>
                 <span class="font-bold">Questions & Answers</span>
             </a>
+            @endcan
 
+            @can('view results')
             <a href="{{ route('results.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6  mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M11 9a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"/>
@@ -67,8 +81,9 @@
                 </svg>
                 <span class="font-bold">Results</span>
             </a>
+            @endcan
 
-            @can('view-users')
+            @can('view users')
             <a href="{{ route('users.index') }}" class="flex items-center text-gray-300 hover:bg-purple-600 hover:text-white px-6 py-3">
                 <svg class="w-6 h-6 mr-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd"/>
