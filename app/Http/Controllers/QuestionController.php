@@ -18,7 +18,7 @@ class QuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view questions')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view questions.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view questions.');
         }
 
         $questions = Question::with(['answers'])->paginate(10);
@@ -30,7 +30,7 @@ class QuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('create questions')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to create questions.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to create questions.');
         }
 
         $allTags = Tag::all();
@@ -44,7 +44,7 @@ class QuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('edit questions')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to edit questions.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to edit questions.');
         }
 
         $allTags = Tag::all();
@@ -59,7 +59,7 @@ class QuestionController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view questions')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view questions.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view questions.');
         }
 
         $question = Question::with('answers')->findOrFail($id);

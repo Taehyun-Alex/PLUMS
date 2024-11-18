@@ -15,7 +15,7 @@ class TagsController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view tags')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view tags.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view tags.');
         }
 
         $tags = Tag::with('questionTags')->paginate(10);
@@ -27,7 +27,7 @@ class TagsController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('edit questions')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to edit questions.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to edit questions.');
         }
 
         $question->tags()->sync($request->tags);

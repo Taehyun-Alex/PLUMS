@@ -14,7 +14,7 @@ class CourseController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view courses')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view courses.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view courses.');
         }
 
         $courses = Course::with('questions')->paginate(10);

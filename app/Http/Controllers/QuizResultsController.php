@@ -12,7 +12,7 @@ class QuizResultsController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view all quiz results')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view quiz results.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view quiz results.');
         }
 
         $query = $request->input('query');
@@ -36,7 +36,7 @@ class QuizResultsController extends Controller
         $user = auth('sanctum')->user();
 
         if (!$user->hasPermissionTo('view all quiz results')) {
-            return redirect()->route('home')->with('error', 'You do not have permission to view quiz results.');
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to view quiz results.');
         }
 
         $result = QuizResult::with(['user', 'quiz', 'course', 'answers'])->findOrFail($id);
