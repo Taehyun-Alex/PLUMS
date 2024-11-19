@@ -8,7 +8,7 @@
 <body>
 
 
-<div class="h-screen flex overflow-hidden bg-purple-700">
+<div class="h-screen flex overflow-hidden" style="background-color: {{ config('settings.background_color', '#6b46c1') }}">
     <!-- Sidebar -->
     <div class="bg-purple-800 w-64 flex flex-col">
         <div class="h-16 flex flex-col items-center justify-center text-white text-2xl font-bold">

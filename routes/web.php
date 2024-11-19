@@ -8,6 +8,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\QuizResultsController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagsController;
 use App\Models\Answer;
@@ -35,9 +36,10 @@ Route::middleware('auth')->group(function () {
         return view('dashboard', compact('userCount', 'quizCount', 'questionCount', 'answerCount', 'courseCount', 'resultCount', 'recentResults'));
     })->name('dashboard');
 
-    Route::get('/settings', function () {
-        return view('settings.settings');
-    })->name('settings');
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
+    Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
+
 
     Route::get('/results', [QuizResultsController::class, 'index'])->name('results.index');
     Route::get('/results/{result}', [QuizResultsController::class, 'show'])->name('results.show');
